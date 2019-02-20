@@ -13,7 +13,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Grid from '@material-ui/core/Grid';
 
-import { Aztec } from './../../src';
+import { FormGenerator } from './../../src';
 import JSONData from './../data/simpleform';
 import Paper from '@material-ui/core/Paper';
 
@@ -76,7 +76,7 @@ class Demo extends React.Component {
   render() {
     const { classes } = this.props;
     const sourceCode = `
-import { Aztec } from 'react-aztec';
+import { FormGenerator } from 'dynamic-material-ui';
 import * as MUI from '@material-ui/core';
 // Refer JSON data on the right side column
 import JSONData from 'src/path';
@@ -103,7 +103,7 @@ class SimpleForm extends React.Component {
   render() {
     return (
       <div>
-        <Aztec
+        <FormGenerator
           guid="simple-form" //mandatory unique id
           data={this.state.formData}
           displayErrors={this.state.displayFormErrors} //Displays only mandatory field errors
@@ -132,7 +132,7 @@ class SimpleForm extends React.Component {
 
         <div className="full-width codedemo row">
           <Grid item xs={12} sm={12} md={12} xl={12} lg={12}>
-            <Aztec
+            <FormGenerator
               data={this.state.formData}
               guid="simple-form"
               library={MUI}

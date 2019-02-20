@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Aztec } from '../../components/Aztec';
+import { FormGenerator } from '../../components/FormGenerator';
 
 class ExpansionPanel extends React.Component {
   constructor(props) {
@@ -29,7 +29,7 @@ class ExpansionPanel extends React.Component {
           </EXPANSIONPANELSUMMARY>
           <EXPANSIONPANELDETAILS {...expansionPanelDetails} style={{ width: 'auto' }}>
             {content ? <GRID item xs={size} sm={size} md={size} xl={size} lg={size}>
-              <Aztec data={content.data} library={props.library} guid={content.guid} />
+              <FormGenerator data={content.data} library={props.library} guid={content.guid} />
             </GRID> : <div />}
           </EXPANSIONPANELDETAILS>
         </EXPANSIONPANEL>)

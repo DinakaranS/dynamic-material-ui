@@ -5,7 +5,7 @@ import Highlight from 'react-highlight';
 import 'highlight.js/styles/zenburn.css';
 import * as MUI from '@material-ui/core';
 
-import { Aztec } from './../../src';
+import { FormGenerator } from './../../src';
 import JSONData from './../data/checkbox';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -57,7 +57,7 @@ class Checkbox extends React.Component {
   render() {
     const { classes } = this.props;
     const sourceCode = `
-import { Aztec } from 'react-aztec';
+import { FormGenerator } from 'dynamic-material-ui';
 import * as MUI from '@material-ui/core';
 // Refer JSON data on the right side column
 import JSONData from 'src/path';
@@ -66,7 +66,7 @@ class Checkbox extends React.Component {
   render() {
     return (
       <div>
-        <Aztec
+        <FormGenerator
           guid="checkbox"
           data={JSONData}
           library={MUI}
@@ -84,7 +84,7 @@ class Checkbox extends React.Component {
 
         <div className="full-width codedemo row">
           <div className="col-md-24">
-            <Aztec
+            <FormGenerator
               guid="checkbox"
               data={JSONData}
               library={MUI}

@@ -147,8 +147,8 @@ const handleSubmit = (callback, data, guid) => {
   }
 };
 
-/** Aztec */
-export const Aztec = (props) => {
+/** FormGenerator */
+export const FormGenerator = (props) => {
   const config = LIBMap.MUI;
   let data = props.data;
   if (!props.forceUpdate) {
@@ -301,7 +301,7 @@ export const Aztec = (props) => {
   );
 };
 
-Aztec.propTypes = {
+FormGenerator.propTypes = {
   data: PropTypes.array.isRequired,
   library: PropTypes.object,
   onChange: PropTypes.func,
@@ -323,4 +323,4 @@ Aztec.propTypes = {
   patch: PropTypes.object,
   guid: PropTypes.string.isRequired
 };
-export default Aztec;
+export default FormGenerator;

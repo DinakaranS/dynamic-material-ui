@@ -7,7 +7,7 @@ import * as MUI from '@material-ui/core';
 import RaisedButton from '@material-ui/core/RaisedButton';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from '@material-ui/core/Table';
 
-import { Aztec } from './../../src';
+import { FormGenerator } from './../../src';
 import JSONData from './../data/autocomplete';
 
 
@@ -32,7 +32,7 @@ class AutoComplete extends React.Component {
   }
   render() {
     const sourceCode = `
-import { Aztec } from 'react-aztec';
+import { FormGenerator } from 'dynamic-material-ui';
 import * as MUI from '@material-ui/core';
 // Refer JSON data on the right side column
 import JSONData from 'src/path';
@@ -41,7 +41,7 @@ class AutoComplete extends React.Component {
   render() {
     return (
       <div>
-        <Aztec
+        <FormGenerator
           guid="autocomplete"
           data={JSONData}
           library={MUI}
@@ -59,7 +59,7 @@ class AutoComplete extends React.Component {
 
         <div className="full-width codedemo row">
           <div className="col-md-24">
-            <Aztec
+            <FormGenerator
               guid="autocomplete"
               data={JSONData}
               library={MUI}

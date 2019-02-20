@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
 import SplitPane from 'react-split-pane';
-import { Aztec } from './../../src';
+import { FormGenerator } from './../../src';
 import JSONEditor from './../jsoneditor.min';
 import JSONData from './../data/sample';
 import PropTypes from 'prop-types';
@@ -162,9 +162,9 @@ class Playground extends React.Component {
           >
             <AppBar className={classes.appBar}>
               <Toolbar>
-                <IconButton color="inherit" onClick={this.handleClose} aria-label="Close" >
-                  <Icon>close</Icon>
-                </IconButton>
+                {/* <IconButton color="inherit" onClick={this.handleClose} aria-label="Close" >*/}
+                {/* <Icon>close</Icon>*/}
+                {/* </IconButton>*/}
                 <IconButton color="inherit" onClick={this.triggerSubmit} aria-label="Close" >
                   <Icon>save</Icon>
                 </IconButton>
@@ -183,8 +183,8 @@ class Playground extends React.Component {
                   {`Switch to ${(this.state.mode === 'tree') ? 'text' : 'tree'}`}
                 </Button>
               </div>
-              <div className="aztec-container">
-                <Aztec data={this.state.data} formRef={
+              <div className="dynamic-container">
+                <FormGenerator data={this.state.data} formRef={
                   (form) => {
                     this.formRef = form;
                   }

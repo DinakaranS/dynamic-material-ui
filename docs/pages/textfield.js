@@ -12,7 +12,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Paper from '@material-ui/core/Paper';
 
-import { Aztec } from './../../src';
+import { FormGenerator } from './../../src';
 import JSONData from './../data/textfield';
 
 const styles = theme => ({
@@ -57,7 +57,7 @@ class Textfield extends React.Component {
   render() {
     const { classes } = this.props;
     const sourceCode = `
-import { Aztec } from 'react-aztec';
+import { FormGenerator } from 'dynamic-material-ui';
 import * as MUI from '@material-ui/core';
 // Refer JSON data on the right side column
 import JSONData from 'src/path';
@@ -66,7 +66,7 @@ class Texfield extends React.Component {
   render() {
     return (
       <div>
-        <Aztec
+        <FormGenerator
           guid="textfield"
           data={JSONData}
           library={MUI}
@@ -86,7 +86,7 @@ class Texfield extends React.Component {
 
         <div className="full-width codedemo row">
           <div className="col-md-24">
-            <Aztec
+            <FormGenerator
               guid="textfield"
               data={JSONData}
               library={MUI}

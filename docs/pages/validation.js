@@ -7,7 +7,6 @@ import TableHeader from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Paper from '@material-ui/core/Paper';
-import PropTypes from 'prop-types';
 
 /* eslint-disable */
 class Validation extends React.Component {

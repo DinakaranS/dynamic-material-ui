@@ -1,5 +1,5 @@
-import { Aztec } from './components/Aztec';
+import { FormGenerator } from './components/FormGenerator';
 
 module.exports = {
-  Aztec
+  FormGenerator
 };

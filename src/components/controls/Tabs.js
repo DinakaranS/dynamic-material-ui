@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Aztec } from '../../components/Aztec';
+import { FormGenerator } from '../../components/FormGenerator';
 import _ from 'lodash';
 
 function TabContainer(props) {
@@ -10,7 +10,7 @@ function TabContainer(props) {
     const size = 12;
     const GRID = props.library.Grid;
     return (<GRID item xs={size} sm={size} md={size} xl={size} lg={size}>
-      <Aztec data={contentDetails.content.data} library={props.library} guid={contentDetails.content.guid} />
+      <FormGenerator data={contentDetails.content.data} library={props.library} guid={contentDetails.content.guid} />
     </GRID>)
   }
   return <div />;
