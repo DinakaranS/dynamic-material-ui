@@ -1,0 +1,5 @@
+/* TODO: insert default styles of your component here for easy access */
+
+.show .PageHeader *{
+  display: none;
+}

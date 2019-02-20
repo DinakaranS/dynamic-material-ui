@@ -1,0 +1,126 @@
+{
+  "name": "dynamic-material-ui",
+  "description": "Material UI based dynamic form component for React using JSON-Schema",
+  "author": "Dinakaran S",
+  "user": "dinakarans",
+  "version": "1.0.0-beta",
+  "scripts": {
+    "start": "webpack-dev-server --port 8000",
+    "test": "jest --",
+    "test:coverage": "jest --coverage --",
+    "test:watch": "jest --watch --",
+    "test:lint": "eslint . --ext .js --ext .jsx --ignore-path .gitignore --ignore-pattern dist --cache",
+    "gh-pages": "webpack",
+    "gh-pages:deploy": "gh-pages -d gh-pages",
+    "gh-pages:stats": "webpack --profile --json > stats.json",
+    "dist": "webpack",
+    "dist:min": "webpack",
+    "dist:modules": "rimraf ./dist-modules && babel ./src --out-dir ./dist-modules",
+    "preversion": "npm run test && npm run dist && npm run dist:min && git commit --allow-empty -am \"Update dist\"",
+    "prepublish": "npm run dist:modules",
+    "postpublish": "npm run gh-pages && npm run gh-pages:deploy",
+    "postinstall": "node lib/post_install.js"
+  },
+  "main": "dist-modules",
+  "module": "src",
+  "jsnext:main": "src",
+  "devDependencies": {
+    "@date-io/date-fns": "^1.1.0",
+    "babel-core": "^6.17.0",
+    "babel-eslint": "^7.0.0",
+    "babel-jest": "^16.0.0",
+    "babel-loader": "^6.2.5",
+    "babel-plugin-transform-react-remove-prop-types": "^0.2.10",
+    "babel-preset-react-hmre": "^1.1.1",
+    "catalog": "^3.6.0",
+    "chai": "^3.5.0",
+    "clean-webpack-plugin": "^0.1.13",
+    "css-loader": "^0.25.0",
+    "date-fns": "^2.0.0-alpha.27",
+    "eslint": "^3.8.1",
+    "eslint-config-airbnb": "^12.0.0",
+    "eslint-loader": "^1.6.0",
+    "eslint-plugin-import": "^1.16.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.4.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.9.0",
+    "gh-pages": "^0.11.0",
+    "git-prepush-hook": "^1.0.1",
+    "html-webpack-plugin": "^2.22.0",
+    "html-webpack-template": "^5.4.1",
+    "jest": "^16.0.1",
+    "json-loader": "^0.5.4",
+    "material-ui-pickers": "^2.2.1",
+    "npm": "^6.4.1",
+    "prop-types": "^15.7.2",
+    "purecss": "^0.6.0",
+    "raw-loader": "^0.5.1",
+    "react": "^16.8.2",
+    "react-addons-test-utils": "^15.3.2",
+    "react-dom": "^16.8.2",
+    "react-github-corner": "^0.3.0",
+    "react-highlight": "^0.12.0",
+    "react-json-tree": "^0.10.0",
+    "react-split-pane": "^0.1.85",
+    "rimraf": "^2.5.4",
+    "style-loader": "^0.13.1",
+    "sync-exec": "^0.6.2",
+    "system-bell-webpack-plugin": "^1.0.0",
+    "url-loader": "^1.1.2",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.16.2",
+    "webpack-merge": "^0.15.0"
+  },
+  "peerDependencies": {
+    "react": ">= 16.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DinakaranS/dynamic-material-ui.git"
+  },
+  "homepage": "https://github.com/DinakaranS/dynamic-material-ui",
+  "bugs": {
+    "url": "https://github.com/DinakaranS/dynamic-material-ui/issues"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "packages"
+    ]
+  },
+  "keywords": [
+    "react",
+    "reactjs",
+    "dynamic-forms",
+    "dynamic forms",
+    "playground",
+    "forms",
+    "build interactive form",
+    "robo-form",
+    "@material-ui/core"
+  ],
+  "license": "MIT",
+  "pre-push": [
+    "test"
+  ],
+  "dependencies": {
+    "@material-ui/core": "^3.9.2",
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "classnames": "^2.2.5",
+    "lodash": "^4.17.2",
+    "moment": "^2.17.1",
+    "numeral": "^2.0.4",
+    "react-flexbox-grid": "^2.1.2",
+    "react-select": "^2.2.0",
+    "react-simple-tooltip": "^2.3.3",
+    "validator": "^6.1.0"
+  }
+}
