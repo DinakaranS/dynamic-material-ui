@@ -58,13 +58,24 @@ class DatePicker extends React.Component {
   render() {
     const props = this.props;
     const { attributes } = this.state;
+    const MUITHEAMPROVIDER = props.library.MuiThemeProvider;
+    const CREATEMUITHEME = props.library.createMuiTheme;
     return (
-      <div style={{ display: 'flex' }}>
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <DateTimePicker onChange={this.onChange} {...attributes} />
-          {props.attributes.tooltip && <TooltipComponent tooltip={props.attributes.tooltip} />}
-        </MuiPickersUtilsProvider>
-      </div>
+      <MUITHEAMPROVIDER theme={CREATEMUITHEME({
+        zIndex: {
+          modal: attributes.zindex || 2000,
+        },
+        palette: {
+          primary: { main: attributes.color || '#4285f4' },
+        },
+      })}>
+        <div style={{ display: 'flex' }}>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <DateTimePicker onChange={this.onChange} {...attributes} />
+            {props.attributes.tooltip && <TooltipComponent tooltip={props.attributes.tooltip} />}
+          </MuiPickersUtilsProvider>
+        </div>
+      </MUITHEAMPROVIDER>
     )
   }
 }
