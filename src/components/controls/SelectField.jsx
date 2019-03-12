@@ -89,8 +89,13 @@ class SelectField extends React.Component {
     return selectedOption
   }
 
-  static get styles() {
-    return { menu(base) { return Object.assign({}, base, { zIndex: '20000 !important' }) } }
+  styles(style = {}) {
+    return {
+      menu(base) { return Object.assign({}, base, { zIndex: '20000 !important' }, style.menu) },
+      control(base) { return Object.assign({}, base, style.control) },
+      placeholder(base) { return Object.assign({}, base, style.placeholder) },
+      singleValue(base) { return Object.assign({}, base, style.singleValue) }
+    }
   }
 
   render() {
@@ -103,15 +108,8 @@ class SelectField extends React.Component {
     const { selectedOption, value, errorText } = this.state;
     return (
       <div style={{ display: 'flex' }}>
-        {props.attributes.isMulti
+        {props.attributes.nativeselect
           ? (
-            <div style={Object.assign({}, {
-              width: '100%', marginTop: '25px', marginRight: '5px', maxWidth: '100%'
-            }, props.attributes.style)}>
-              <MultiSelectField menuPlacement={props.attributes.menuPlacement || 'auto'} captureMenuScroll={props.attributes.captureMenuScroll||false} menuShouldScrollIntoView={props.attributes.menuShouldScrollIntoView || false} components={props.attributes.enablefloatingLabel ? { Control: ControlComponent } : null} value={selectedOption} onChange={this.handleChange} isMulti {...props.attributes} options={props.control.options.map((option) => { return { value: option.value, label: option.primaryText || option.label || '' } })} styles={SelectField.styles} />
-            </div>
-          )
-          :(
             <FORMCONTROL {...props.attributes.formControl}>
               <INPUTLABEL htmlFor={props.control.id}>{props.attributes.label}</INPUTLABEL>
               <SELECTFIELD {...props.attributes}
@@ -134,6 +132,13 @@ class SelectField extends React.Component {
               </SELECTFIELD>
               <FORMHELPERTEXT {...props.attributes.errorStyle}>{props.attributes.errorText}</FORMHELPERTEXT>
             </FORMCONTROL>
+          )
+          :(
+            <div style={Object.assign({}, {
+              width: '100%', marginTop: '25px', marginRight: '5px', maxWidth: '100%'
+            }, props.attributes.style)}>
+              <MultiSelectField menuPlacement={props.attributes.menuPlacement || 'auto'} captureMenuScroll={props.attributes.captureMenuScroll||false} menuShouldScrollIntoView={props.attributes.menuShouldScrollIntoView || false} components={props.attributes.enablefloatingLabel ? { Control: ControlComponent } : null} value={selectedOption} onChange={this.handleChange} isMulti={props.attributes.isMulti} {...props.attributes} options={props.control.options.map((option) => { return { value: option.value, label: option.primaryText || option.label || '' } })} styles={this.styles(props.attributes.componentstyle)} />
+            </div>
           )}
         {props.attributes.tooltip && <TooltipComponent tooltip={props.attributes.tooltip} />}
       </div>
