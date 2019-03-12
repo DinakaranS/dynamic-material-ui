@@ -1,4 +1,4 @@
-import expect from 'chai';
+import { expect } from 'chai';
 
 describe('Boilerplate', function () {
   it('should do boilerplate things', function () {
