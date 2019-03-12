@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import MultiSelectField from 'react-select';
 import map from 'lodash/map';
 import find from 'lodash/find';
+import isArray from 'lodash/isArray';
 import validation from '../../helpers/validation';
 import TooltipComponent from '../TooltipComponent';
 import { ControlComponent } from '../multiselect/multiSelectCustomControl';
@@ -73,7 +74,8 @@ class SelectField extends React.Component {
     const props = this.props;
     this.setState({ selectedOption });
     if (typeof props.onChange === 'function') {
-      props.onChange(props.control, '', '', map(selectedOption, 'value'));
+      const s = isArray(selectedOption) ? selectedOption : [selectedOption];
+      props.onChange(props.control, '', '', map(s, 'value'));
     }
   }
 
