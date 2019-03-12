@@ -4,7 +4,7 @@ const mui = [
     type: 'selectfield',
     props: {
       id: 'simple',
-      floatingLabelText: 'Country'
+      label: 'Country'
     },
     options: [
       {
@@ -30,7 +30,7 @@ const mui = [
     type: 'selectfield',
     props: {
       id: 'disable',
-      floatingLabelText: 'Disabled',
+      label: 'Disabled',
       disabled: true
     },
     options: [
@@ -49,7 +49,7 @@ const mui = [
     type: 'selectfield',
     props: {
       id: 'nullable',
-      floatingLabelText: '',
+      label: '',
       errorText: 'Cannot be empty!',
       errorStyle: { color: 'red' },
       value: null

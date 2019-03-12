@@ -8,42 +8,51 @@ class Toggle extends React.Component {
     super(props);
     this.onToggle = this.onToggle.bind(this);
   }
+
   onToggle(...args) {
-    if (typeof this.props.onToggle === 'function') {
-      this.props.onToggle(this.props.control, ...args);
+    const props = this.props;
+    if (typeof props.onToggle === 'function') {
+      props.onToggle(props.control, ...args);
     }
   }
+
   render() {
     const props = this.props;
-    const FORMCONTROL = this.props.library.FormControl;
-    const FORMLABEL = this.props.library.FormLabel;
-    const FORMGROUP = this.props.library.FormGroup;
-    const FORMCONTROLLABEL = this.props.library.FormControlLabel;
-    const FORMHELPERTEXT = this.props.library.FormHelperText;
+    const FORMCONTROL = props.library.FormControl;
+    const FORMLABEL = props.library.FormLabel;
+    const FORMGROUP = props.library.FormGroup;
+    const FORMCONTROLLABEL = props.library.FormControlLabel;
+    const FORMHELPERTEXT = props.library.FormHelperText;
     const TOGGLE = props.library[props.component];
-    return (<div style={props.attributes.style}>
-      {!this.props.control.options ?
-        <div style={{ display: 'flex' }} >
-          <FORMCONTROLLABEL {...props.attributes.formcontrollabel} control={<TOGGLE {...props.attributes} onChange={this.onToggle} />}
-            label={props.attributes.label} />{this.props.attributes.tooltip && <TooltipComponent tooltip={this.props.attributes.tooltip} />}
-        </div> :
-        <FORMCONTROL {...props.attributes.formcontrol}>
-          <div style={{ display: 'flex' }}>
-            <FORMLABEL {...props.attributes.formlabel}>{props.attributes.formlabel ? props.attributes.formlabel.text : ''}</FORMLABEL>
-            {this.props.attributes.tooltip && <TooltipComponent tooltip={this.props.attributes.tooltip} />}
-          </div>
-          <FORMGROUP {...props.attributes.formgroup}>
-            {this.props.control.options.map((option, index) => {
-              return (<FORMCONTROLLABEL {...option} control={<TOGGLE {...option.toggle} onChange={this.onToggle} />} key={index} />);
-            })}
-          </FORMGROUP>
-          <FORMHELPERTEXT {...props.attributes.formhelpertext}>{props.attributes.formhelpertext ? props.attributes.formhelpertext.text : ''} </FORMHELPERTEXT>
-        </FORMCONTROL>}
-    </div>)
-    // return (<div style={{ display: 'flex' }}>
-    //   <TOGGLE {...props.attributes} onToggle={this.onToggle} />
-    //   {this.props.attributes.tooltip && <TooltipComponent tooltip={this.props.attributes.tooltip} />}
-    // </div>)
+    return (
+      <div style={props.attributes.style}>
+        {!props.control.options
+          ? (
+            <div style={{ display: 'flex' }}>
+              <FORMCONTROLLABEL {...props.attributes.formcontrollabel}
+                control={<TOGGLE {...props.attributes} onChange={this.onToggle} />}
+                label={props.attributes.label} />
+              {props.attributes.tooltip && <TooltipComponent tooltip={props.attributes.tooltip} />}
+            </div>
+          )
+          : (
+            <FORMCONTROL {...props.attributes.formcontrol}>
+              <div style={{ display: 'flex' }}>
+                <FORMLABEL {...props.attributes.formlabel}>{props.attributes.formlabel ? props.attributes.formlabel.text : ''}</FORMLABEL>
+                {props.attributes.tooltip && <TooltipComponent tooltip={props.attributes.tooltip} />}
+              </div>
+              <FORMGROUP {...props.attributes.formgroup}>
+                {props.control.options.map((option, index) => {
+                  return (<FORMCONTROLLABEL {...option} control={<TOGGLE {...option.toggle} onChange={this.onToggle} />} key={index} />);
+                })}
+              </FORMGROUP>
+              <FORMHELPERTEXT {...props.attributes.formhelpertext}>
+                {props.attributes.formhelpertext ? props.attributes.formhelpertext.text : ''}
+              </FORMHELPERTEXT>
+            </FORMCONTROL>
+          )}
+      </div>
+    )
   }
 }
 
@@ -54,5 +63,13 @@ Toggle.propTypes = {
   control: PropTypes.object,
   rules: PropTypes.object,
   onToggle: PropTypes.func
+};
+
+Toggle.defaultProps = {
+  library: null,
+  attributes: null,
+  control: null,
+  rules: null,
+  onToggle: null,
 };
 export default Toggle;

@@ -12,10 +12,10 @@ import TableHeader from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Grid from '@material-ui/core/Grid';
-
-import { FormGenerator } from './../../src';
-import JSONData from './../data/simpleform';
 import Paper from '@material-ui/core/Paper';
+
+import { FormGenerator } from '../../src';
+import JSONData from '../data/simpleform';
 
 
 const styles = theme => ({
@@ -59,9 +59,11 @@ class Demo extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.triggerSubmit = this.triggerSubmit.bind(this);
   }
+
   onUpdate(...args) {
-    console.log(...args);
+    // console.log(...args);
   }
+
   onSubmit(response, errors, formData) {
     this.setState({
       response: JSON.stringify(response, null, 2),
@@ -70,11 +72,16 @@ class Demo extends React.Component {
       displayFormErrors: true
     });
   }
+
   triggerSubmit(data) {
     this.formRef.click();
   }
+
   render() {
     const { classes } = this.props;
+    const {
+      formData, displayFormErrors, response, errors
+    } = this.state;
     const sourceCode = `
 import { FormGenerator } from 'dynamic-material-ui';
 import * as MUI from '@material-ui/core';
@@ -133,12 +140,12 @@ class SimpleForm extends React.Component {
         <div className="full-width codedemo row">
           <Grid item xs={12} sm={12} md={12} xl={12} lg={12}>
             <FormGenerator
-              data={this.state.formData}
+              data={formData}
               guid="simple-form"
               library={MUI}
               onChange={this.onUpdate}
               patch={{ 1: 'Patched Name', 4: 'xxxxx@gmail.com' }}
-              displayErrors={this.state.displayFormErrors}
+              displayErrors={displayFormErrors}
               formRef={
                 (form) => {
                   this.formRef = form;
@@ -146,20 +153,20 @@ class SimpleForm extends React.Component {
               }
               onSubmit={this.onSubmit}
             />
-            <Button color="primary" variant="contained" onClick={this.triggerSubmit} >Complete Survey</Button>
+            <Button color="primary" variant="contained" onClick={this.triggerSubmit}>Complete Survey</Button>
           </Grid>
           <div className="col-md-12">
             <h4>Refer the response on submit</h4>
             <h4 style={{ color: 'green' }}>Response Form Data</h4>
             <div style={{ fontSize: '14px', color: '#7f7d7d' }}>
               <pre>
-                {this.state.response || '<>'}
+                {response || '<>'}
               </pre>
             </div>
             <h4 style={{ color: 'red' }}>Errors</h4>
             <div style={{ fontSize: '14px', color: '#7f7d7d' }}>
               <pre>
-                {this.state.errors || '<>'}
+                {errors || '<>'}
               </pre>
             </div>
           </div>

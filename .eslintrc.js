@@ -10,7 +10,6 @@ module.exports = {
     "react"
   ],
   "rules": {
-    "comma-dangle": 0,
     "prefer-arrow-callback": 0,
     "func-names": 0,
     "import/no-extraneous-dependencies": 0,
@@ -40,5 +39,9 @@ module.exports = {
     "import/extensions": 0,
     "arrow-body-style": 0,
     "no-param-reassign": 0,
+    "import/named": 0,
+    "prefer-destructuring": 0,
+    "react/no-array-index-key": 0,
+    "import/no-cycle": 0,
   }
 };

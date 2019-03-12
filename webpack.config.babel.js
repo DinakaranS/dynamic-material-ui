@@ -1,12 +1,13 @@
 import * as path from 'path';
 
 import webpack from 'webpack';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import SystemBellPlugin from 'system-bell-webpack-plugin';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
 import merge from 'webpack-merge';
 
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const pkg = require('./package.json');
 
 const TARGET = process.env.npm_lifecycle_event || '';
@@ -26,43 +27,42 @@ process.env.BABEL_ENV = TARGET;
 
 const common = {
   resolve: {
-    extensions: ['', '.js', '.jsx', '.css', '.png', '.jpg']
+    extensions: ['*', '.js', '.jsx', '.css', '.png', '.jpg']
   },
   module: {
-    preLoaders: [
+    rules: [
       {
+        enforce: 'pre',
         test: /\.(js|jsx)$/,
-        loaders: ['eslint'],
+        loaders: ['eslint-loader'],
         include: [
           config.paths.docs,
           config.paths.src
         ]
-      }
-    ],
-    loaders: [
+      },
       {
         test: /\.md$/,
-        loaders: ['catalog/loader', 'raw']
+        loaders: ['catalog/loader', 'raw-loader']
       },
       {
         test: /\.png$/,
-        loader: 'url?limit=100000&mimetype=image/png',
+        loader: 'url-loader?limit=100000&mimetype=image/png',
         include: config.paths.docs
       },
       {
         test: /\.jpg$/,
-        loader: 'file',
+        loader: 'file-loader',
         include: config.paths.docs
       },
       {
         test: /\.json$/,
-        loader: 'json',
+        loader: 'json-loader',
         include: path.join(ROOT_PATH, 'package.json')
       }
     ]
   },
   plugins: [
-    new SystemBellPlugin()
+    new webpack.LoaderOptionsPlugin({ options: {} }),
   ]
 };
 
@@ -96,14 +96,14 @@ if (TARGET === 'start') {
       new webpack.HotModuleReplacementPlugin()
     ],
     module: {
-      loaders: [
+      rules: [
         {
           test: /\.css$/,
-          loaders: ['style', 'css']
+          loaders: ['style-loader', 'css-loader']
         },
         {
           test: /\.(js|jsx)$/,
-          loaders: ['babel?cacheDirectory'],
+          loaders: ['babel-loader?cacheDirectory'],
           include: [
             config.paths.docs,
             config.paths.src
@@ -133,39 +133,40 @@ if (TARGET === 'gh-pages' || TARGET === 'gh-pages:stats') {
       ]
     },
     output: {
-      path: './gh-pages',
+      path: path.resolve(ROOT_PATH, './gh-pages'),
       filename: '[name].[chunkhash].js',
       chunkFilename: '[chunkhash].js'
     },
+    optimization: {
+      minimizer: [
+        new UglifyJsPlugin({
+          cache: true,
+          parallel: true,
+          sourceMap: true // set to true if you want JS source maps
+        }),
+        new OptimizeCSSAssetsPlugin({})
+      ]
+    },
     plugins: [
-      new CleanWebpackPlugin(['gh-pages'], {
-        verbose: false
-      }),
-      new ExtractTextPlugin('[name].[chunkhash].css'),
+      new CleanWebpackPlugin(),
+      new MiniCssExtractPlugin('[name].[chunkhash].css'),
       new webpack.DefinePlugin({
-          // This affects the react lib size
+        // This affects the react lib size
         'process.env.NODE_ENV': '"production"'
       }),
-      new webpack.optimize.DedupePlugin(),
-      new webpack.optimize.UglifyJsPlugin({
-        compress: {
-          warnings: false
-        }
-      }),
-      new webpack.optimize.CommonsChunkPlugin(
-        'vendor',
-        '[name].[chunkhash].js'
-      )
     ],
     module: {
-      loaders: [
+      rules: [
         {
           test: /\.css$/,
-          loader: ExtractTextPlugin.extract('style', 'css')
+          use: [
+            MiniCssExtractPlugin.loader,
+            'css-loader'
+          ]
         },
         {
           test: /\.(js|jsx)$/,
-          loaders: ['babel'],
+          loaders: ['babel-loader'],
           include: [
             config.paths.docs,
             config.paths.src
@@ -193,14 +194,14 @@ const distCommon = {
     }
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.css$/,
-        loaders: ['style', 'css']
+        loaders: ['style-loader', 'css-loader']
       },
       {
         test: /\.(js|jsx)$/,
-        loader: 'babel',
+        loader: 'babel-loader',
         include: config.paths.src,
         query: {
           cacheDirectory: true,
@@ -210,7 +211,6 @@ const distCommon = {
     ]
   },
   plugins: [
-    new SystemBellPlugin()
   ]
 };
 
@@ -228,11 +228,7 @@ if (TARGET === 'dist:min') {
       filename: `${config.filename}.min.js`
     },
     plugins: [
-      new webpack.optimize.UglifyJsPlugin({
-        compress: {
-          warnings: false
-        }
-      })
+      new webpack.LoaderOptionsPlugin({ options: {} }),
     ]
   });
 }

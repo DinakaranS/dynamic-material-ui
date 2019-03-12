@@ -12,54 +12,47 @@ class Radio extends React.Component {
 
   onChange(...args) {
     const value = args[1];
+    const props = this.props;
     this.setState({ value });
-    if (typeof this.props.onChange === 'function') {
-      this.props.onChange(this.props.control, ...args);
+    if (typeof props.onChange === 'function') {
+      props.onChange(props.control, ...args);
     }
   }
 
   render() {
     const props = this.props;
-    const FORMCONTROL = this.props.library.FormControl;
-    const FORMLABEL = this.props.library.FormLabel;
-    const RADIOGROUP = this.props.library.RadioGroup;
-    const FORMCONTROLLABEL = this.props.library.FormControlLabel;
-    const RADIO = this.props.library[props.component];
-    // const OPTION = this.props.library[props.option];
-    return (<div style={props.attributes.style}>
-      {!this.props.control.options ?
-        <div style={{ display: 'flex' }} >
-          <FORMCONTROLLABEL {...props.attributes.formcontrollabel} control={<RADIO {...props.attributes} value={this.state.value} onChange={this.onChange} />}
-            label={props.attributes.label} />{this.props.attributes.tooltip && <TooltipComponent tooltip={this.props.attributes.tooltip} />}
-        </div> :
-        <FORMCONTROL {...props.attributes.formcontrol}>
-          <div style={{ display: 'flex' }}>
-            <FORMLABEL {...props.attributes.formlabel}>{props.attributes.formlabel ? props.attributes.formlabel.text : ''}</FORMLABEL>
-            {this.props.attributes.tooltip && <TooltipComponent tooltip={this.props.attributes.tooltip} />}
-          </div>
-          <RADIOGROUP {...props.attributes.radiogroup} value={this.state.value} onChange={this.onChange}>
-            {this.props.control.options.map((option, index) => {
-              return (<FORMCONTROLLABEL {...option} control={<RADIO {...option.radio} />} key={index} />);
-            })}
-          </RADIOGROUP>
-        </FORMCONTROL>}
-    </div>)
-    // return (
-    //   <div>
-    //     <div style={{ display: 'flex' }}>
-    //       <h3 style={props.attributes.titleStyle}>{props.attributes.title}</h3>
-    //       {this.props.attributes.tooltip && <TooltipComponent tooltip={this.props.attributes.tooltip} />}
-    //     </div>
-    //     <RADIO {...props.attributes} onChange={this.onChange}>
-    //       {this.props.control.options.map((option, index) => {
-    //         return (
-    //           <OPTION {...option} key={index}>
-    //             {}
-    //           </OPTION>
-    //         );
-    //       })}
-    //     </RADIO>
-    //   </div>);
+    const { value } = this.state;
+    const FORMCONTROL = props.library.FormControl;
+    const FORMLABEL = props.library.FormLabel;
+    const RADIOGROUP = props.library.RadioGroup;
+    const FORMCONTROLLABEL = props.library.FormControlLabel;
+    const RADIO = props.library[props.component];
+    return (
+      <div style={props.attributes.style}>
+        {!props.control.options
+          ? (
+            <div style={{ display: 'flex' }}>
+              <FORMCONTROLLABEL {...props.attributes.formcontrollabel}
+                control={<RADIO {...props.attributes} value={value} onChange={this.onChange} />}
+                label={props.attributes.label} />
+              {props.attributes.tooltip && <TooltipComponent tooltip={props.attributes.tooltip} />}
+            </div>
+          )
+          : (
+            <FORMCONTROL {...props.attributes.formcontrol}>
+              <div style={{ display: 'flex' }}>
+                <FORMLABEL {...props.attributes.formlabel}>{props.attributes.formlabel ? props.attributes.formlabel.text : ''}</FORMLABEL>
+                {props.attributes.tooltip && <TooltipComponent tooltip={props.attributes.tooltip} />}
+              </div>
+              <RADIOGROUP {...props.attributes.radiogroup} value={value} onChange={this.onChange}>
+                {props.control.options.map((option, index) => {
+                  return (<FORMCONTROLLABEL {...option} control={<RADIO {...option.radio} />} key={index} />);
+                })}
+              </RADIOGROUP>
+            </FORMCONTROL>
+          )}
+      </div>
+    )
   }
 }
 
@@ -71,5 +64,12 @@ Radio.propTypes = {
   option: PropTypes.string.isRequired,
   rules: PropTypes.object,
   onChange: PropTypes.func
+};
+Radio.defaultProps = {
+  library: null,
+  attributes: null,
+  control: null,
+  rules: null,
+  onChange: null,
 };
 export default Radio;

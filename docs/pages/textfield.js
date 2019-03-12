@@ -12,8 +12,8 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Paper from '@material-ui/core/Paper';
 
-import { FormGenerator } from './../../src';
-import JSONData from './../data/textfield';
+import { FormGenerator } from '../../src';
+import JSONData from '../data/textfield';
 
 const styles = theme => ({
   root: {
@@ -47,13 +47,14 @@ class Textfield extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      formData: {}
     };
     this.onUpdate = this.onUpdate.bind(this);
   }
+
   onUpdate(...args) {
-    console.log(args)
+    // console.log(args)
   }
+
   render() {
     const { classes } = this.props;
     const sourceCode = `
@@ -82,7 +83,11 @@ class Texfield extends React.Component {
 
         <hr />
 
-        <p><a href="http://numeraljs.com/">Numeral.js</a> is the dependency used for number formatting. Have a look at currency textfield for reference.</p>
+        <p>
+          <a href="http://numeraljs.com/">Numeral.js</a>
+          {' '}
+          is the dependency used for number formatting. Have a look at currency textfield for reference.
+        </p>
 
         <div className="full-width codedemo row">
           <div className="col-md-24">

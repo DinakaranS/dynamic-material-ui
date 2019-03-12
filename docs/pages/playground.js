@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Page } from 'catalog';
 import 'highlight.js/styles/zenburn.css';
 import * as MUI from '@material-ui/core';
@@ -6,13 +7,13 @@ import Button from '@material-ui/core/Button';
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
 import SplitPane from 'react-split-pane';
-import { FormGenerator } from './../../src';
-import JSONEditor from './../jsoneditor.min';
-import JSONData from './../data/sample';
-import PropTypes from 'prop-types';
 import Dialog from '@material-ui/core/Dialog';
 import Toolbar from '@material-ui/core/Toolbar';
 import Icon from '@material-ui/core/Icon';
+
+import { FormGenerator } from '../../src';
+import JSONEditor from '../jsoneditor.min';
+import JSONData from '../data/sample';
 
 let editor = null;
 let container = null;
@@ -44,14 +45,14 @@ class Playground extends React.Component {
     this.state = {
       open: true,
       mode: 'tree',
-      editor: null,
+      // editor: null,
       data: JSONData,
-      preview: false
+      // preview: false
     };
     this.switchMode = this.switchMode.bind(this);
     this.importJSON = this.importJSON.bind(this);
     this.exportJSON = this.exportJSON.bind(this);
-    this.toggleView = this.toggleView.bind(this);
+    // this.toggleView = this.toggleView.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.triggerSubmit = this.triggerSubmit.bind(this);
     this.handleClose = this.handleClose.bind(this);
@@ -83,9 +84,9 @@ class Playground extends React.Component {
 
   importJSON(event) {
     if (event.target.files && event.target.files[0]) {
-      const fileTypes = ['json'];  // acceptable file types
-      const extension = event.target.files[0].name.split('.').pop().toLowerCase();  // file extension from input file
-      const isSuccess = fileTypes.indexOf(extension) > -1;  // is extension in acceptable types
+      const fileTypes = ['json']; // acceptable file types
+      const extension = event.target.files[0].name.split('.').pop().toLowerCase(); // file extension from input file
+      const isSuccess = fileTypes.indexOf(extension) > -1; // is extension in acceptable types
 
       if (isSuccess) {
         const reader = new FileReader();
@@ -134,43 +135,48 @@ class Playground extends React.Component {
     }
   }
 
-  toggleView() {
-    this.setState({
-      preview: !this.state.preview
-    });
-  }
-// TODO: Dynamic form submit
+  // toggleView() {
+  //   this.setState({
+  //     preview: !this.state.preview
+  //   });
+  // }
+
+  // TODO: Dynamic form submit
   onSubmit(response, errors, formData) {
     console.log(response)
   }
+
   // TODO: Handling on save
   triggerSubmit() {
     this.formRef.click();
   }
+
   handleClose(){
     this.setState({ open: false })
   }
+
   render() {
     const { classes } = this.props;
+    const { open, mode, data } = this.state;
     return (
       <Page>
         <div>
           <Dialog
             fullScreen
-            open={this.state.open}
+            open={open}
             onClose={this.handleClose}
           >
             <AppBar className={classes.appBar}>
               <Toolbar>
-                {/* <IconButton color="inherit" onClick={this.handleClose} aria-label="Close" >*/}
-                {/* <Icon>close</Icon>*/}
-                {/* </IconButton>*/}
-                <IconButton color="inherit" onClick={this.triggerSubmit} aria-label="Close" >
+                {/* <IconButton color="inherit" onClick={this.handleClose} aria-label="Close" > */}
+                {/* <Icon>close</Icon> */}
+                {/* </IconButton> */}
+                <IconButton color="inherit" onClick={this.triggerSubmit} aria-label="Close">
                   <Icon>save</Icon>
                 </IconButton>
               </Toolbar>
             </AppBar>
-            <SplitPane defaultSize={400} >
+            <SplitPane defaultSize={400}>
               <div className="jsoneditor">
                 <div id="jsoneditor" className="pull-left">{}</div>
                 <Button color="primary" onClick={this.importJSON}>
@@ -180,15 +186,18 @@ class Playground extends React.Component {
                   Export JSON
                 </Button>
                 <Button color="primary" onClick={this.switchMode}>
-                  {`Switch to ${(this.state.mode === 'tree') ? 'text' : 'tree'}`}
+                  {`Switch to ${(mode === 'tree') ? 'text' : 'tree'}`}
                 </Button>
               </div>
               <div className="dynamic-container">
-                <FormGenerator data={this.state.data} formRef={
+                <FormGenerator data={data}
+                  formRef={
                   (form) => {
                     this.formRef = form;
-                  }
-                } library={MUI} guid={Date.parse(new Date().toISOString()).toString()} onSubmit={this.onSubmit} />
+                  }}
+                  library={MUI}
+                  guid={Date.parse(new Date().toISOString()).toString()}
+                  onSubmit={this.onSubmit} />
               </div>
             </SplitPane>
           </Dialog>

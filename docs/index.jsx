@@ -101,6 +101,9 @@ const theme = createMuiTheme({
   palette: {
     primary: { main: '#4285f4' },
   },
+  typography: {
+    useNextVariants: true,
+  },
 });
 
 // Catalog - logoSrc="../images/logo.png"

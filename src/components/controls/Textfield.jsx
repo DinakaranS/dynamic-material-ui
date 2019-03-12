@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import numeral from 'numeral';
-import validation from './../../helpers/validation';
-import TooltipComponent from '../TooltipComponent';
 import Icon from '@material-ui/core/Icon';
+import validation from '../../helpers/validation';
+import TooltipComponent from '../TooltipComponent';
 
 /** Textfield Component */
 class TextField extends React.Component {
@@ -20,18 +20,22 @@ class TextField extends React.Component {
       value: this.format(props.attributes.value) || this.format(props.attributes.defaultValue) || ''
     };
   }
+
   componentWillReceiveProps(props) {
     this.setState({
       errorText: props.attributes.errorText || '',
       value: this.format(props.attributes.value) || ''
     });
   }
+
   format(value) {
     let formattedValue = value;
-    const formatter = this.props.formatter;
+    const props = this.props;
+    const formatter = props.formatter;
     let number = numeral(value).value() || 0;
-    if (this.props.formatter && this.props.formatter.func && this.props.formatter.func.format) {
-      formattedValue = number = numeral(number)[this.props.formatter.func.format.name](this.props.formatter.func.format.value).value();
+    if (props.formatter && props.formatter.func && props.formatter.func.format) {
+      number = numeral(number)[props.formatter.func.format.name](props.formatter.func.format.value).value();
+      formattedValue = number;
     }
     if (formatter) {
       switch (formatter.type) {
@@ -44,11 +48,13 @@ class TextField extends React.Component {
     }
     return formattedValue;
   }
+
   unformat(value) {
     let unformattedValue = value;
-    const formatter = this.props.formatter;
-    if (this.props.formatter && this.props.formatter.func && this.props.formatter.func.unformat) {
-      unformattedValue = numeral(value)[this.props.formatter.func.unformat.name](this.props.formatter.func.unformat.value).value();
+    const props = this.props;
+    const formatter = props.formatter;
+    if (props.formatter && props.formatter.func && props.formatter.func.unformat) {
+      unformattedValue = numeral(value)[props.formatter.func.unformat.name](props.formatter.func.unformat.value).value();
     }
     if (formatter) {
       switch (formatter.type) {
@@ -61,10 +67,13 @@ class TextField extends React.Component {
     }
     return unformattedValue;
   }
+
   validate(value) {
     let isValid = true;
-    if (this.props.rules && this.props.rules.validation) {
-      for (const data of this.props.rules.validation) {
+    const props = this.props;
+    if (props.rules && props.rules.validation) {
+      for (let i = 0; i < props.rules.validation.length; i += 1) {
+        const data = props.rules.validation[i];
         isValid = validation[data.rule](value, data.value);
         if (!isValid) {
           return {
@@ -79,8 +88,10 @@ class TextField extends React.Component {
       message: ''
     };
   }
+
   getFormattedValue(val) {
-    const formatter = this.props.formatter;
+    const props = this.props;
+    const formatter = props.formatter;
     let value = val;
     if (formatter) {
       switch (formatter.type) {
@@ -93,15 +104,18 @@ class TextField extends React.Component {
     }
     return value;
   }
+
   onChange(...args) {
+    const props = this.props;
     this.setState({
       value: args[0].target.value
     });
     const formattedValue = this.getFormattedValue(args[0].target.value);
-    if (typeof this.props.onChange === 'function') {
-      this.props.onChange(this.props.control, args[0], formattedValue);
+    if (typeof props.onChange === 'function') {
+      props.onChange(props.control, args[0], formattedValue);
     }
   }
+
   onBlur(...args) {
     const props = this.props;
     const validator = this.validate(this.format(args[0].target.value));
@@ -119,35 +133,51 @@ class TextField extends React.Component {
       });
     }
     if (typeof props.onBlur === 'function') {
-      props.onBlur(this.props.control, args[0], formattedValue);
+      props.onBlur(props.control, args[0], formattedValue);
     }
   }
+
   onFocus(...args) {
+    const props = this.props;
     const formattedValue = this.getFormattedValue(args[0].target.value);
     this.setState({
       value: this.unformat(args[0].target.value)
     });
-    if (typeof this.props.onFocus === 'function') {
-      this.props.onFocus(this.props.control, args[0], formattedValue);
+    if (typeof props.onFocus === 'function') {
+      props.onFocus(props.control, args[0], formattedValue);
     }
   }
+
   getInputProps(props){
     const attributes = props.attributes;
     if (attributes.InputProps){
       if (attributes.InputProps.InputAdornment){
         const INPUTADORMENT = props.library.InputAdornment;
-        return { startAdornment: (<INPUTADORMENT {...attributes.InputProps.InputAdornment} > { attributes.InputProps.InputAdornment.icon ? <Icon>{attributes.InputProps.InputAdornment.icon} </Icon> : '' } </INPUTADORMENT>) }
+        return {
+          startAdornment: (
+            <INPUTADORMENT {...attributes.InputProps.InputAdornment}>
+              { attributes.InputProps.InputAdornment.icon ? (
+                <Icon>
+                  {attributes.InputProps.InputAdornment.icon}
+                </Icon>
+              ) : '' }
+            </INPUTADORMENT>)
+        }
       }
     }
     return {};
   }
+
   render() {
     const props = this.props;
+    const { value, errorText } = this.state;
     const TEXTFIELD = props.library[props.component];
-    return (<div style={{ display: 'flex' }}>
-      <TEXTFIELD {...props.attributes} InputProps={this.getInputProps(props)} value={this.state.value} error={!!this.state.errorText} helperText={this.state.errorText ? this.state.errorText : ''} onChange={this.onChange} onBlur={this.onBlur} onFocus={this.onFocus} />
-      {this.props.attributes.tooltip && <TooltipComponent tooltip={this.props.attributes.tooltip} />}
-    </div>);
+    return (
+      <div style={{ display: 'flex' }}>
+        <TEXTFIELD {...props.attributes} InputProps={this.getInputProps(props)} value={value} error={!!errorText} helperText={errorText || ''} onChange={this.onChange} onBlur={this.onBlur} onFocus={this.onFocus} />
+        {props.attributes.tooltip && <TooltipComponent tooltip={props.attributes.tooltip} />}
+      </div>
+    );
   }
 }
 
@@ -162,5 +192,16 @@ TextField.propTypes = {
   onChange: PropTypes.func,
   onFocus: PropTypes.func,
   onBlur: PropTypes.func
+};
+
+TextField.defaultProps = {
+  library: null,
+  attributes: null,
+  control: null,
+  rules: null,
+  formatter: null,
+  onChange: null,
+  onFocus: null,
+  onBlur: null,
 };
 export default TextField;

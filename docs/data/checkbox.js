@@ -7,7 +7,7 @@ const mui = [
       label: 'Game Of Thrones',
       defaultChecked: false,
       style: {
-        marginTop: '20px'
+        marginTop: 0
       }
     }
   },
@@ -19,7 +19,7 @@ const mui = [
       label: 'Vikings',
       defaultChecked: true,
       style: {
-        marginTop: '20px'
+        marginTop: 0
       }
     }
   },
@@ -32,7 +32,7 @@ const mui = [
       defaultChecked: true,
       disabled: true,
       style: {
-        marginTop: '20px'
+        marginTop: 0
       }
     }
   },
@@ -45,7 +45,7 @@ const mui = [
       defaultChecked: false,
       disabled: true,
       style: {
-        marginTop: '20px'
+        marginTop: 0
       }
     }
   }

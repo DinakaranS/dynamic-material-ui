@@ -12,8 +12,8 @@ import TableCell from '@material-ui/core/TableCell';
 import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 
-import { FormGenerator } from './../../src';
-import JSONData from './../data/timepicker';
+import { FormGenerator } from '../../src';
+import JSONData from '../data/timepicker';
 
 const styles = theme => ({
   root: {
@@ -50,10 +50,11 @@ class Timepicker extends React.Component {
     };
     this.onUpdate = this.onUpdate.bind(this);
   }
+
   onUpdate(...args) {
     const control = args[0];
-    const formData = this.state.formData;
-    console.log(args)
+    const { formData } = this.state;
+    // console.log(args)
     if (control.type === 'textfield') {
       formData[control.id] = args[2];
     }
@@ -61,6 +62,7 @@ class Timepicker extends React.Component {
       formData
     });
   }
+
   render() {
     const { classes } = this.props;
     const sourceCode = `
@@ -125,7 +127,11 @@ class Timepicker extends React.Component {
         </Paper>
         <div>
           <h4>Notes</h4>
-          <p><b>wrapperStyle & closeStyle</b> are additional props added to change the close & wrapper block style.</p>
+          <p>
+            <b>wrapperStyle & closeStyle</b>
+            {' '}
+            are additional props added to change the close & wrapper block style.
+          </p>
         </div>
       </Page>
     );

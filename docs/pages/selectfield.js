@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Page, ReactSpecimen } from 'catalog';
 import JSONTree from 'react-json-tree';
 import Highlight from 'react-highlight';
@@ -11,9 +12,8 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Paper from '@material-ui/core/Paper';
 
-import { FormGenerator } from './../../src';
-import JSONData from './../data/selectfield';
-import PropTypes from 'prop-types';
+import { FormGenerator } from '../../src';
+import JSONData from '../data/selectfield';
 
 const styles = theme => ({
   root: {
@@ -50,9 +50,10 @@ class Selectfield extends React.Component {
     };
     this.onUpdate = this.onUpdate.bind(this);
   }
+
   onUpdate(...args) {
     const control = args[0];
-    const formData = this.state.formData;
+    const { formData } = this.state;
     if (control.type === 'textfield') {
       formData[control.id] = args[2];
     }
@@ -60,6 +61,7 @@ class Selectfield extends React.Component {
       formData
     });
   }
+
   render() {
     const { classes } = this.props;
     const sourceCode = `

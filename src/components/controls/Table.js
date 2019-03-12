@@ -4,13 +4,9 @@ import PropTypes from 'prop-types';
 class Table extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { value: props.attributes.value }
-    this.handleChange = this.handleChange.bind(this);
+    this.state = { };
   }
 
-  handleChange(event, value) {
-    this.setState({ value });
-  }
   render() {
     const props = this.props;
     const PAPER = props.library.Paper;
@@ -20,28 +16,32 @@ class Table extends React.Component {
     const TABLEHEAD = props.library.TableHead;
     const TABLEROW = props.library.TableRow;
     const tableDetails = props.control.tableDetails;
-    return (<PAPER {...props.attributes.paper}>
-      <TABLE {...props.attributes.table}>
-        <TABLEHEAD>
-          <TABLEROW>
-            {tableDetails.header.map((option, index) => {
-              return (<TABLECELL {...option} key={index}>{option.name}</TABLECELL>)
-            })}
-          </TABLEROW>
-        </TABLEHEAD>
-        <TABLEBODY>
-          {tableDetails.data.map((row, index) => {
-            const tableRows = tableDetails.uniqueIdDetails;
-            return (<TABLEROW {...tableRows} key={index} >
-              {tableDetails.row.map((option, key) => {
-                const value = row[option.name];
-                return (<TABLECELL {...option} key={key} >{value}</TABLECELL>)
+    return (
+      <PAPER {...props.attributes.paper}>
+        <TABLE {...props.attributes.table}>
+          <TABLEHEAD>
+            <TABLEROW>
+              {tableDetails.header.map((option, index) => {
+                return (<TABLECELL {...option} key={index}>{option.name}</TABLECELL>)
               })}
-            </TABLEROW>)
-          })}
-        </TABLEBODY>
-      </TABLE>
-    </PAPER>);
+            </TABLEROW>
+          </TABLEHEAD>
+          <TABLEBODY>
+            {tableDetails.data.map((row, index) => {
+              const tableRows = tableDetails.uniqueIdDetails;
+              return (
+                <TABLEROW {...tableRows} key={index}>
+                  {tableDetails.row.map((option, key) => {
+                    const value = row[option.name];
+                    return (<TABLECELL {...option} key={key}>{value}</TABLECELL>)
+                  })}
+                </TABLEROW>
+              )
+            })}
+          </TABLEBODY>
+        </TABLE>
+      </PAPER>
+    );
   }
 }
 
@@ -51,5 +51,11 @@ Table.propTypes = {
   attributes: PropTypes.object,
   control: PropTypes.object,
   rules: PropTypes.object,
+};
+Table.defaultProps = {
+  library: null,
+  attributes: null,
+  control: null,
+  rules: null,
 };
 export default Table;

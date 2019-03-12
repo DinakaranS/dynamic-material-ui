@@ -12,8 +12,8 @@ import TableCell from '@material-ui/core/TableCell';
 import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 
-import { FormGenerator } from './../../src';
-import JSONData from './../data/datepicker';
+import { FormGenerator } from '../../src';
+import JSONData from '../data/datepicker';
 
 const styles = theme => ({
   root: {
@@ -38,7 +38,7 @@ const styles = theme => ({
     marginTop: 19,
   },
   menu: {
-    width: 200,
+    width: 200
   },
 });
 /** Demo Component */
@@ -50,11 +50,14 @@ class Datepicker extends React.Component {
     };
     this.onUpdate = this.onUpdate.bind(this);
   }
+
   onUpdate(...args) {
-    console.log(args)
+    // console.log(args)
   }
+
   render() {
     const { classes } = this.props;
+    const { formData } = this.state;
     const sourceCode = `
 import { FormGenerator } from 'dynamic-material-ui';
 import * as MUI from '@material-ui/core';
@@ -84,8 +87,9 @@ class Datepicker extends React.Component {
           <div className="col-md-24">
             <FormGenerator
               guid="datepicker"
-              data={this.state.formData}
-              library={MUI} onChange={this.onUpdate}
+              data={formData}
+              library={MUI}
+              onChange={this.onUpdate}
             />
           </div>
         </div>
@@ -116,7 +120,11 @@ class Datepicker extends React.Component {
         </Paper>
         <div>
           <h4>Notes</h4>
-          <p><b>wrapperStyle & closeStyle</b> are additional props added to change the close & wrapper block style.</p>
+          <p>
+            <b>wrapperStyle & closeStyle</b>
+            {' '}
+            are additional props added to change the close & wrapper block style.
+          </p>
         </div>
       </Page>
     );

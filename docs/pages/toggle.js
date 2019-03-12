@@ -12,8 +12,8 @@ import TableCell from '@material-ui/core/TableCell';
 import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 
-import { FormGenerator } from './../../src';
-import JSONData from './../data/toggle';
+import { FormGenerator } from '../../src';
+import JSONData from '../data/toggle';
 
 const styles = theme => ({
   root: {
@@ -50,9 +50,10 @@ class Toggle extends React.Component {
     };
     this.onUpdate = this.onUpdate.bind(this);
   }
+
   onUpdate(...args) {
     const control = args[0];
-    const formData = this.state.formData;
+    const { formData } = this.state;
     if (control.type === 'textfield') {
       formData[control.id] = args[2];
     }
@@ -60,6 +61,7 @@ class Toggle extends React.Component {
       formData
     });
   }
+
   render() {
     const { classes } = this.props;
     const sourceCode = `

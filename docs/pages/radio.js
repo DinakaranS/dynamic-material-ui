@@ -12,8 +12,8 @@ import TableCell from '@material-ui/core/TableCell';
 import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 
-import { FormGenerator } from './../../src';
-import JSONData from './../data/radio';
+import { FormGenerator } from '../../src';
+import JSONData from '../data/radio';
 
 const styles = theme => ({
   root: {
@@ -51,9 +51,10 @@ class Radio extends React.Component {
     };
     this.onUpdate = this.onUpdate.bind(this);
   }
+
   onUpdate(...args) {
     const control = args[0];
-    const formData = this.state.formData;
+    const { formData } = this.state;
     if (control.type === 'textfield') {
       formData[control.id] = args[2];
     }
@@ -61,6 +62,7 @@ class Radio extends React.Component {
       formData
     });
   }
+
   render() {
     const { classes } = this.props;
     const sourceCode = `

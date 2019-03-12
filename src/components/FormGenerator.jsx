@@ -4,9 +4,9 @@ import _ from 'lodash';
 import { Row, Col } from 'react-flexbox-grid';
 
 import { DynamicComponent } from './DynamicComponent';
-import { generateLayout } from './../helpers/filter';
-import mui from './../config/mui';
-import validation from './../helpers/validation';
+import { generateLayout } from '../helpers/filter';
+import mui from '../config/mui';
+import validation from '../helpers/validation';
 
 const LIBMap = {
   MUI: {
@@ -150,8 +150,11 @@ const handleSubmit = (callback, data, guid) => {
 /** FormGenerator */
 export const FormGenerator = (props) => {
   const config = LIBMap.MUI;
-  let data = props.data;
-  if (!props.forceUpdate) {
+  const {
+    forceUpdate, library, fetchResponse, formRef
+  } = props;
+  let { data } = props;
+  if (!forceUpdate) {
     let errors = [];
     if (props.displayErrors) {
       errors = getErrors(props.data, props.guid);
@@ -164,7 +167,7 @@ export const FormGenerator = (props) => {
     response[props.guid] = getInitialValues(data);
   }
   const layout = generateLayout(data);
-  config.modules = props.library;
+  config.modules = library;
   return (
     <div>
       {
@@ -172,7 +175,7 @@ export const FormGenerator = (props) => {
           <Row key={i}>
             {
               row.map((field, index) => (
-                <Col xs={field.layout.xs ? field.layout.xs.col : 6} sm={field.layout.sm ? field.layout.sm.col : 6} md={field.layout.md ? field.layout.md.col : 6} lg={field.layout.lg ? field.layout.lg.col : 6} style={field.style} className={`${field.className} ${(field.visible === false) ? 'hidden' : 'show'}`} key={index} >
+                <Col xs={field.layout.xs ? field.layout.xs.col : 6} sm={field.layout.sm ? field.layout.sm.col : 6} md={field.layout.md ? field.layout.md.col : 6} lg={field.layout.lg ? field.layout.lg.col : 6} style={field.style} className={`${field.className} ${(field.visible === false) ? 'hidden' : 'show'}`} key={index}>
                   <DynamicComponent
                     component={config.map[field.type].type}
                     map={config.map[field.type].map}
@@ -241,7 +244,7 @@ export const FormGenerator = (props) => {
                 attributes={field.props}
                 rules={field.rules}
                 formatter={field.formatter}
-                fetchResponse={props.fetchResponse}
+                fetchResponse={fetchResponse}
                 onChange={
                   (...args) => {
                     handleData(props.guid, ...args);
@@ -287,7 +290,8 @@ export const FormGenerator = (props) => {
         ))
       }
       <button
-        ref={props.formRef}
+        type="button"
+        ref={formRef}
         onClick={() => {
           handleSubmit(props.onSubmit, data, props.guid);
         }}
@@ -321,6 +325,29 @@ FormGenerator.propTypes = {
   forceUpdate: PropTypes.bool,
   displayErrors: PropTypes.bool,
   patch: PropTypes.object,
-  guid: PropTypes.string.isRequired
+  guid: PropTypes.string.isRequired,
+  fetchResponse: PropTypes.object,
+};
+
+FormGenerator.defaultProps = {
+  library: null,
+  onChange: null,
+  onFocus: null,
+  onBlur: null,
+  onClick: null,
+  onCheck: null,
+  onToggle: null,
+  onShow: null,
+  onDismiss: null,
+  onUpdateInput: null,
+  onNewRequest: null,
+  filter: null,
+  response: null,
+  onSubmit: null,
+  formRef: null,
+  forceUpdate: null,
+  displayErrors: null,
+  patch: null,
+  fetchResponse: null,
 };
 export default FormGenerator;

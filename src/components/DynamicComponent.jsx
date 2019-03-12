@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import * as Controls from './controls/index';
 
 export const DynamicComponent = (props) => {
-  const CustomComponent = Controls.default[props.map];
+  const { map } = props;
+  const CustomComponent = Controls.default[map];
   return <CustomComponent {...props} />;
 };
 

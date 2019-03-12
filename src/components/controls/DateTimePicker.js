@@ -26,13 +26,13 @@ class DatePicker extends React.Component {
     super(props);
 
     this.state = {
-      errorText: '',
       attributes: props ? transformAttrs(props) : {},
       transformedAttrs: props ? transformAttrs(props) : {}
     };
 
     this.onChange = this.onChange.bind(this);
   }
+
   componentWillReceiveProps(props) {
     const attrs = transformAttrs(props);
     this.setState({
@@ -40,24 +40,32 @@ class DatePicker extends React.Component {
       transformedAttrs: attrs
     });
   }
+
   onChange(...args) {
-    const attrs = Object.assign({}, this.state.transformedAttrs, {
+    const props = this.props;
+    const { transformedAttrs } = this.state;
+    const attrs = Object.assign({}, transformedAttrs, {
       value: args[0]
     });
     this.setState({
       attributes: attrs
     });
-    if (typeof this.props.onChange === 'function') {
-      this.props.onChange(this.props.control, ...args);
+    if (typeof props.onChange === 'function') {
+      props.onChange(props.control, ...args);
     }
   }
+
   render() {
     const props = this.props;
-    return (<div style={{ display: 'flex' }}><MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <DateTimePicker onChange={this.onChange} {...this.state.attributes} />
-      {this.props.attributes.tooltip && <TooltipComponent tooltip={this.props.attributes.tooltip} />}
-    </MuiPickersUtilsProvider>
-    </div>)
+    const { attributes } = this.state;
+    return (
+      <div style={{ display: 'flex' }}>
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <DateTimePicker onChange={this.onChange} {...attributes} />
+          {props.attributes.tooltip && <TooltipComponent tooltip={props.attributes.tooltip} />}
+        </MuiPickersUtilsProvider>
+      </div>
+    )
   }
 }
 
@@ -69,5 +77,12 @@ DatePicker.propTypes = {
   option: PropTypes.string.isRequired,
   rules: PropTypes.object,
   onChange: PropTypes.func,
+};
+DatePicker.defaultProps = {
+  library: null,
+  attributes: null,
+  control: null,
+  rules: null,
+  onChange: null,
 };
 export default DatePicker;
