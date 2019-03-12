@@ -1,9 +1,10 @@
 {
   "presets": [
-    "es2015",
-    "react"
+    "@babel/preset-env",
+    "@babel/preset-react"
   ],
   "plugins": [
+    "@babel/plugin-transform-modules-commonjs",
     [
       "transform-react-remove-prop-types",
       {
@@ -14,7 +15,6 @@
   "env": {
     "start": {
       "presets": [
-        "react-hmre"
       ]
     }
   }
