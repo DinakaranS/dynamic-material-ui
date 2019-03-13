@@ -51,6 +51,9 @@ const getFieldValue = (...args) => {
     case 'expansionpannel':
       value = args[2];
       break;
+    case 'textfieldaddform':
+      value = args[2];
+      break;
     default:
       value = '';
   }

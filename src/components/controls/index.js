@@ -10,6 +10,7 @@ import TimePicker from './TimePicker';
 import ExpansionPanel from './ExpansionPanel';
 import Tabs from './Tabs';
 import Table from './Table';
+import TextfieldAddForm from './TextfieldAddForm';
 
 const Controls = {
   TextField,
@@ -23,7 +24,8 @@ const Controls = {
   TimePicker,
   ExpansionPanel,
   Tabs,
-  Table
+  Table,
+  TextfieldAddForm
 };
 
 export default Controls;

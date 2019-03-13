@@ -66,7 +66,11 @@ const mui = {
     map: 'Table',
     options: {
     }
-  }
+  },
+  textfieldaddform: {
+    type: 'TextField',
+    map: 'TextfieldAddForm'
+  },
 };
 
 export default mui;
