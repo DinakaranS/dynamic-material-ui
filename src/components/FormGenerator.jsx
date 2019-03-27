@@ -108,6 +108,8 @@ const getCurrentFormData = (fields, errors, guid) => {
   _.map(formData, (field) => {
     if (field.type === 'selectfield') {
       field.props.selected = response[guid][field.id];
+    } else if (field.type === 'checkbox') {
+      field.props.checked = response[guid][field.id];
     } else {
       field.props.value = response[guid][field.id];
     }
