@@ -11,7 +11,7 @@ import Dialog from '@material-ui/core/Dialog';
 import Toolbar from '@material-ui/core/Toolbar';
 import Icon from '@material-ui/core/Icon';
 
-import { FormGenerator } from '../../src';
+import { FormGenerator, ClearFormGeneratorAll } from '../../src';
 import JSONEditor from '../jsoneditor.min';
 import JSONData from '../data/sample';
 
@@ -76,6 +76,7 @@ class Playground extends React.Component {
   }
 
   updateData() {
+    ClearFormGeneratorAll([]);
     const data = editor.get();
     this.setState({
       data

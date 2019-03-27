@@ -308,6 +308,20 @@ export const FormGenerator = (props) => {
   );
 };
 
+export const ClearFormGeneratorByGuid = (guid = '') => {
+  if (guid) {
+    delete response[guid]
+  }
+};
+
+export const ClearFormGeneratorAll = (except = []) => {
+  _.map(Object.keys(response), function (k) {
+    if (except.indexOf(k) === -1) {
+      delete response[k]
+    }
+  })
+};
+
 FormGenerator.propTypes = {
   data: PropTypes.array.isRequired,
   library: PropTypes.object,
@@ -353,4 +367,5 @@ FormGenerator.defaultProps = {
   patch: null,
   fetchResponse: null,
 };
-export default FormGenerator;
+
+export default { FormGenerator, ClearFormGeneratorByGuid, ClearFormGeneratorAll, };

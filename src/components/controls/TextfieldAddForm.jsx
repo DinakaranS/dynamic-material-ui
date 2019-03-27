@@ -208,6 +208,7 @@ class TextField extends React.Component {
           const t = addform.text;
           const text = addform.shownumber ? `${t} #${n}` : t;
           const guid = addform.guid + n;
+          const patch = props.control.patchdata ? props.control.patchdata[guid] || {} : {};
           const k = {
             expansionPanel: {},
             expansionPanelSummary: {
@@ -217,7 +218,7 @@ class TextField extends React.Component {
             expansionPanelDetails: {
               style: { width: '100%' }
             },
-            content: { guid, data }
+            content: { guid, data, patch }
           };
           p.options.push(k);
         }
