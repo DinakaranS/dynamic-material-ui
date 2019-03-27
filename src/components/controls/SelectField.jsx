@@ -75,7 +75,7 @@ class SelectField extends React.Component {
     this.setState({ selectedOption });
     if (typeof props.onChange === 'function') {
       const s = isArray(selectedOption) ? selectedOption : [selectedOption];
-      props.onChange(props.control, '', '', map(s, 'value'));
+      props.onChange(props.control, '', '', map(s, 'value').join(';'));
     }
   }
 
@@ -84,7 +84,8 @@ class SelectField extends React.Component {
     const selectedOption = [];
     const options = props.control.options;
     const o = props.attributes.selected || props.attributes.value;
-    map(o, function (value) {
+    const k = isArray(o) ? o : o && o.toString().split(';');
+    map(k, function (value) {
       const f = find(options, { value });
       f && selectedOption.push({ value: f.value, label: f.primaryText || f.label || '' });
     });
