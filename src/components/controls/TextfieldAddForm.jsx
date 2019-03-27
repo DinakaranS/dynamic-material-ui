@@ -211,7 +211,7 @@ class TextField extends React.Component {
           const k = {
             expansionPanel: {},
             expansionPanelSummary: {
-              icon: 'expand_more'
+              icon: 'expand_more',
             },
             headerTypography: { text },
             expansionPanelDetails: {

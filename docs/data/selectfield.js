@@ -4,7 +4,10 @@ const mui = [
     type: 'selectfield',
     props: {
       id: 'simple',
-      label: 'Country'
+      label: 'Country',
+      style: {
+        width: '400px'
+      }
     },
     options: [
       {
@@ -31,7 +34,10 @@ const mui = [
     props: {
       id: 'disable',
       label: 'Disabled',
-      disabled: true
+      disabled: true,
+      style: {
+        width: '400px'
+      }
     },
     options: [
       {
@@ -52,7 +58,10 @@ const mui = [
       label: '',
       errorText: 'Cannot be empty!',
       errorStyle: { color: 'red' },
-      value: null
+      value: null,
+      style: {
+        width: '400px'
+      }
     },
     options: [
       {
@@ -74,7 +83,10 @@ const mui = [
     type: 'selectfield',
     props: {
       id: 'label',
-      selected: 1
+      selected: 1,
+      style: {
+        width: '400px'
+      }
     },
     options: [
       {

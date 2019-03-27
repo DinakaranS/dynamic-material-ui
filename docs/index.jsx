@@ -2,7 +2,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import GithubCorner from 'react-github-corner';
-import { Catalog, CodeSpecimen, ReactSpecimen } from 'catalog';
+import {
+ Catalog, CodeSpecimen, ReactSpecimen, pageLoader
+} from 'catalog';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'; // v1.x
 import 'purecss/build/pure.css';
 
