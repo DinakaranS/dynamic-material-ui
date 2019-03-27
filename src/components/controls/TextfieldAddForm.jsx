@@ -210,7 +210,7 @@ class TextField extends React.Component {
           const guid = addform.guid + n;
           const patch = props.control.patchdata ? props.control.patchdata[guid] || {} : {};
           const k = {
-            expansionPanel: {},
+            expansionPanel: { defaultExpanded: addform.defaultExpanded || false },
             expansionPanelSummary: {
               icon: 'expand_more',
             },
