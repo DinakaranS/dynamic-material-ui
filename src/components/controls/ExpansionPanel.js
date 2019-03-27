@@ -33,7 +33,7 @@ class ExpansionPanel extends React.Component {
               <EXPANSIONPANELDETAILS {...expansionPanelDetails} style={{ width: 'auto' }}>
                 {content ? (
                   <GRID item xs={size} sm={size} md={size} xl={size} lg={size}>
-                    <FormGenerator data={content.data} library={props.library} guid={content.guid} patch={content.patch || {}} />
+                    <FormGenerator data={JSON.parse(JSON.stringify(content.data))} library={props.library} guid={content.guid} patch={content.patch || {}} />
                   </GRID>
                 ) : <div />}
               </EXPANSIONPANELDETAILS>

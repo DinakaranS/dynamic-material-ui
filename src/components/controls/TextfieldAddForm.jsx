@@ -12,8 +12,8 @@ class TextField extends React.Component {
     super(props);
 
     this.onChange = this.onChange.bind(this);
-    this.onBlur = this.onBlur.bind(this);
-    this.onFocus = this.onFocus.bind(this);
+    // this.onBlur = this.onBlur.bind(this);
+    // this.onFocus = this.onFocus.bind(this);
     this.format = this.format.bind(this);
     this.getFormattedValue = this.getFormattedValue.bind(this);
     this.state = {
@@ -117,37 +117,37 @@ class TextField extends React.Component {
     }
   }
 
-  onBlur(...args) {
-    const props = this.props;
-    const validator = this.validate(this.format(args[0].target.value));
-    const formattedValue = this.getFormattedValue(args[0].target.value);
-    this.setState({
-      value: this.format(args[0].target.value)
-    });
-    if (!validator.isValid) {
-      this.setState({
-        errorText: validator.message
-      });
-    } else {
-      this.setState({
-        errorText: ''
-      });
-    }
-    if (typeof props.onBlur === 'function') {
-      props.onBlur(props.control, args[0], formattedValue);
-    }
-  }
-
-  onFocus(...args) {
-    const props = this.props;
-    const formattedValue = this.getFormattedValue(args[0].target.value);
-    this.setState({
-      value: this.unformat(args[0].target.value)
-    });
-    if (typeof props.onFocus === 'function') {
-      props.onFocus(props.control, args[0], formattedValue);
-    }
-  }
+  // onBlur(...args) {
+  //   const props = this.props;
+  //   const validator = this.validate(this.format(args[0].target.value));
+  //   const formattedValue = this.getFormattedValue(args[0].target.value);
+  //   this.setState({
+  //     value: this.format(args[0].target.value)
+  //   });
+  //   if (!validator.isValid) {
+  //     this.setState({
+  //       errorText: validator.message
+  //     });
+  //   } else {
+  //     this.setState({
+  //       errorText: ''
+  //     });
+  //   }
+  //   if (typeof props.onBlur === 'function') {
+  //     props.onBlur(props.control, args[0], formattedValue);
+  //   }
+  // }
+  //
+  // onFocus(...args) {
+  //   const props = this.props;
+  //   const formattedValue = this.getFormattedValue(args[0].target.value);
+  //   this.setState({
+  //     value: this.unformat(args[0].target.value)
+  //   });
+  //   if (typeof props.onFocus === 'function') {
+  //     props.onFocus(props.control, args[0], formattedValue);
+  //   }
+  // }
 
   getInputProps(props){
     const attributes = props.attributes;
@@ -240,12 +240,12 @@ class TextField extends React.Component {
     return (
       <div>
         <div style={{ display: 'flex' }}>
-          <TEXTFIELD {...props.attributes} InputProps={this.getInputProps(props)} value={value} error={!!errorText} helperText={errorText || ''} onChange={this.onChange} onBlur={this.onBlur} onFocus={this.onFocus} />
+          <TEXTFIELD {...props.attributes} InputProps={this.getInputProps(props)} value={value} error={!!errorText} helperText={errorText || ''} onChange={this.onChange} />
           {props.attributes.tooltip && <TooltipComponent tooltip={props.attributes.tooltip} />}
         </div>
         {props.control.addform && state.value && state.value <= 10 && (
         <GRID item xs={size} sm={size} md={size} xl={size} lg={size}>
-          <FormGenerator data={this.pannelData} library={props.library} />
+          <FormGenerator data={this.pannelData} library={props.library} guid="" />
         </GRID>
 )}
       </div>
