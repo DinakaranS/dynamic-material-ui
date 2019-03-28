@@ -159,6 +159,7 @@ export const FormGenerator = (props) => {
     forceUpdate, library, fetchResponse, formRef
   } = props;
   let { data } = props;
+  data = JSON.parse(JSON.stringify(data));
   if (!forceUpdate) {
     let errors = [];
     if (props.displayErrors) {
