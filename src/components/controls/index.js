@@ -11,6 +11,7 @@ import ExpansionPanel from './ExpansionPanel';
 import Tabs from './Tabs';
 import Table from './Table';
 import TextfieldAddForm from './TextfieldAddForm';
+import AddForms from './AddForms';
 
 const Controls = {
   TextField,
@@ -25,7 +26,8 @@ const Controls = {
   ExpansionPanel,
   Tabs,
   Table,
-  TextfieldAddForm
+  TextfieldAddForm,
+  AddForms
 };
 
 export default Controls;
