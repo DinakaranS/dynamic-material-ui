@@ -3,5 +3,5 @@ import { FormGenerator, ClearFormGeneratorAll, ClearFormGeneratorByGuid } from '
 module.exports = {
   FormGenerator,
   ClearFormGeneratorAll,
-ClearFormGeneratorByGuid
+  ClearFormGeneratorByGuid
 };
