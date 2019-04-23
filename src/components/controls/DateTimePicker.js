@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import DateFnsUtils from '@date-io/date-fns';
-import { MuiPickersUtilsProvider, DateTimePicker } from 'material-ui-pickers';
+import { DateTimePicker, MuiPickersUtilsProvider } from 'material-ui-pickers';
 import TooltipComponent from '../TooltipComponent';
 
 function transformAttrs(props) {
@@ -12,12 +12,11 @@ function transformAttrs(props) {
     maxDate
   } = props.attributes;
   const modifiedAttrs = {
-    value: value ? new Date(moment(props.attributes.value).format()) : undefined,
+    value: value ==='Invalid date'? undefined : value ? new Date(moment(props.attributes.value).format()) : undefined,
     minDate: minDate ? new Date(moment(props.attributes.minDate).format()) : (minDate === undefined) ? undefined : new Date(),
     maxDate: maxDate ? new Date(moment(props.attributes.maxDate).format()) : (maxDate === undefined) ? undefined : new Date()
   };
-  const attrs = Object.assign({}, props.attributes, modifiedAttrs);
-  return attrs;
+  return Object.assign({}, props.attributes, modifiedAttrs);
 }
 
 /** DatePicker Component */
