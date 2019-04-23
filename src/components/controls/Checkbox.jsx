@@ -6,14 +6,14 @@ import TooltipComponent from '../TooltipComponent';
 class Checkbox extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { value: props.attributes.value || props.attributes.defaultValue || '' };
+    this.state = { checked: props.attributes.checked || props.attributes.defaultValue || '' };
     this.onCheck = this.onCheck.bind(this);
   }
 
   onCheck(...args) {
-    const value = args[1];
+    const checked = args[1];
     const props = this.props;
-    this.setState({ value });
+    this.setState({ checked });
     if (typeof props.onCheck === 'function') {
       props.onCheck(props.control, ...args);
     }
@@ -21,7 +21,7 @@ class Checkbox extends React.Component {
 
   render() {
     const props = this.props;
-    const { value } = this.state;
+    const { checked } = this.state;
     const CHECKBOX = props.library[props.component];
     const FORMCONTROL = props.library.FormControl;
     const FORMLABEL = props.library.FormLabel;
@@ -33,7 +33,7 @@ class Checkbox extends React.Component {
         {!props.control.options ? (
           <div style={{ display: 'flex' }}>
             <FORMCONTROLLABEL {...props.attributes.formcontrollabel}
-              control={<CHECKBOX {...props.attributes} checked={value} onChange={this.onCheck} />}
+              control={<CHECKBOX {...props.attributes} checked={checked} onChange={this.onCheck} />}
               label={props.attributes.label} />
             {props.attributes.tooltip && <TooltipComponent tooltip={props.attributes.tooltip} />}
           </div>
