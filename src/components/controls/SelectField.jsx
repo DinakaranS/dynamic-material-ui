@@ -1,12 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MultiSelectField from 'react-select';
+import MultiSelectField, { components } from 'react-select';
 import map from 'lodash/map';
 import find from 'lodash/find';
 import isArray from 'lodash/isArray';
 import validation from '../../helpers/validation';
 import TooltipComponent from '../TooltipComponent';
 import { ControlComponent } from '../multiselect/multiSelectCustomControl';
+
+const CustomInput = Icon => (props) => {
+  return (
+    <div style={{ display: 'flex' }}>
+      {Icon}
+      <components.Input {...props} />
+    </div>
+);
+};
 
 /** SelectField Component */
 class SelectField extends React.Component {
@@ -107,15 +116,17 @@ class SelectField extends React.Component {
     const FORMCONTROL = props.library.FormControl;
     const INPUTLABEL = props.library.InputLabel;
     const FORMHELPERTEXT = props.library.FormHelperText;
+    const ICON = props.library.Icon;
     const OPTION = props.library[props.option];
     const { selectedOption, value, errorText } = this.state;
+    const { attributes } = props;
     return (
       <div style={{ display: 'flex' }}>
         {props.attributes.nativeselect
           ? (
             <FORMCONTROL {...props.attributes.formControl}>
               <INPUTLABEL htmlFor={props.control.id}>{props.attributes.label}</INPUTLABEL>
-              <SELECTFIELD {...props.attributes}
+              <SELECTFIELD {...attributes}
                 inputProps={{
                   name: props.control.id,
                   id: props.control.id,
@@ -133,14 +144,22 @@ class SelectField extends React.Component {
                   );
                 })}
               </SELECTFIELD>
-              <FORMHELPERTEXT {...props.attributes.errorStyle}>{props.attributes.errorText}</FORMHELPERTEXT>
+              <FORMHELPERTEXT {...attributes.errorStyle}>{props.attributes.errorText}</FORMHELPERTEXT>
             </FORMCONTROL>
           )
           :(
             <div style={Object.assign({}, {
               width: '100%', marginTop: '25px', marginRight: '5px', maxWidth: '100%'
             }, props.attributes.style)}>
-              <MultiSelectField menuPlacement={props.attributes.menuPlacement || 'auto'} captureMenuScroll={props.attributes.captureMenuScroll||false} menuShouldScrollIntoView={props.attributes.menuShouldScrollIntoView || false} components={props.attributes.enablefloatingLabel ? { Control: ControlComponent } : null} value={selectedOption} onChange={this.handleChange} isMulti={props.attributes.isMulti} {...props.attributes} options={props.control.options.map((option) => { return { value: option.value, label: option.primaryText || option.label || '' } })} styles={this.styles(props.attributes.componentstyle)} />
+              <MultiSelectField {...attributes}
+                components={{
+                Input: CustomInput(attributes.inputIcon? <ICON>{attributes.inputIcon}</ICON>: null)
+              }}
+                value={selectedOption}
+                onChange={this.handleChange}
+                isMulti={attributes.isMulti}
+                options={props.control.options.map((option) => { return { value: option.value, label: option.primaryText || option.label || '' } })}
+                styles={this.styles(attributes.componentstyle)} />
             </div>
           )}
         {props.attributes.tooltip && <TooltipComponent tooltip={props.attributes.tooltip} />}

@@ -160,7 +160,7 @@ class TextField extends React.Component {
                 <Icon>
                   {attributes.InputProps.InputAdornment.icon}
                 </Icon>
-              ) : '' }
+              ) : attributes.InputProps.InputAdornment.text || '' }
             </INPUTADORMENT>)
         }
       }
