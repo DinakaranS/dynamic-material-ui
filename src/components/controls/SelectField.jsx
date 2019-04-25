@@ -6,7 +6,7 @@ import find from 'lodash/find';
 import isArray from 'lodash/isArray';
 import validation from '../../helpers/validation';
 import TooltipComponent from '../TooltipComponent';
-import { ControlComponent } from '../multiselect/multiSelectCustomControl';
+// import { ControlComponent } from '../multiselect/multiSelectCustomControl';
 
 const CustomInput = Icon => (props) => {
   return (
@@ -14,7 +14,35 @@ const CustomInput = Icon => (props) => {
       {Icon}
       <components.Input {...props} />
     </div>
-);
+  );
+};
+
+/*eslint-disable*/
+function inputComponent({ inputRef, ...props }) {
+  const style = {display: 'flex', padding: '8px 14px',};
+  return <div ref={inputRef} {...props} style={style}/>;
+}
+
+/*eslint-disable*/
+const CustomControl = library => (props) => {
+  const TextField = library.TextField;
+  const className = props.selectProps.classes && props.selectProps.classes.input;
+  return (
+    <TextField
+      fullWidth
+      variant="outlined"
+      InputProps={{
+        inputComponent,
+        inputProps: {
+          className,
+          inputRef: props.innerRef,
+          children: props.children,
+          ...props.innerProps,
+        },
+      }}
+      {...props.selectProps.textFieldProps}
+    />
+  );
 };
 
 /** SelectField Component */
@@ -88,7 +116,7 @@ class SelectField extends React.Component {
     }
   }
 
-  getProperValueForReactSelect(){
+  getProperValueForReactSelect() {
     const props = this.props;
     const selectedOption = [];
     const options = props.control.options;
@@ -103,10 +131,26 @@ class SelectField extends React.Component {
 
   styles(style = {}) {
     return {
-      menu(base) { return Object.assign({}, base, { zIndex: '20000 !important' }, style.menu) },
-      control(base) { return Object.assign({}, base, style.control) },
-      placeholder(base) { return Object.assign({}, base, style.placeholder) },
-      singleValue(base) { return Object.assign({}, base, style.singleValue) }
+      menu(base) {
+        return Object.assign({}, base, { zIndex: '20000 !important' }, style.menu)
+      },
+      control(base) {
+        return Object.assign({}, base, style.control)
+      },
+      placeholder(base) {
+        return Object.assign({}, base, style.placeholder)
+      },
+      singleValue(base) {
+        return Object.assign({}, base, style.singleValue)
+      },
+      input(base) {
+        return Object.assign({}, {
+          ...base,
+          '& input': {
+            font: 'inherit',
+          },
+        }, style.input)
+      },
     }
   }
 
@@ -117,6 +161,8 @@ class SelectField extends React.Component {
     const INPUTLABEL = props.library.InputLabel;
     const FORMHELPERTEXT = props.library.FormHelperText;
     const ICON = props.library.Icon;
+    const NOSSR = props.library.NoSsr;
+    // const TEXTFIELD = props.library.TextField;
     const OPTION = props.library[props.option];
     const { selectedOption, value, errorText } = this.state;
     const { attributes } = props;
@@ -128,9 +174,9 @@ class SelectField extends React.Component {
               <INPUTLABEL htmlFor={props.control.id}>{props.attributes.label}</INPUTLABEL>
               <SELECTFIELD {...attributes}
                 inputProps={{
-                  name: props.control.id,
-                  id: props.control.id,
-                }}
+                             name: props.control.id,
+                             id: props.control.id,
+                           }}
                 value={value}
                 errorText={errorText}
                 onChange={this.onChange}>
@@ -147,19 +193,30 @@ class SelectField extends React.Component {
               <FORMHELPERTEXT {...attributes.errorStyle}>{props.attributes.errorText}</FORMHELPERTEXT>
             </FORMCONTROL>
           )
-          :(
+          : (
             <div style={Object.assign({}, {
-              width: '100%', marginTop: '25px', marginRight: '5px', maxWidth: '100%'
+              width: '100%', marginTop: '10px', marginRight: '5px', maxWidth: '100%'
             }, props.attributes.style)}>
-              <MultiSelectField {...attributes}
-                components={{
-                Input: CustomInput(attributes.inputIcon? <ICON>{attributes.inputIcon}</ICON>: null)
-              }}
-                value={selectedOption}
-                onChange={this.handleChange}
-                isMulti={attributes.isMulti}
-                options={props.control.options.map((option) => { return { value: option.value, label: option.primaryText || option.label || '' } })}
-                styles={this.styles(attributes.componentstyle)} />
+              <NOSSR>
+                <MultiSelectField {...attributes}
+                  components={{
+                    Input: CustomInput(attributes.inputIcon ? <ICON>{attributes.inputIcon}</ICON> : null),
+                    Control: CustomControl(props.library)
+                                  }}
+                  textFieldProps={{
+                                    label: attributes.label || attributes.placeholder,
+                                    InputLabelProps: {
+                                      shrink: true,
+                                    },
+                                  }}
+                  value={selectedOption}
+                  onChange={this.handleChange}
+                  isMulti={attributes.isMulti}
+                  options={props.control.options.map((option) => {
+                                    return { value: option.value, label: option.primaryText || option.label || '' }
+                                  })}
+                  styles={this.styles(attributes.componentstyle)} />
+              </NOSSR>
             </div>
           )}
         {props.attributes.tooltip && <TooltipComponent tooltip={props.attributes.tooltip} />}
