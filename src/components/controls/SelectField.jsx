@@ -203,7 +203,7 @@ class SelectField extends React.Component {
                     Control: CustomControl(props.library)
                   }}
                   textFieldProps={{
-                    abel: attributes.label || attributes.placeholder,
+                    label: attributes.label || attributes.placeholder,
                     InputLabelProps: {
                       shrink: true,
                     },
