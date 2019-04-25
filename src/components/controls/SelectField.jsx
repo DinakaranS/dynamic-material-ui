@@ -162,7 +162,6 @@ class SelectField extends React.Component {
     const FORMHELPERTEXT = props.library.FormHelperText;
     const ICON = props.library.Icon;
     const NOSSR = props.library.NoSsr;
-    // const TEXTFIELD = props.library.TextField;
     const OPTION = props.library[props.option];
     const { selectedOption, value, errorText } = this.state;
     const { attributes } = props;
@@ -174,9 +173,9 @@ class SelectField extends React.Component {
               <INPUTLABEL htmlFor={props.control.id}>{props.attributes.label}</INPUTLABEL>
               <SELECTFIELD {...attributes}
                 inputProps={{
-                             name: props.control.id,
-                             id: props.control.id,
-                           }}
+                  name: props.control.id,
+                  id: props.control.id,
+                }}
                 value={value}
                 errorText={errorText}
                 onChange={this.onChange}>
@@ -202,19 +201,19 @@ class SelectField extends React.Component {
                   components={{
                     Input: CustomInput(attributes.inputIcon ? <ICON>{attributes.inputIcon}</ICON> : null),
                     Control: CustomControl(props.library)
-                                  }}
+                  }}
                   textFieldProps={{
-                                    label: attributes.label || attributes.placeholder,
-                                    InputLabelProps: {
-                                      shrink: true,
-                                    },
-                                  }}
+                    abel: attributes.label || attributes.placeholder,
+                    InputLabelProps: {
+                      shrink: true,
+                    },
+                  }}
                   value={selectedOption}
                   onChange={this.handleChange}
                   isMulti={attributes.isMulti}
                   options={props.control.options.map((option) => {
-                                    return { value: option.value, label: option.primaryText || option.label || '' }
-                                  })}
+                    return { value: option.value, label: option.primaryText || option.label || '' }
+                  })}
                   styles={this.styles(attributes.componentstyle)} />
               </NOSSR>
             </div>
