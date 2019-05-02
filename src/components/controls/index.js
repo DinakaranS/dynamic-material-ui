@@ -12,6 +12,7 @@ import Tabs from './Tabs';
 import Table from './Table';
 import TextfieldAddForm from './TextfieldAddForm';
 import AddForms from './AddForms';
+import SelectFieldAddForm from './SelectFieldAddForm';
 
 const Controls = {
   TextField,
@@ -27,7 +28,8 @@ const Controls = {
   Tabs,
   Table,
   TextfieldAddForm,
-  AddForms
+  AddForms,
+  SelectFieldAddForm
 };
 
 export default Controls;

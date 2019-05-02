@@ -75,6 +75,10 @@ const mui = {
     type: 'TextField',
     map: 'AddForms'
   },
+  selectfieldaddform: {
+    type: 'Select',
+    map: 'SelectFieldAddForm',
+  }
 };
 
 export default mui;
