@@ -18,7 +18,7 @@ const CustomInput = Icon => (props) => {
 };
 
 /*eslint-disable*/
-function inputComponent({ inputRef, ...props }) {
+function inputComponent({inputRef, ...props}) {
   const style = {display: 'flex', padding: '8px 14px',};
   return <div ref={inputRef} {...props} style={style}/>;
 }
@@ -109,7 +109,7 @@ class SelectField extends React.Component {
 
   handleChange(selectedOption) {
     const props = this.props;
-    this.setState({ selectedOption });
+    this.setState({selectedOption});
     if (typeof props.onChange === 'function') {
       const s = isArray(selectedOption) ? selectedOption : [selectedOption];
       props.onChange(props.control, '', '', map(s, 'value').join(';'));
@@ -123,8 +123,8 @@ class SelectField extends React.Component {
     const o = props.attributes.selected || props.attributes.value;
     const k = isArray(o) ? o : o && o.toString().split(';');
     map(k, function (value) {
-      const f = find(options, { value });
-      f && selectedOption.push({ value: f.value, label: f.primaryText || f.label || '' });
+      const f = find(options, {value});
+      f && selectedOption.push({value: f.value, label: f.primaryText || f.label || ''});
     });
     return selectedOption
   }
@@ -132,7 +132,7 @@ class SelectField extends React.Component {
   styles(style = {}) {
     return {
       menu(base) {
-        return Object.assign({}, base, { zIndex: '20000 !important' }, style.menu)
+        return Object.assign({}, base, {zIndex: '20000 !important'}, style.menu)
       },
       control(base) {
         return Object.assign({}, base, style.control)
@@ -163,25 +163,25 @@ class SelectField extends React.Component {
     const ICON = props.library.Icon;
     const NOSSR = props.library.NoSsr;
     const OPTION = props.library[props.option];
-    const { selectedOption, value, errorText } = this.state;
-    const { attributes } = props;
+    const {selectedOption, value, errorText} = this.state;
+    const {attributes} = props;
     return (
-      <div style={{ display: 'flex' }}>
+      <div style={{display: 'flex'}}>
         {props.attributes.nativeselect
           ? (
             <FORMCONTROL {...props.attributes.formControl}>
               <INPUTLABEL htmlFor={props.control.id}>{props.attributes.label}</INPUTLABEL>
               <SELECTFIELD {...attributes}
-                inputProps={{
-                  name: props.control.id,
-                  id: props.control.id,
-                }}
-                value={value}
-                errorText={errorText}
-                onChange={this.onChange}>
+                           inputProps={{
+                             name: props.control.id,
+                             id: props.control.id,
+                           }}
+                           value={value}
+                           errorText={errorText}
+                           onChange={this.onChange}>
                 {props.control.options.map((option, index) => {
                   const primaryText = option.primaryText;
-                  option = Object.assign({}, option, { primaryText: null });
+                  option = Object.assign({}, option, {primaryText: null});
                   return (
                     <OPTION {...option} key={index}>
                       {primaryText}
@@ -198,27 +198,28 @@ class SelectField extends React.Component {
             }, props.attributes.style)}>
               <NOSSR>
                 <MultiSelectField {...attributes}
-                  components={{
-                    Input: CustomInput(attributes.inputIcon ? <ICON>{attributes.inputIcon}</ICON> : null),
-                    Control: CustomControl(props.library)
-                  }}
-                  textFieldProps={{
-                    label: attributes.label || attributes.placeholder,
-                    InputLabelProps: {
-                      shrink: true,
-                    },
-                  }}
-                  value={selectedOption}
-                  onChange={this.handleChange}
-                  isMulti={attributes.isMulti}
-                  options={props.control.options.map((option) => {
-                    return { value: option.value, label: option.primaryText || option.label || '' }
-                  })}
-                  styles={this.styles(attributes.componentstyle)} />
+                                  components={{
+                                    Input: CustomInput(attributes.inputIcon ?
+                                      <ICON>{attributes.inputIcon}</ICON> : null),
+                                    Control: CustomControl(props.library)
+                                  }}
+                                  textFieldProps={{
+                                    label: attributes.label || attributes.placeholder,
+                                    InputLabelProps: {
+                                      shrink: true,
+                                    },
+                                  }}
+                                  value={selectedOption}
+                                  onChange={this.handleChange}
+                                  isMulti={attributes.isMulti}
+                                  options={props.control.options.map((option) => {
+                                    return {value: option.value, label: option.primaryText || option.label || ''}
+                                  })}
+                                  styles={this.styles(attributes.componentstyle)}/>
               </NOSSR>
             </div>
           )}
-        {props.attributes.tooltip && <TooltipComponent tooltip={props.attributes.tooltip} />}
+        {props.attributes.tooltip && <TooltipComponent tooltip={props.attributes.tooltip}/>}
       </div>
     );
   }

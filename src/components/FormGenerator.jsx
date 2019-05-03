@@ -181,7 +181,13 @@ export const FormGenerator = (props) => {
           <Row key={i}>
             {
               row.map((field, index) => (
-                <Col xs={field.layout.xs ? field.layout.xs.col : 6} sm={field.layout.sm ? field.layout.sm.col : 6} md={field.layout.md ? field.layout.md.col : 6} lg={field.layout.lg ? field.layout.lg.col : 6} style={field.style} className={`${field.className} ${(field.visible === false) ? 'hidden' : 'show'}`} key={index}>
+                <Col xs={field.layout.xs ? field.layout.xs.col : 6}
+                  sm={field.layout.sm ? field.layout.sm.col : 6}
+                  md={field.layout.md ? field.layout.md.col : 6}
+                  lg={field.layout.lg ? field.layout.lg.col : 6}
+                  style={field.style}
+                  className={`${field.className} ${(field.visible === false) ? 'hidden' : 'show'}`}
+                  key={index}>
                   <DynamicComponent
                     component={config.map[field.type].type}
                     map={config.map[field.type].map}
@@ -239,7 +245,9 @@ export const FormGenerator = (props) => {
       }
       {
         layout.worows.map((field, index) => (
-          <div key={index} style={field.style} className={`${field.className} ${(field.visible === false) ? 'hidden' : 'show'}`}>
+          <div key={index}
+            style={field.style}
+            className={`${field.className} ${(field.visible === false) ? 'hidden' : 'show'}`}>
             {
               <DynamicComponent
                 component={config.map[field.type].type}

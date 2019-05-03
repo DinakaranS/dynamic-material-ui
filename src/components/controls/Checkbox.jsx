@@ -37,8 +37,8 @@ class Checkbox extends React.Component {
               label={props.attributes.label} />
             {props.attributes.tooltip && <TooltipComponent tooltip={props.attributes.tooltip} />}
           </div>
-        )
-          :(
+          )
+          : (
             <FORMCONTROL {...props.attributes.formcontrol}>
               <div style={{ display: 'flex' }}>
                 <FORMLABEL {...props.attributes.formlabel}>{props.attributes.formlabel ? props.attributes.formlabel.text : ''}</FORMLABEL>
@@ -46,7 +46,11 @@ class Checkbox extends React.Component {
               </div>
               <FORMGROUP {...props.attributes.formgroup}>
                 {props.control.options.map((option, index) => {
-                  return (<FORMCONTROLLABEL {...option} control={<CHECKBOX {...option.check} onChange={this.onCheck} />} key={index} />);
+                  return (
+                    <FORMCONTROLLABEL {...option}
+                      control={<CHECKBOX {...option.check} onChange={this.onCheck} />}
+                      key={index} />
+);
                 })}
               </FORMGROUP>
               <FORMHELPERTEXT {...props.attributes.formhelpertext}>

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import validation from './../../helpers/validation';
+import validation from '../../helpers/validation';
 import TooltipComponent from '../TooltipComponent';
 
 /** AutoComplete Component */
@@ -17,12 +17,14 @@ class AutoComplete extends React.Component {
     this.onBlur = this.onBlur.bind(this);
     this.onFocus = this.onFocus.bind(this);
   }
+
   componentWillReceiveProps(props) {
     this.setState({
       errorText: props.attributes.errorText || '',
       value: props.attributes.value || ''
     });
   }
+
   validate(value) {
     let isValid = true;
     if (this.props.rules && this.props.rules.validation) {
@@ -41,11 +43,13 @@ class AutoComplete extends React.Component {
       message: ''
     };
   }
+
   filter(...args) {
     if (typeof this.props.filter === 'function') {
       this.props.filter(this.props.control, ...args);
     }
   }
+
   onUpdateInput(...args) {
     this.setState({
       value: args[0]
@@ -54,11 +58,13 @@ class AutoComplete extends React.Component {
       this.props.onUpdateInput(this.props.control, ...args);
     }
   }
+
   onNewRequest(...args) {
     if (typeof this.props.onNewRequest === 'function') {
       this.props.onNewRequest(this.props.control, ...args);
     }
   }
+
   onBlur(...args) {
     const props = this.props;
     const validator = this.validate(args[0].target.value);
@@ -75,19 +81,23 @@ class AutoComplete extends React.Component {
       props.onBlur(props.control, ...args);
     }
   }
+
   onFocus(...args) {
     if (typeof this.props.onFocus === 'function') {
       this.props.onFocus(this.props.control, ...args);
     }
   }
+
   render() {
     const props = this.props;
     const AUTOCOMPLETE = props.library[props.component];
     const filter = (typeof this.props.filter === 'function') ? this.props.filter : AUTOCOMPLETE[props.attributes.filter];
-    return (<div style={{ display: 'flex' }} >
-      <AUTOCOMPLETE {...props.attributes} value={this.state.value} filter={filter} errorText={this.state.errorText} onBlur={this.onBlur} onFocus={this.onFocus} onUpdateInput={this.onUpdateInput} onNewRequest={this.onNewRequest} />
-      {this.props.attributes.tooltip && <TooltipComponent tooltip={this.props.attributes.tooltip} />}
-    </div>);
+    return (
+      <div style={{ display: 'flex' }}>
+        <AUTOCOMPLETE {...props.attributes} value={this.state.value} filter={filter} errorText={this.state.errorText} onBlur={this.onBlur} onFocus={this.onFocus} onUpdateInput={this.onUpdateInput} onNewRequest={this.onNewRequest} />
+        {this.props.attributes.tooltip && <TooltipComponent tooltip={this.props.attributes.tooltip} />}
+      </div>
+);
   }
 }
 

@@ -30,7 +30,7 @@ class AddForms extends React.Component {
     const FAB = props.library.Fab;
     const ICON = props.library.Icon;
     const GRID = props.library.Grid;
-    const ICONSTYLE = props.attributes.iconstyle || { };
+    const ICONSTYLE = props.attributes.iconstyle || {};
     const ICONNAME = props.attributes.iconname || 'add';
     return (
       <div style={props.attributes.style}>
@@ -40,9 +40,12 @@ class AddForms extends React.Component {
             <div key={index}>
               {content ? (
                 <GRID item xs={size} sm={size} md={size} xl={size} lg={size}>
-                  <FormGenerator data={JSON.parse(JSON.stringify(content.data))} library={props.library} guid={content.guid} patch={content.patch || {}} />
+                  <FormGenerator data={JSON.parse(JSON.stringify(content.data))}
+                    library={props.library}
+                    guid={content.guid}
+                    patch={content.patch || {}} />
                 </GRID>
-                ) : <div />}
+              ) : <div />}
             </div>
           )
         })}

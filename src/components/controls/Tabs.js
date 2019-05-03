@@ -6,7 +6,7 @@ import { FormGenerator } from '../FormGenerator';
 function TabContainer(props) {
   const { value, control } = props;
   const contentDetails = _.find(control.options, { value });
-  if (contentDetails && contentDetails.content){
+  if (contentDetails && contentDetails.content) {
     const size = 12;
     const GRID = props.library.Grid;
     return (

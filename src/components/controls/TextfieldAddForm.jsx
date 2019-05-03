@@ -149,19 +149,19 @@ class TextField extends React.Component {
   //   }
   // }
 
-  getInputProps(props){
+  getInputProps(props) {
     const attributes = props.attributes;
-    if (attributes.InputProps){
-      if (attributes.InputProps.InputAdornment){
+    if (attributes.InputProps) {
+      if (attributes.InputProps.InputAdornment) {
         const INPUTADORMENT = props.library.InputAdornment;
         return {
           startAdornment: (
             <INPUTADORMENT {...attributes.InputProps.InputAdornment}>
-              { attributes.InputProps.InputAdornment.icon ? (
+              {attributes.InputProps.InputAdornment.icon ? (
                 <Icon>
                   {attributes.InputProps.InputAdornment.icon}
                 </Icon>
-              ) : '' }
+              ) : ''}
             </INPUTADORMENT>)
         }
       }
@@ -204,7 +204,7 @@ class TextField extends React.Component {
         const addform = props.control.addform;
         const data = addform.data || [];
         for (let i = 0; i < v; i += 1) {
-          const n = i+1;
+          const n = i + 1;
           const t = addform.text;
           const text = addform.shownumber ? `${t} #${n}` : t;
           const guid = addform.guid + n;
@@ -240,14 +240,19 @@ class TextField extends React.Component {
     return (
       <div>
         <div style={{ display: 'flex' }}>
-          <TEXTFIELD {...props.attributes} InputProps={this.getInputProps(props)} value={value} error={!!errorText} helperText={errorText || ''} onChange={this.onChange} />
+          <TEXTFIELD {...props.attributes}
+            InputProps={this.getInputProps(props)}
+            value={value}
+            error={!!errorText}
+            helperText={errorText || ''}
+            onChange={this.onChange} />
           {props.attributes.tooltip && <TooltipComponent tooltip={props.attributes.tooltip} />}
         </div>
         {props.control.addform && state.value && state.value <= 10 && (
-        <GRID item xs={size} sm={size} md={size} xl={size} lg={size}>
-          <FormGenerator data={this.pannelData} library={props.library} guid="" />
-        </GRID>
-)}
+          <GRID item xs={size} sm={size} md={size} xl={size} lg={size}>
+            <FormGenerator data={this.pannelData} library={props.library} guid="" />
+          </GRID>
+        )}
       </div>
     );
   }

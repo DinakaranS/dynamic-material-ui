@@ -52,20 +52,17 @@ const mui = {
   expansionpannel: {
     type: 'ExpansionPanel',
     map: 'ExpansionPanel',
-    options: {
-    }
+    options: {}
   },
   tabs: {
     type: 'Tabs',
     map: 'Tabs',
-    options: {
-    }
+    options: {}
   },
   table: {
     type: 'Table',
     map: 'Table',
-    options: {
-    }
+    options: {}
   },
   textfieldaddform: {
     type: 'TextField',

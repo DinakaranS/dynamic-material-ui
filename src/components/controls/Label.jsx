@@ -20,6 +20,7 @@ function Label(props) {
     </div>
   )
 }
+
 Label.propTypes = {
   attributes: PropTypes.object,
   library: PropTypes.object,

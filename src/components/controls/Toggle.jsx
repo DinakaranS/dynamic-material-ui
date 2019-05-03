@@ -43,7 +43,11 @@ class Toggle extends React.Component {
               </div>
               <FORMGROUP {...props.attributes.formgroup}>
                 {props.control.options.map((option, index) => {
-                  return (<FORMCONTROLLABEL {...option} control={<TOGGLE {...option.toggle} onChange={this.onToggle} />} key={index} />);
+                  return (
+                    <FORMCONTROLLABEL {...option}
+                      control={<TOGGLE {...option.toggle} onChange={this.onToggle} />}
+                      key={index} />
+);
                 })}
               </FORMGROUP>
               <FORMHELPERTEXT {...props.attributes.formhelpertext}>

@@ -148,19 +148,19 @@ class TextField extends React.Component {
     }
   }
 
-  getInputProps(props){
+  getInputProps(props) {
     const attributes = props.attributes;
-    if (attributes.InputProps){
-      if (attributes.InputProps.InputAdornment){
+    if (attributes.InputProps) {
+      if (attributes.InputProps.InputAdornment) {
         const INPUTADORMENT = props.library.InputAdornment;
         return {
           startAdornment: (
             <INPUTADORMENT {...attributes.InputProps.InputAdornment}>
-              { attributes.InputProps.InputAdornment.icon ? (
+              {attributes.InputProps.InputAdornment.icon ? (
                 <Icon>
                   {attributes.InputProps.InputAdornment.icon}
                 </Icon>
-              ) : attributes.InputProps.InputAdornment.text || '' }
+              ) : attributes.InputProps.InputAdornment.text || ''}
             </INPUTADORMENT>)
         }
       }
@@ -174,7 +174,14 @@ class TextField extends React.Component {
     const TEXTFIELD = props.library[props.component];
     return (
       <div style={{ display: 'flex' }}>
-        <TEXTFIELD {...props.attributes} InputProps={this.getInputProps(props)} value={value} error={!!errorText} helperText={errorText || ''} onChange={this.onChange} onBlur={this.onBlur} onFocus={this.onFocus} />
+        <TEXTFIELD {...props.attributes}
+          InputProps={this.getInputProps(props)}
+          value={value}
+          error={!!errorText}
+          helperText={errorText || ''}
+          onChange={this.onChange}
+          onBlur={this.onBlur}
+          onFocus={this.onFocus} />
         {props.attributes.tooltip && <TooltipComponent tooltip={props.attributes.tooltip} />}
       </div>
     );
