@@ -12,12 +12,11 @@ function transformAttrs(props) {
     maxDate
   } = props.attributes;
   const modifiedAttrs = {
-    value: value ? new Date(moment(props.attributes.value).format()) : undefined,
+    value: value === 'Invalid date' ? undefined : value ? new Date(moment(props.attributes.value).format()) : undefined,
     minDate: minDate ? new Date(moment(props.attributes.minDate).format()) : (minDate === undefined) ? undefined : new Date(),
     maxDate: maxDate ? new Date(moment(props.attributes.maxDate).format()) : (maxDate === undefined) ? undefined : new Date()
   };
-  const attrs = Object.assign({}, props.attributes, modifiedAttrs);
-  return attrs;
+  return Object.assign({}, props.attributes, modifiedAttrs);
 }
 
 /** DatePicker Component */

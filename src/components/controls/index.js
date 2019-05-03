@@ -13,6 +13,7 @@ import Table from './Table';
 import TextfieldAddForm from './TextfieldAddForm';
 import AddForms from './AddForms';
 import SelectFieldAddForm from './SelectFieldAddForm';
+import DatetimeRangePicker from './DatetimeRangePicker';
 
 const Controls = {
   TextField,
@@ -29,7 +30,8 @@ const Controls = {
   Table,
   TextfieldAddForm,
   AddForms,
-  SelectFieldAddForm
+  SelectFieldAddForm,
+  DatetimeRangePicker
 };
 
 export default Controls;

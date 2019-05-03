@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import { Row, Col } from 'react-flexbox-grid';
+import { Col, Row } from 'react-flexbox-grid';
 
+import moment from 'moment';
 import { DynamicComponent } from './DynamicComponent';
 import { generateLayout } from '../helpers/filter';
 import mui from '../config/mui';
@@ -85,14 +86,40 @@ const getInitialValues = (fields) => {
   return data;
 };
 
+const getFormatedDate = (controls, date) => {
+  const format = controls.props.format || 'YYYY-MM-DD HH:mm:ss';
+  return controls.props.isutc ? moment.utc(date).format(format) : moment(date).format(format)
+};
+
+const updateDateRangePickerResponse = (guid, field, patch = '') => {
+  response[guid][field.props.startdatefieldname] = response[guid][field.props.startdatefieldname] || moment().startOf('day');
+  response[guid][field.props.enddatefieldname] = response[guid][field.props.enddatefieldname] || moment().endOf('day');
+  if (patch) {
+    if (patch[field.props.startdatefieldname] !== undefined) {
+      response[guid][field.props.startdatefieldname] = patch[field.props.startdatefieldname];
+    }
+    if (patch[field.props.enddatefieldname] !== undefined) {
+      response[guid][field.props.enddatefieldname] = patch[field.props.enddatefieldname];
+    }
+  }
+};
+
 const handleData = (guid, ...args) => {
-  const val = getFieldValue(...args);
-  response[guid][args[0].id] = val;
+  const controls = args[0];
+  if (controls.type === 'datetimerangepicker') {
+    const picker = args[1];
+    response[guid][controls.props.startdatefieldname] = getFormatedDate(controls, picker.startDate);
+    response[guid][controls.props.enddatefieldname] = getFormatedDate(controls, picker.endDate);
+  } else {
+    response[guid][controls.id] = getFieldValue(...args);
+  }
 };
 
 const updateResponse = (fields, patch, guid) => {
   _.each(fields, (field) => {
-    if (response[guid][field.id] === '' || response[guid][field.id] === undefined) {
+    if (field.type === 'datetimerangepicker') {
+      updateDateRangePickerResponse(guid, field, patch);
+    } else if (response[guid][field.id] === '' || response[guid][field.id] === undefined) {
       response[guid][field.id] = field.props.value || field.props.defaultSelected || field.props.defaultChecked || field.props.defaultToggled || field.props.selected || '';
     } else {
       response[guid][field.id] = response[guid][field.id];
@@ -110,6 +137,9 @@ const getCurrentFormData = (fields, errors, guid) => {
       field.props.selected = response[guid][field.id];
     } else if (field.type === 'checkbox') {
       field.props.checked = response[guid][field.id];
+    } else if (field.type === 'datetimerangepicker') {
+      field.props[field.props.startdatefieldname] = response[guid][field.props.startdatefieldname];
+      field.props[field.props.enddatefieldname] = response[guid][field.props.enddatefieldname];
     } else {
       field.props.value = response[guid][field.id];
     }

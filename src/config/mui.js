@@ -75,7 +75,11 @@ const mui = {
   selectfieldaddform: {
     type: 'Select',
     map: 'SelectFieldAddForm',
-  }
+  },
+  datetimerangepicker: {
+    type: 'DatetimeRangePicker',
+    map: 'DatetimeRangePicker'
+  },
 };
 
 export default mui;
