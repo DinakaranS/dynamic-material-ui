@@ -90,19 +90,19 @@ const getInitialValues = (fields) => {
 };
 
 const getFormatedDate = (controls, date) => {
-  // const format = controls.props.format || 'YYYY-MM-DD HH:mm:ss';
-  return controls.props.isutc ? moment.utc(date).format() : moment(date).format()
+  const format = controls.props.format || 'YYYY-MM-DD HH:mm:ss';
+  return controls.props.isutc ? moment.utc(date).format(format) : moment(date).format(format)
 };
 
 const updateDateRangePickerResponse = (guid, field, patch = '') => {
-  response[guid][field.props.startdatefieldname] = response[guid][field.props.startdatefieldname] || moment().startOf('day');
-  response[guid][field.props.enddatefieldname] = response[guid][field.props.enddatefieldname] || moment().endOf('day');
+  response[guid][field.props.startdatefieldname] = getFormatedDate(field, response[guid][field.props.startdatefieldname] || moment().startOf('day'));
+  response[guid][field.props.enddatefieldname] = getFormatedDate(field, response[guid][field.props.enddatefieldname] || moment().endOf('day'));
   if (patch) {
     if (patch[field.props.startdatefieldname] !== undefined) {
-      response[guid][field.props.startdatefieldname] = patch[field.props.startdatefieldname];
+      response[guid][field.props.startdatefieldname] = getFormatedDate(field, patch[field.props.startdatefieldname]);
     }
     if (patch[field.props.enddatefieldname] !== undefined) {
-      response[guid][field.props.enddatefieldname] = patch[field.props.enddatefieldname];
+      response[guid][field.props.enddatefieldname] = getFormatedDate(field, patch[field.props.enddatefieldname]);
     }
   }
 };
@@ -122,15 +122,17 @@ const handleData = (guid, ...args) => {
 
 const updateResponse = (fields, patch, guid) => {
   _.each(fields, (field) => {
-    if (field.type === 'datetimerangepicker') {
-      updateDateRangePickerResponse(guid, field, patch);
-    } else if (response[guid][field.id] === '' || response[guid][field.id] === undefined) {
-      response[guid][field.id] = field.props.value || field.props.defaultSelected || field.props.defaultChecked || field.props.defaultToggled || field.props.selected || '';
-    } else {
-      response[guid][field.id] = response[guid][field.id];
-    }
-    if (patch && patch[field.id] !== undefined) { // Patch update data
-      response[guid][field.id] = patch[field.id];
+    if (field.id) {
+      if (field.type === 'datetimerangepicker') {
+        updateDateRangePickerResponse(guid, field, patch);
+      } else if (response[guid][field.id] === '' || response[guid][field.id] === undefined) {
+        response[guid][field.id] = field.props.value || field.props.defaultSelected || field.props.defaultChecked || field.props.defaultToggled || field.props.selected || '';
+      } else {
+        response[guid][field.id] = response[guid][field.id];
+      }
+      if (patch && patch[field.id] !== undefined) { // Patch update data
+        response[guid][field.id] = patch[field.id];
+      }
     }
   });
 };
@@ -138,23 +140,25 @@ const updateResponse = (fields, patch, guid) => {
 const getCurrentFormData = (fields, errors, guid) => {
   const formData = Object.assign([], fields);
   _.map(formData, (field) => {
-    if (field.type === 'selectfield') {
-      field.props.selected = response[guid][field.id];
-    } else if (field.type === 'checkbox') {
-      field.props.checked = response[guid][field.id];
-    } else if (field.type === 'datetimerangepicker') {
-      field.props[field.props.startdatefieldname] = response[guid][field.props.startdatefieldname];
-      field.props[field.props.enddatefieldname] = response[guid][field.props.enddatefieldname];
-    } else {
-      field.props.value = response[guid][field.id];
-    }
-    const error = _.find(errors, {
-      id: field.id
-    });
-    if (error) {
-      field.props.errorText = error.message;
-    } else {
-      field.props.errorText = '';
+    if (field.id) {
+      if (field.type === 'selectfield') {
+        field.props.selected = response[guid][field.id];
+      } else if (field.type === 'checkbox') {
+        field.props.checked = response[guid][field.id];
+      } else if (field.type === 'datetimerangepicker') {
+        field.props[field.props.startdatefieldname] = response[guid][field.props.startdatefieldname];
+        field.props[field.props.enddatefieldname] = response[guid][field.props.enddatefieldname];
+      } else {
+        field.props.value = response[guid][field.id];
+      }
+      const error = _.find(errors, {
+        id: field.id
+      });
+      if (error) {
+        field.props.errorText = error.message;
+      } else {
+        field.props.errorText = '';
+      }
     }
   });
   return formData;

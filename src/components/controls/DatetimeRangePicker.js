@@ -3,25 +3,38 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import DatetimeRangePickerComponent from '../../helpers/datetimerangepickercomponent';
 
+function transformAttrs(props) {
+  const {
+    startdatefieldname,
+    enddatefieldname,
+    enableranges
+  } = props.attributes;
+  const startDate = props.attributes[startdatefieldname];
+  const endDate = props.attributes[enddatefieldname];
+  const modifiedAttrs = {
+    startDate: startDate ? moment(startDate) : moment().startOf('day'),
+    endDate: endDate ? moment(endDate) : moment().endOf('day')
+  };
+  if (enableranges) {
+    modifiedAttrs.ranges = {
+      Today: [moment().startOf('day'), moment()],
+      Yesterday: [moment().subtract(1, 'days').startOf('day'), moment().subtract(1, 'days').endOf('day')],
+      'Last 7 Days': [moment().subtract(6, 'days').startOf('day'), moment().endOf('day')],
+      'Last 30 Days': [moment().subtract(29, 'days').startOf('day'), moment().endOf('day')],
+      'This Month': [moment().startOf('month'), moment().endOf('month')],
+      'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+    }
+  }
+  return modifiedAttrs;
+}
+
 class DatetimeRangePicker extends React.Component {
   constructor(props) {
     super(props);
 
     this.handleEvent = this.handleEvent.bind(this);
 
-    this.state = {
-      startDate: props.attributes[props.attributes.startdatefieldname] || moment().startOf('day'),
-      endDate: props.attributes[props.attributes.enddatefieldname] || moment().endOf('day'),
-      // eslint-disable-next-line react/no-unused-state
-      ranges: {
-        Today: [moment().startOf('day'), moment()],
-        Yesterday: [moment().subtract(1, 'days').startOf('day'), moment().subtract(1, 'days').endOf('day')],
-        'Last 7 Days': [moment().subtract(6, 'days').startOf('day'), moment().endOf('day')],
-        'Last 30 Days': [moment().subtract(29, 'days').startOf('day'), moment().endOf('day')],
-        'This Month': [moment().startOf('month'), moment().endOf('month')],
-        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
-      },
-    };
+    this.state = props ? transformAttrs(props) : {};
   }
 
   handleEvent(event, picker) {
@@ -46,7 +59,8 @@ class DatetimeRangePicker extends React.Component {
     const end = state.endDate.format('MMMM D, YYYY');
     let label = `${start} - ${end}`;
     if (start === end) label = start;
-    const { attributes, containerStyle, buttonStyle } = props;
+    const { attributes } = props;
+    const { containerStyle, buttonStyle } = attributes;
 
     return (
       <div className="bootstrap_style form-group" style={containerStyle || { padding: '10px' }}>
