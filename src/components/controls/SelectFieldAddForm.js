@@ -189,10 +189,10 @@ class SelectField extends React.Component {
         const addform = props.control.addform;
         const data = addform.data || [];
         for (let i = 0; i < v.length; i += 1) {
-          const n = i + 1;
+          // const n = i + 1;
           const t = addform.text;
           const text = addform.showselected ? `${t} #${v[i].label}` : t;
-          const guid = addform.guid + n;
+          const guid = v[i].value;
           const patch = props.control.patchdata ? props.control.patchdata[guid] || {} : {};
           const k = {
             expansionPanel: {defaultExpanded: addform.defaultExpanded || false},

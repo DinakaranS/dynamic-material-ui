@@ -55,6 +55,9 @@ const getFieldValue = (...args) => {
     case 'textfieldaddform':
       value = args[2];
       break;
+    case 'selectfieldaddform':
+      value = args[3];
+      break;
     default:
       value = '';
   }
@@ -87,8 +90,8 @@ const getInitialValues = (fields) => {
 };
 
 const getFormatedDate = (controls, date) => {
-  const format = controls.props.format || 'YYYY-MM-DD HH:mm:ss';
-  return controls.props.isutc ? moment.utc(date).format(format) : moment(date).format(format)
+  // const format = controls.props.format || 'YYYY-MM-DD HH:mm:ss';
+  return controls.props.isutc ? moment.utc(date).format() : moment(date).format()
 };
 
 const updateDateRangePickerResponse = (guid, field, patch = '') => {
@@ -106,12 +109,14 @@ const updateDateRangePickerResponse = (guid, field, patch = '') => {
 
 const handleData = (guid, ...args) => {
   const controls = args[0];
-  if (controls.type === 'datetimerangepicker') {
-    const picker = args[1];
-    response[guid][controls.props.startdatefieldname] = getFormatedDate(controls, picker.startDate);
-    response[guid][controls.props.enddatefieldname] = getFormatedDate(controls, picker.endDate);
-  } else {
-    response[guid][controls.id] = getFieldValue(...args);
+  if (controls.id) {
+    if (controls.type === 'datetimerangepicker') {
+      const picker = args[1];
+      response[guid][controls.props.startdatefieldname] = getFormatedDate(controls, picker.startDate);
+      response[guid][controls.props.enddatefieldname] = getFormatedDate(controls, picker.endDate);
+    } else {
+      response[guid][controls.id] = getFieldValue(...args);
+    }
   }
 };
 
