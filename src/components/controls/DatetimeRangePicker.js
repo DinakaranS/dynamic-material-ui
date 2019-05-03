@@ -2,7 +2,6 @@ import React from 'react';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import DatetimeRangePickerComponent from '../../helpers/datetimerangepickercomponent';
-import '../../helpers/daterangepicker.css';
 
 class DatetimeRangePicker extends React.Component {
   constructor(props) {
