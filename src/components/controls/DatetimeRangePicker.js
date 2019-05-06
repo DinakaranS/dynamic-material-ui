@@ -31,10 +31,12 @@ function transformAttrs(props) {
 class DatetimeRangePicker extends React.Component {
   constructor(props) {
     super(props);
-
     this.handleEvent = this.handleEvent.bind(this);
-
     this.state = props ? transformAttrs(props) : {};
+  }
+
+  componentWillReceiveProps(props) {
+    this.setState(transformAttrs(props));
   }
 
   handleEvent(event, picker) {
