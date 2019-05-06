@@ -62,7 +62,7 @@ class SelectField extends React.Component {
     this.setState({
       value: props.attributes.selected,
       errorText: props.attributes.errorText || '',
-      selectedOption: this.getProperValueForReactSelect(),
+      selectedOption: this.getProperValueForReactSelect(props.attributes.selected),
     });
   }
 
@@ -116,11 +116,11 @@ class SelectField extends React.Component {
     }
   }
 
-  getProperValueForReactSelect() {
+  getProperValueForReactSelect(selected) {
     const props = this.props;
     const selectedOption = [];
     const options = props.control.options;
-    const o = props.attributes.selected || props.attributes.value;
+    const o = selected || props.attributes.selected || props.attributes.value;
     const k = isArray(o) ? o : o && o.toString().split(';');
     map(k, function (value) {
       const f = find(options, {value});

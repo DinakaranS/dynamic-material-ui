@@ -49,9 +49,9 @@ const getFieldValue = (...args) => {
     case 'checkbox':
       value = args[2];
       break;
-    case 'expansionpannel':
-      value = args[2];
-      break;
+    // case 'expansionpannel':
+    //   value = args[2];
+    //   break;
     case 'textfieldaddform':
       value = args[2];
       break;
@@ -372,6 +372,17 @@ export const ClearFormGeneratorAll = (except = []) => {
   })
 };
 
+export const currentFormResponseDataByGuid = (guid) => {
+  if (!response[guid]) {
+    return '';
+  }
+  return response[guid];
+};
+
+export const allFormResponseData = (guid) => {
+  return response;
+};
+
 FormGenerator.propTypes = {
   data: PropTypes.array.isRequired,
   library: PropTypes.object,
@@ -418,4 +429,10 @@ FormGenerator.defaultProps = {
   fetchResponse: null,
 };
 
-export default { FormGenerator, ClearFormGeneratorByGuid, ClearFormGeneratorAll, };
+export default {
+  FormGenerator,
+  ClearFormGeneratorByGuid,
+  ClearFormGeneratorAll,
+  currentFormResponseDataByGuid,
+  allFormResponseData
+};

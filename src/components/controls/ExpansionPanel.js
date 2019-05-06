@@ -39,7 +39,9 @@ class ExpansionPanel extends React.Component {
                     <FormGenerator data={JSON.parse(JSON.stringify(content.data))}
                       library={props.library}
                       guid={content.guid}
-                      patch={content.patch || {}} />
+                      patch={content.patch || {}}
+                      forceUpdate={content.forceUpdate || false}
+                    />
                   </GRID>
                 ) : <div />}
               </EXPANSIONPANELDETAILS>

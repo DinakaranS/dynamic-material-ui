@@ -6,7 +6,7 @@ import find from 'lodash/find';
 import isArray from 'lodash/isArray';
 import validation from '../../helpers/validation';
 import TooltipComponent from '../TooltipComponent';
-import { FormGenerator } from '../FormGenerator';
+import { FormGenerator, ClearFormGeneratorByGuid } from '../FormGenerator';
 // import { ControlComponent } from '../multiselect/multiSelectCustomControl';
 
 const CustomInput = Icon => (props) => {
@@ -62,7 +62,7 @@ class SelectField extends React.Component {
     this.setState({
       value: props.attributes.selected,
       errorText: props.attributes.errorText || '',
-      selectedOption: this.getProperValueForReactSelect(),
+      selectedOption: this.getProperValueForReactSelect(props.attributes.selected),
     });
   }
 
@@ -109,6 +109,7 @@ class SelectField extends React.Component {
 
   handleChange(selectedOption) {
     const props = this.props;
+    this.clearFormData(selectedOption);
     this.setState({selectedOption});
     if (typeof props.onChange === 'function') {
       const s = isArray(selectedOption) ? selectedOption : [selectedOption];
@@ -116,11 +117,11 @@ class SelectField extends React.Component {
     }
   }
 
-  getProperValueForReactSelect() {
+  getProperValueForReactSelect(selected) {
     const props = this.props;
     const selectedOption = [];
     const options = props.control.options;
-    const o = props.attributes.selected || props.attributes.value;
+    const o = selected || props.attributes.selected || props.attributes.value;
     const k = isArray(o) ? o : o && o.toString().split(';');
     map(k, function (value) {
       const f = find(options, {value});
@@ -186,14 +187,19 @@ class SelectField extends React.Component {
             }
           }
         };
-        const addform = props.control.addform;
-        const data = addform.data || [];
+
         for (let i = 0; i < v.length; i += 1) {
-          // const n = i + 1;
+          const {addform} = props.control;
+          const {data} = addform;
           const t = addform.text;
           const text = addform.showselected ? `${t} #${v[i].label}` : t;
           const guid = v[i].value;
           const patch = props.control.patchdata ? props.control.patchdata[guid] || {} : {};
+          let forceUpdate = false;
+          // const currentFormData = currentFormDataByGuid(guid, JSON.parse(JSON.stringify(data)));
+          // if (currentFormData) {
+          //   data = currentFormData;
+          // }
           const k = {
             expansionPanel: {defaultExpanded: addform.defaultExpanded || false},
             expandIcon: {style: {color: '#fff',}},
@@ -215,7 +221,7 @@ class SelectField extends React.Component {
             expansionPanelDetails: {
               style: {width: '100%'}
             },
-            content: {guid, data, patch}
+            content: {guid, data, patch, forceUpdate}
           };
           p.options.push(k);
         }
@@ -225,6 +231,14 @@ class SelectField extends React.Component {
       console.log(e)
     }
     return ui;
+  }
+
+  clearFormData(selectedOption){
+    const state= this.state;
+    const difference = state.selectedOption.filter(x => !selectedOption.includes(x));
+    map(difference, function (v) {
+      ClearFormGeneratorByGuid(v.value);
+    });
   }
 
   render() {
