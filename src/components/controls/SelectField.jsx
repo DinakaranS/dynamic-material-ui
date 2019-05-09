@@ -17,6 +17,11 @@ const CustomInput = Icon => (props) => {
   );
 };
 
+const createOption = label => ({
+  label,
+  value: label ? label.toLowerCase().replace(/\W/g, '') : '',
+});
+
 /*eslint-disable*/
 function inputComponent({inputRef, ...props}) {
   const style = {display: 'flex', padding: '8px 14px',};
@@ -164,6 +169,7 @@ class SelectField extends React.Component {
   handleSave(response) {
     const props = this.props;
     this.setState({modelopen: false});
+    this.handleChange(createOption(response[props.control.id]));
     props.onSubmitModel(response, props.control.id);
   }
 
