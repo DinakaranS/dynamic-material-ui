@@ -68,12 +68,12 @@ class SelectFieldCreateDialog extends React.Component {
     super(props);
     this.state = {};
     state[customguid] = {};
-    this.closeDialog = this.closeDialog.bind(this);
+    this.saveDialog = this.saveDialog.bind(this);
   }
 
-  closeDialog() {
+  saveDialog() {
     const props = this.props;
-    props.handleClose(state.modeldialog);
+    props.handleSave(state.modeldialog);
     state[customguid] = {};
   }
 
@@ -89,7 +89,7 @@ class SelectFieldCreateDialog extends React.Component {
     const BUTTON = library.Button;
     const DIALOGACTIONS = library.DialogActions;
     const {
-      data, dialog, dialogtitle, dialogcontent
+      data, dialog, dialogtitle, dialogcontent, handleClose
     } = model;
     const layout = generateLayout(data);
     const config = LIBMap.MUI;
@@ -97,7 +97,7 @@ class SelectFieldCreateDialog extends React.Component {
     return (
       <DIALOG
         open={open}
-        onClose={this.closeDialog}
+        onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
         {...dialog}
@@ -177,10 +177,10 @@ class SelectFieldCreateDialog extends React.Component {
         </DIALOGCONTENT>
         <DIVIDER />
         <DIALOGACTIONS>
-          <BUTTON onClick={this.closeDialog} color="primary">
+          <BUTTON onClick={handleClose} color="primary">
             Cancel
           </BUTTON>
-          <BUTTON onClick={this.closeDialog} color="primary" autoFocus>
+          <BUTTON onClick={this.saveDialog} color="primary" autoFocus>
             Save
           </BUTTON>
         </DIALOGACTIONS>
@@ -193,14 +193,16 @@ SelectFieldCreateDialog.propTypes = {
   open: PropTypes.bool,
   library: PropTypes.object,
   handleClose: PropTypes.func,
-  model: PropTypes.object
+  model: PropTypes.object,
+  handleSave: PropTypes.func,
 };
 
 SelectFieldCreateDialog.defaultProps = {
   open: false,
   library: null,
   handleClose: null,
-  model: {}
+  model: {},
+  handleSave: null
 };
 
 export default SelectFieldCreateDialog;

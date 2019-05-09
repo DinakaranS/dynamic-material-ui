@@ -161,11 +161,14 @@ class SelectField extends React.Component {
     this.setState({modelopen: true});
   };
 
-  handleClose(response) {
+  handleSave(response) {
     const props = this.props;
     this.setState({modelopen: false});
-    console.log(response);
     props.onSubmitModel(response, props.control.id);
+  }
+
+  handleClose() {
+    this.setState({modelopen: false});
   }
 
   render() {
@@ -261,9 +264,10 @@ class SelectField extends React.Component {
         {props.attributes.tooltip && <TooltipComponent tooltip={props.attributes.tooltip}/>}
         {modelopen &&
         <SelectFieldCreateDialog open={modelopen} library={props.library}
-                                 handleClose={(response) => {
-                                   this.handleClose(response)
+                                 handleSave={(response) => {
+                                   this.handleSave(response)
                                  }}
+                                 handleClose={this.handleClose}
                                  model={props.control.model}/>}
       </div>
     );
