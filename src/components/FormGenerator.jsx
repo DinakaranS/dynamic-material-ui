@@ -275,6 +275,13 @@ export const FormGenerator = (props) => {
                     }
                     onNewRequest={props.onNewRequest}
                     filter={props.filter}
+                    onSubmitModel={
+                      (...args) => {
+                        if (typeof props.onSubmitModel === 'function') {
+                          props.onSubmitModel(...args);
+                        }
+                      }
+                    }
                   />
                 </Col>
               ))
@@ -336,6 +343,13 @@ export const FormGenerator = (props) => {
                   }
                 }
                 onNewRequest={props.onNewRequest}
+                onSubmitModel={
+                  (...args) => {
+                    if (typeof props.onSubmitModel === 'function') {
+                      props.onSubmitModel(...args);
+                    }
+                  }
+                }
                 filter={props.filter}
               />
             }
@@ -405,6 +419,7 @@ FormGenerator.propTypes = {
   patch: PropTypes.object,
   guid: PropTypes.string.isRequired,
   fetchResponse: PropTypes.object,
+  onSubmitModel: PropTypes.func
 };
 
 FormGenerator.defaultProps = {
@@ -427,6 +442,7 @@ FormGenerator.defaultProps = {
   displayErrors: null,
   patch: null,
   fetchResponse: null,
+  onSubmitModel: null
 };
 
 export default {

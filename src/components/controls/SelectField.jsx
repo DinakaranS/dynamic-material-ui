@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MultiSelectField, { components } from 'react-select';
+import MultiSelectField, { components, Creatable } from 'react-select';
 import map from 'lodash/map';
 import find from 'lodash/find';
 import isArray from 'lodash/isArray';
 import validation from '../../helpers/validation';
 import TooltipComponent from '../TooltipComponent';
-// import { ControlComponent } from '../multiselect/multiSelectCustomControl';
+import SelectFieldCreateDialog from '../../helpers/SelectFieldCreateDialog';
 
 const CustomInput = Icon => (props) => {
   return (
@@ -53,9 +53,12 @@ class SelectField extends React.Component {
       value: props.attributes.selected,
       errorText: props.attributes.errorText || '',
       selectedOption: this.getProperValueForReactSelect(),
+      modelopen: false
     };
     this.onChange = this.onChange.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleCreateOption = this.handleCreateOption.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   componentWillReceiveProps(props) {
@@ -154,6 +157,17 @@ class SelectField extends React.Component {
     }
   }
 
+  handleCreateOption(event) {
+    this.setState({modelopen: true});
+  };
+
+  handleClose(response) {
+    const props = this.props;
+    this.setState({modelopen: false});
+    console.log(response);
+    props.onSubmitModel(response, props.control.id);
+  }
+
   render() {
     const props = this.props;
     const SELECTFIELD = props.library[props.component];
@@ -163,7 +177,7 @@ class SelectField extends React.Component {
     const ICON = props.library.Icon;
     const NOSSR = props.library.NoSsr;
     const OPTION = props.library[props.option];
-    const {selectedOption, value, errorText} = this.state;
+    const {selectedOption, value, errorText, modelopen} = this.state;
     const {attributes} = props;
     return (
       <div style={{display: 'flex'}}>
@@ -197,29 +211,60 @@ class SelectField extends React.Component {
               width: '100%', marginTop: '10px', marginRight: '5px', maxWidth: '100%'
             }, props.attributes.style)}>
               <NOSSR>
-                <MultiSelectField {...attributes}
-                                  components={{
-                                    Input: CustomInput(attributes.inputIcon ?
-                                      <ICON>{attributes.inputIcon}</ICON> : null),
-                                    Control: CustomControl(props.library)
-                                  }}
-                                  textFieldProps={{
-                                    label: attributes.label || attributes.placeholder,
-                                    InputLabelProps: {
-                                      shrink: true,
-                                    },
-                                  }}
-                                  value={selectedOption}
-                                  onChange={this.handleChange}
-                                  isMulti={attributes.isMulti}
-                                  options={props.control.options.map((option) => {
-                                    return {value: option.value, label: option.primaryText || option.label || ''}
-                                  })}
-                                  styles={this.styles(attributes.componentstyle)}/>
+                {attributes.isCreatable ?
+                  (<Creatable {...attributes}
+                              components={{
+                                Input: CustomInput(attributes.inputIcon ?
+                                  <ICON>{attributes.inputIcon}</ICON> : null),
+                                Control: CustomControl(props.library)
+                              }}
+                              textFieldProps={{
+                                label: attributes.label || attributes.placeholder,
+                                InputLabelProps: {
+                                  shrink: true,
+                                },
+                              }}
+                              value={selectedOption}
+                              onChange={this.handleChange}
+                              isMulti={attributes.isMulti}
+                              options={props.control.options.map((option) => {
+                                return {
+                                  value: option.value,
+                                  label: option.primaryText || option.label || ''
+                                }
+                              })}
+                              styles={this.styles(attributes.componentstyle)}
+                              onCreateOption={this.handleCreateOption}/>)
+                  :
+                  (<MultiSelectField {...attributes}
+                                     components={{
+                                       Input: CustomInput(attributes.inputIcon ?
+                                         <ICON>{attributes.inputIcon}</ICON> : null),
+                                       Control: CustomControl(props.library)
+                                     }}
+                                     textFieldProps={{
+                                       label: attributes.label || attributes.placeholder,
+                                       InputLabelProps: {
+                                         shrink: true,
+                                       },
+                                     }}
+                                     value={selectedOption}
+                                     onChange={this.handleChange}
+                                     isMulti={attributes.isMulti}
+                                     options={props.control.options.map((option) => {
+                                       return {value: option.value, label: option.primaryText || option.label || ''}
+                                     })}
+                                     styles={this.styles(attributes.componentstyle)}/>)}
               </NOSSR>
             </div>
           )}
         {props.attributes.tooltip && <TooltipComponent tooltip={props.attributes.tooltip}/>}
+        {modelopen &&
+        <SelectFieldCreateDialog open={modelopen} library={props.library}
+                                 handleClose={(response) => {
+                                   this.handleClose(response)
+                                 }}
+                                 model={props.control.model}/>}
       </div>
     );
   }
@@ -232,7 +277,8 @@ SelectField.propTypes = {
   control: PropTypes.object,
   option: PropTypes.string.isRequired,
   rules: PropTypes.object,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  onSubmitModel: PropTypes.func
 };
 SelectField.defaultProps = {
   library: null,
@@ -240,5 +286,6 @@ SelectField.defaultProps = {
   control: null,
   rules: null,
   onChange: null,
+  onSubmitModel: null
 };
 export default SelectField;
