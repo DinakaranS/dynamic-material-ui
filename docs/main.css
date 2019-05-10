@@ -121,3 +121,7 @@ Resizer.disabled:hover {
   -webkit-font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
 }
+
+.dialogtitle h6 {
+  color: #ffffff;
+}

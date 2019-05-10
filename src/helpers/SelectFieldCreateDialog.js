@@ -80,7 +80,7 @@ class SelectFieldCreateDialog extends React.Component {
   render() {
     const props = this.props;
     const {
-      open, model, library
+      open, model, library, handleClose
     } = props;
     const DIALOG = library.Dialog;
     const DIALOGTITLE = library.DialogTitle;
@@ -89,7 +89,7 @@ class SelectFieldCreateDialog extends React.Component {
     const BUTTON = library.Button;
     const DIALOGACTIONS = library.DialogActions;
     const {
-      data, dialog, dialogtitle, dialogcontent, handleClose
+      data, dialog, dialogtitle, dialogcontent
     } = model;
     const layout = generateLayout(data);
     const config = LIBMap.MUI;

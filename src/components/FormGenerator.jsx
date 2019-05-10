@@ -141,7 +141,7 @@ const getCurrentFormData = (fields, errors, guid) => {
   const formData = Object.assign([], fields);
   _.map(formData, (field) => {
     if (field.id) {
-      if (field.type === 'selectfield') {
+      if (field.type.indexOf('selectfield') !== -1) {
         field.props.selected = response[guid][field.id];
       } else if (field.type === 'checkbox') {
         field.props.checked = response[guid][field.id];
