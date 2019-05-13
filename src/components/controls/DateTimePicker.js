@@ -6,13 +6,14 @@ import { DateTimePicker, MuiPickersUtilsProvider } from 'material-ui-pickers';
 import TooltipComponent from '../TooltipComponent';
 
 function transformAttrs(props) {
+  const defaultValue = new Date(moment().startOf('day').add(7, 'hours').format());
   const {
     value,
     minDate,
     maxDate
   } = props.attributes;
   const modifiedAttrs = {
-    value: value === 'Invalid date' ? undefined : value ? new Date(moment(props.attributes.value).format()) : undefined,
+    value: value === 'Invalid date' ? defaultValue : value ? new Date(moment(props.attributes.value).format()) : defaultValue,
     minDate: minDate ? new Date(moment(props.attributes.minDate).format()) : (minDate === undefined) ? undefined : new Date(),
     maxDate: maxDate ? new Date(moment(props.attributes.maxDate).format()) : (maxDate === undefined) ? undefined : new Date()
   };
