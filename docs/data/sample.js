@@ -130,8 +130,7 @@ const mui = [
       selected: [
         "Mr",
         "Mrs"
-      ],
-      errorText: ""
+      ]
     },
     options: [
       {
@@ -185,7 +184,6 @@ const mui = [
     props: {
       id: 'checkboxstandalone',
       label: 'Game Of Thrones',
-      defaultChecked: false,
       color: "primary",
       formcontrollabel: {
         labelPlacement: 'end'
@@ -202,8 +200,7 @@ const mui = [
         },
         content: "I am going home early today, are you coming with me ?"
       },
-      value: "",
-      errorText: ""
+      value: ""
     },
     layout: {
       row: 3,
@@ -227,7 +224,6 @@ const mui = [
     props: {
       id: 'radiostandalone',
       label: 'Game Of Thrones',
-      defaultChecked: false,
       color: "primary",
       formcontrollabel: {
         labelPlacement: 'end'
@@ -244,8 +240,7 @@ const mui = [
         },
         content: "I am going home early today, are you coming with me ?"
       },
-      value: "",
-      errorText: ""
+      value: ""
     },
     layout: {
       row: 3,
@@ -269,7 +264,6 @@ const mui = [
     props: {
       id: 'togglestandalone',
       label: 'Game Of Thrones',
-      defaultChecked: false,
       color: "primary",
       formcontrollabel: {
         labelPlacement: 'end'
@@ -286,8 +280,7 @@ const mui = [
         },
         content: "I am going home early today, are you coming with me ?"
       },
-      value: "",
-      errorText: ""
+      value: ""
     },
     layout: {
       row: 3,
