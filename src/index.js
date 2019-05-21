@@ -1,7 +1,14 @@
-import { FormGenerator, ClearFormGeneratorAll, ClearFormGeneratorByGuid } from './components/FormGenerator';
+import {
+  FormGenerator,
+  ClearFormGeneratorAll,
+  ClearFormGeneratorByGuid,
+  CurrentFormResponseDataByGuid, AllFormResponseData
+} from './components/FormGenerator';
 
 module.exports = {
   FormGenerator,
   ClearFormGeneratorAll,
-  ClearFormGeneratorByGuid
+  ClearFormGeneratorByGuid,
+  CurrentFormResponseDataByGuid,
+  AllFormResponseData
 };

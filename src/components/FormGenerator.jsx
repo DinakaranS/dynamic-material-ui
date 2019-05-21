@@ -386,14 +386,14 @@ export const ClearFormGeneratorAll = (except = []) => {
   })
 };
 
-export const currentFormResponseDataByGuid = (guid) => {
+export const CurrentFormResponseDataByGuid = (guid) => {
   if (!response[guid]) {
     return '';
   }
   return response[guid];
 };
 
-export const allFormResponseData = (guid) => {
+export const AllFormResponseData = (guid) => {
   return response;
 };
 
@@ -449,6 +449,6 @@ export default {
   FormGenerator,
   ClearFormGeneratorByGuid,
   ClearFormGeneratorAll,
-  currentFormResponseDataByGuid,
-  allFormResponseData
+  CurrentFormResponseDataByGuid,
+  AllFormResponseData
 };
