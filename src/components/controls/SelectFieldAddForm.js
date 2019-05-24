@@ -20,7 +20,7 @@ const CustomInput = Icon => (props) => {
 
 /*eslint-disable*/
 function inputComponent({inputRef, ...props}) {
-  return <div ref={inputRef} {...props} style={{display: 'flex', padding: '8px 14px',}}/>;
+  return <div ref={inputRef} {...props} style={{display: 'flex', padding: '8px 14px', minHeight: 40}}/>;
 }
 
 /*eslint-disable*/

@@ -152,12 +152,12 @@ class Playground extends React.Component {
     this.formRef.click();
   }
 
-  handleClose(){
+  handleClose() {
     this.setState({ open: false })
   }
 
   render() {
-    const { classes } = this.props;
+    // const { classes } = this.props;
     const { open, mode, data } = this.state;
     return (
       <Page>
@@ -167,7 +167,10 @@ class Playground extends React.Component {
             open={open}
             onClose={this.handleClose}
           >
-            <AppBar className={classes.appBar}>
+            <AppBar style={{
+              position: 'relative',
+              marginLeft: 400
+            }}>
               <Toolbar>
                 {/* <IconButton color="inherit" onClick={this.handleClose} aria-label="Close" > */}
                 {/* <Icon>close</Icon> */}
@@ -193,9 +196,9 @@ class Playground extends React.Component {
               <div className="dynamic-container">
                 <FormGenerator data={data}
                   formRef={
-                  (form) => {
-                    this.formRef = form;
-                  }}
+                                 (form) => {
+                                   this.formRef = form;
+                                 }}
                   library={MUI}
                   guid={Date.parse(new Date().toISOString()).toString()}
                   onSubmit={this.onSubmit} />
@@ -208,8 +211,8 @@ class Playground extends React.Component {
   }
 }
 
-Playground.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+// Playground.propTypes = {
+//   classes: PropTypes.object.isRequired,
+// };
 
-export default MUI.withStyles(styles)(Playground);
+export default Playground;

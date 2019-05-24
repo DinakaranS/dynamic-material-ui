@@ -24,7 +24,7 @@ const createOption = label => ({
 
 /*eslint-disable*/
 function inputComponent({inputRef, ...props}) {
-  const style = {display: 'flex', padding: '8px 14px',};
+  const style = {display: 'flex', padding: '8px 14px', minHeight: 40};
   return <div ref={inputRef} {...props} style={style}/>;
 }
 

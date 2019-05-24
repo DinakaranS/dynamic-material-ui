@@ -11,16 +11,16 @@ import 'purecss/build/pure.css';
 import './jsoneditor.min.css';
 import '../style.css';
 import './main.css';
-import demoMUI from './pages/demo-mui';
-import textfield from './pages/textfield';
-import selectfield from './pages/selectfield';
-import checkbox from './pages/checkbox';
-import radio from './pages/radio';
-import toggle from './pages/toggle';
-import datepicker from './pages/datepicker';
-import timepicker from './pages/timepicker';
-// import autocomplete from './pages/autocomplete';
-import layout from './pages/layout';
+// import demoMUI from './pages/demo-mui';
+// import textfield from './pages/textfield';
+// import selectfield from './pages/selectfield';
+// import checkbox from './pages/checkbox';
+// import radio from './pages/radio';
+// import toggle from './pages/toggle';
+// import datepicker from './pages/datepicker';
+// import timepicker from './pages/timepicker';
+// // import autocomplete from './pages/autocomplete';
+// import layout from './pages/layout';
 import validation from './pages/validation';
 import playground from './pages/playground';
 
@@ -37,56 +37,56 @@ const pages = [
     title: 'Introduction',
     component: require('../README.md')
   },
-  {
-    path: '/simpleform',
-    title: 'Simple Form',
-    component: demoMUI
-  },
-  {
-    path: '/textfield',
-    title: 'Textfield',
-    component: textfield
-  },
-  {
-    path: '/selectfield',
-    title: 'Selectfield',
-    component: selectfield
-  },
-  {
-    path: '/checkbox',
-    title: 'Checkbox',
-    component: checkbox
-  },
-  {
-    path: '/radio',
-    title: 'Radio',
-    component: radio
-  },
-  {
-    path: '/toggle',
-    title: 'Toggle',
-    component: toggle
-  },
-  {
-    path: '/datepicker',
-    title: 'Datepicker',
-    component: datepicker
-  },
-  {
-    path: '/timepicker',
-    title: 'Timepicker',
-    component: timepicker
-  },
   // {
-  //   path: '/autocomplete',
-  //   title: 'Autocomplete',
-  //   component: autocomplete
+  //   path: '/simpleform',
+  //   title: 'Simple Form',
+  //   component: demoMUI
   // },
-  {
-    path: '/layout',
-    title: 'Layout',
-    component: layout
-  },
+  // {
+  //   path: '/textfield',
+  //   title: 'Textfield',
+  //   component: textfield
+  // },
+  // {
+  //   path: '/selectfield',
+  //   title: 'Selectfield',
+  //   component: selectfield
+  // },
+  // {
+  //   path: '/checkbox',
+  //   title: 'Checkbox',
+  //   component: checkbox
+  // },
+  // {
+  //   path: '/radio',
+  //   title: 'Radio',
+  //   component: radio
+  // },
+  // {
+  //   path: '/toggle',
+  //   title: 'Toggle',
+  //   component: toggle
+  // },
+  // {
+  //   path: '/datepicker',
+  //   title: 'Datepicker',
+  //   component: datepicker
+  // },
+  // {
+  //   path: '/timepicker',
+  //   title: 'Timepicker',
+  //   component: timepicker
+  // },
+  // // {
+  // //   path: '/autocomplete',
+  // //   title: 'Autocomplete',
+  // //   component: autocomplete
+  // // },
+  // {
+  //   path: '/layout',
+  //   title: 'Layout',
+  //   component: layout
+  // },
   {
     path: '/validation',
     title: 'Validation',
