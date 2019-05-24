@@ -1,104 +1,186 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import validation from '../../helpers/validation';
-import TooltipComponent from '../TooltipComponent';
+import Autosuggest from 'react-autosuggest';
+import deburr from 'lodash/deburr';
+import match from 'autosuggest-highlight/match';
+import parse from 'autosuggest-highlight/parse';
 
-/** AutoComplete Component */
-class AutoComplete extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      errorText: props.attributes.errorText || '',
-      value: props.attributes.value || ''
-    };
-    this.onUpdateInput = this.onUpdateInput.bind(this);
-    this.onNewRequest = this.onNewRequest.bind(this);
-    this.filter = this.filter.bind(this);
-    this.onBlur = this.onBlur.bind(this);
-    this.onFocus = this.onFocus.bind(this);
-  }
+function getSuggestions(value, suggestions) {
+  const inputValue = deburr(value.trim()).toLowerCase();
+  const inputLength = inputValue.length;
+  let count = 0;
 
-  componentWillReceiveProps(props) {
-    this.setState({
-      errorText: props.attributes.errorText || '',
-      value: props.attributes.value || ''
-    });
-  }
+  return inputLength === 0
+    ? suggestions
+    : suggestions.filter((suggestion) => {
+      const keep = count < 5 && suggestion.label.slice(0, inputLength).toLowerCase() === inputValue;
 
-  validate(value) {
-    let isValid = true;
-    if (this.props.rules && this.props.rules.validation) {
-      for (const data of this.props.rules.validation) {
-        isValid = validation[data.rule](value, data.value);
-        if (!isValid) {
-          return {
-            isValid: false,
-            message: data.message
-          };
-        }
+      if (keep) {
+        count += 1;
       }
-    }
-    return {
-      isValid: true,
-      message: ''
-    };
-  }
 
-  filter(...args) {
-    if (typeof this.props.filter === 'function') {
-      this.props.filter(this.props.control, ...args);
-    }
-  }
-
-  onUpdateInput(...args) {
-    this.setState({
-      value: args[0]
+      return keep;
     });
-    if (typeof this.props.onUpdateInput === 'function') {
-      this.props.onUpdateInput(this.props.control, ...args);
-    }
-  }
+}
 
-  onNewRequest(...args) {
-    if (typeof this.props.onNewRequest === 'function') {
-      this.props.onNewRequest(this.props.control, ...args);
-    }
-  }
+function getSuggestionValue(suggestion) {
+  return suggestion.label;
+}
 
-  onBlur(...args) {
-    const props = this.props;
-    const validator = this.validate(args[0].target.value);
-    if (!validator.isValid) {
-      this.setState({
-        errorText: validator.message
-      });
-    } else {
-      this.setState({
-        errorText: ''
-      });
-    }
-    if (typeof props.onBlur === 'function') {
-      props.onBlur(props.control, ...args);
-    }
-  }
+function AutoComplete(props) {
+  const {
+ library, attributes, control, onChange
+} = props;
+  const { label, id } = attributes;
+  const useStyles = library.makeStyles(theme => ({
+    root: {
+      flexGrow: 1,
+    },
+    container: {
+      position: 'relative',
+    },
+    suggestionsContainerOpen: {
+      position: 'absolute',
+      zIndex: 3,
+      marginTop: theme.spacing(0.5),
+      left: 0,
+      right: 0,
+      maxHeight: 180,
+      overflowY: 'auto',
+    },
+    suggestion: {
+      display: 'block',
+    },
+    suggestionsList: {
+      margin: 0,
+      padding: 0,
+      listStyleType: 'none',
+    },
+    divider: {
+      height: theme.spacing(2),
+    },
+  }));
 
-  onFocus(...args) {
-    if (typeof this.props.onFocus === 'function') {
-      this.props.onFocus(this.props.control, ...args);
-    }
-  }
-
-  render() {
-    const props = this.props;
-    const AUTOCOMPLETE = props.library[props.component];
-    const filter = (typeof this.props.filter === 'function') ? this.props.filter : AUTOCOMPLETE[props.attributes.filter];
+  function renderInputComponent(inputProps) {
+    const {
+      classes, inputRef = () => {
+      }, ref, ...other
+    } = inputProps;
+    const TEXTFIELD = library.TextField;
     return (
-      <div style={{ display: 'flex' }}>
-        <AUTOCOMPLETE {...props.attributes} value={this.state.value} filter={filter} errorText={this.state.errorText} onBlur={this.onBlur} onFocus={this.onFocus} onUpdateInput={this.onUpdateInput} onNewRequest={this.onNewRequest} />
-        {this.props.attributes.tooltip && <TooltipComponent tooltip={this.props.attributes.tooltip} />}
-      </div>
-);
+      <TEXTFIELD
+        fullWidth
+        InputProps={{
+          inputRef: (node) => {
+            ref(node);
+            inputRef(node);
+          },
+          classes: {
+            input: classes.input,
+          },
+          ...inputProps.custominputprops
+        }}
+        {...other}
+      />
+    );
   }
+
+  function renderSuggestion(suggestion, { query, isHighlighted }) {
+    const matches = match(suggestion.label, query);
+    const parts = parse(suggestion.label, matches);
+    const MENUITEM = library.MenuItem;
+    return (
+      <MENUITEM selected={isHighlighted} component="div">
+        <div>
+          {parts.map((part, index) => (part.highlight ? (
+            <span key={String(index)} style={{ fontWeight: 500 }}>
+              {part.text}
+            </span>
+          ) : (
+            <strong key={String(index)} style={{ fontWeight: 300 }}>
+              {part.text}
+            </strong>
+          )),)}
+        </div>
+      </MENUITEM>
+    );
+  }
+
+  const classes = useStyles();
+  const [state, setState] = React.useState({
+    single: '',
+    popper: '',
+    [id]: attributes.value || ''
+  });
+
+  const [stateSuggestions, setSuggestions] = React.useState([]);
+
+  const handleSuggestionsFetchRequested = ({ value }) => {
+    setSuggestions(getSuggestions(value, control.suggestions));
+  };
+
+  const handleSuggestionsClearRequested = () => {
+    setSuggestions([]);
+  };
+
+  const handleChange = name => (event, { newValue }) => {
+    setState({
+      ...state,
+      [name]: newValue,
+    });
+    onChange(control, newValue);
+  };
+
+  const handleOnSuggestionSelected = (name, newValue) => {
+    setState({
+      ...state,
+      [name]: newValue,
+    });
+    onChange(control, newValue);
+  };
+
+  const autosuggestProps = {
+    renderInputComponent,
+    suggestions: stateSuggestions,
+    onSuggestionsFetchRequested: handleSuggestionsFetchRequested,
+    onSuggestionsClearRequested: handleSuggestionsClearRequested,
+    getSuggestionValue,
+    renderSuggestion,
+  };
+  const PAPER = library.Paper;
+  return (
+    <div className={classes.root}>
+      <Autosuggest
+        {...autosuggestProps}
+        inputProps={{
+          id,
+          classes,
+          label,
+          value: state[id],
+          onChange: handleChange(id),
+          margin: 'normal',
+          variant: 'outlined',
+          autoComplete: 'nope',
+          custominputprops: {}
+        }}
+        theme={{
+          container: classes.container,
+          suggestionsContainerOpen: classes.suggestionsContainerOpen,
+          suggestionsList: classes.suggestionsList,
+          suggestion: classes.suggestion,
+        }}
+        shouldRenderSuggestions={() => true}
+        renderSuggestionsContainer={options => (
+          <PAPER {...options.containerProps} square>
+            {options.children}
+          </PAPER>
+        )}
+        onSuggestionSelected={(e, suggestionSelect) => {
+          handleOnSuggestionSelected(id, suggestionSelect.suggestionValue);
+        }}
+      />
+    </div>
+  )
 }
 
 AutoComplete.propTypes = {
@@ -106,12 +188,16 @@ AutoComplete.propTypes = {
   component: PropTypes.string.isRequired,
   attributes: PropTypes.object,
   control: PropTypes.object,
-  option: PropTypes.string.isRequired,
   rules: PropTypes.object,
-  onUpdateInput: PropTypes.func,
-  onNewRequest: PropTypes.func,
-  onFocus: PropTypes.func,
-  onBlur: PropTypes.func,
-  filter: PropTypes.func
+  onChange: PropTypes.func,
 };
+
+AutoComplete.defaultProps = {
+  library: null,
+  attributes: null,
+  control: null,
+  rules: null,
+  onChange: null,
+};
+
 export default AutoComplete;

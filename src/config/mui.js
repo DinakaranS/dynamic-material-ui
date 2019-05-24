@@ -40,11 +40,11 @@ const mui = {
     type: 'TimePicker',
     map: 'TimePicker'
   },
-  autocomplete: {
-    type: 'AutoComplete',
-    map: 'AutoComplete',
-    filter: 'AutoComplete'
-  },
+  // autocomplete: {
+  //   type: 'AutoComplete',
+  //   map: 'AutoComplete',
+  //   filter: 'AutoComplete'
+  // },
   label: {
     type: 'Typography',
     map: 'Label'
@@ -79,6 +79,10 @@ const mui = {
   datetimerangepicker: {
     type: 'DatetimeRangePicker',
     map: 'DatetimeRangePicker'
+  },
+  autocomplete: {
+    type: 'TextField',
+    map: 'AutoComplete'
   },
 };
 
