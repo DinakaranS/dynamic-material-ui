@@ -29,9 +29,9 @@ function getSuggestionValue(suggestion) {
 
 function AutoComplete(props) {
   const {
- library, attributes, control, onChange
-} = props;
-  const { label, id } = attributes;
+    library, attributes, control, onChange
+  } = props;
+  const { label, id, custominputprops } = attributes;
   const useStyles = library.makeStyles(theme => ({
     root: {
       flexGrow: 1,
@@ -78,11 +78,31 @@ function AutoComplete(props) {
           classes: {
             input: classes.input,
           },
-          ...inputProps.custominputprops
+          ...getInputProps()
         }}
         {...other}
       />
     );
+  }
+
+  function getInputProps() {
+    if (custominputprops) {
+      if (custominputprops.InputAdornment) {
+        const INPUTADORMENT = library.InputAdornment;
+        const ICON = library.Icon;
+        return {
+          startAdornment: (
+            <INPUTADORMENT {...custominputprops.InputAdornment}>
+              {custominputprops.InputAdornment.icon ? (
+                <ICON>
+                  {custominputprops.InputAdornment.icon}
+                </ICON>
+              ) : custominputprops.InputAdornment.text || ''}
+            </INPUTADORMENT>)
+        }
+      }
+    }
+    return {};
   }
 
   function renderSuggestion(suggestion, { query, isHighlighted }) {
@@ -160,8 +180,7 @@ function AutoComplete(props) {
           onChange: handleChange(id),
           margin: 'normal',
           variant: 'outlined',
-          autoComplete: 'nope',
-          custominputprops: {}
+          autoComplete: 'nope'
         }}
         theme={{
           container: classes.container,

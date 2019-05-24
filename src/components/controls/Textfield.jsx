@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import numeral from 'numeral';
-import Icon from '@material-ui/core/Icon';
 import validation from '../../helpers/validation';
 import TooltipComponent from '../TooltipComponent';
 
@@ -153,13 +152,14 @@ class TextField extends React.Component {
     if (attributes.InputProps) {
       if (attributes.InputProps.InputAdornment) {
         const INPUTADORMENT = props.library.InputAdornment;
+        const ICON = props.library.Icon;
         return {
           startAdornment: (
             <INPUTADORMENT {...attributes.InputProps.InputAdornment}>
               {attributes.InputProps.InputAdornment.icon ? (
-                <Icon>
+                <ICON>
                   {attributes.InputProps.InputAdornment.icon}
-                </Icon>
+                </ICON>
               ) : attributes.InputProps.InputAdornment.text || ''}
             </INPUTADORMENT>)
         }
