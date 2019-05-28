@@ -42,7 +42,7 @@ const common = {
       },
       {
         test: /\.md$/,
-        loaders: ['catalog/loader', 'raw-loader']
+        loaders: ['@catalog/markdown-loader', 'raw-loader']
       },
       {
         test: /\.png$/,

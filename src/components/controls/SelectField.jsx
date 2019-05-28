@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MultiSelectField, { components, Creatable } from 'react-select';
+import MultiSelectField, { components } from 'react-select';
+import Creatable from 'react-select/creatable';
 import map from 'lodash/map';
 import find from 'lodash/find';
 import isArray from 'lodash/isArray';

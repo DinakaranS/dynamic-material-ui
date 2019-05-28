@@ -229,8 +229,8 @@ const mui = [
     id: 7,
     type: 'toggle',
     props: {
-      id: 'aztec',
-      label: 'Are you loving react-aztec?',
+      id: 'dynamic',
+      label: 'Are you loving dynamic-material-ui?',
       defaultToggled: true
     },
     layout: {

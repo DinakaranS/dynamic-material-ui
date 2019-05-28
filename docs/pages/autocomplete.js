@@ -1,14 +1,17 @@
+/* eslint-disable */
 import React from 'react';
-import { Page, ReactSpecimen } from 'catalog';
+import { Page } from 'catalog';
 import JSONTree from 'react-json-tree';
 import Highlight from 'react-highlight';
 import 'highlight.js/styles/zenburn.css';
 import * as MUI from '@material-ui/core';
-import RaisedButton from '@material-ui/core/RaisedButton';
-import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from '@material-ui/core/Table';
+// import RaisedButton from '@material-ui/core/RaisedButton'; //
+import {
+ Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn
+} from '@material-ui/core/Table';
 
-import { FormGenerator } from './../../src';
-import JSONData from './../data/autocomplete';
+import { FormGenerator } from '../../src';
+import JSONData from '../data/autocomplete';
 
 
 /** Demo Component */
@@ -20,9 +23,11 @@ class AutoComplete extends React.Component {
     };
     this.onUpdate = this.onUpdate.bind(this);
   }
+
   onUpdate(...args) {
     const control = args[0];
-    const formData = this.state.formData;
+    const state = this.state;
+    const formData = state.formData;
     if (control.type === 'textfield') {
       formData[control.id] = args[2];
     }
@@ -30,6 +35,7 @@ class AutoComplete extends React.Component {
       formData
     });
   }
+
   render() {
     const sourceCode = `
 import { FormGenerator } from 'dynamic-material-ui';

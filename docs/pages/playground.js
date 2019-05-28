@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { Page } from 'catalog';
 import 'highlight.js/styles/zenburn.css';
 import * as MUI from '@material-ui/core';
