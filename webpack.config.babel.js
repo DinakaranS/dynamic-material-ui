@@ -2,7 +2,7 @@ import * as path from 'path';
 
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import CleanWebpackPlugin from 'clean-webpack-plugin';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import merge from 'webpack-merge';
 
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
@@ -70,7 +70,7 @@ const siteCommon = {
   plugins: [
     new HtmlWebpackPlugin({
       template: require('html-webpack-template'), // eslint-disable-line global-require
-      inject: false,
+      inject: true,
       mobile: true,
       title: pkg.name,
       appMountId: 'app'

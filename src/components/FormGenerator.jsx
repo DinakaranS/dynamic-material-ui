@@ -16,7 +16,7 @@ const LIBMap = {
 };
 
 const response = {};
-
+const onchangeData = {};
 const getFieldValue = (...args) => {
   const a = args[0];
   const type = a.type;
@@ -213,6 +213,8 @@ export const FormGenerator = (props) => {
   }
   const layout = generateLayout(data);
   config.modules = library;
+  const { guid } = props;
+  if (guid) onchangeData[guid] = false;
   return (
     <div>
       {
@@ -242,6 +244,7 @@ export const FormGenerator = (props) => {
                         if (typeof props.onChange === 'function') {
                           props.onChange(...args);
                         }
+                        onchangeData[props.guid] = true;
                       }
                     }
                     onBlur={props.onBlur}
@@ -252,6 +255,7 @@ export const FormGenerator = (props) => {
                         if (typeof props.onCheck === 'function') {
                           props.onCheck(...args);
                         }
+                        onchangeData[props.guid] = true;
                       }
                     }
                     onToggle={
@@ -260,6 +264,7 @@ export const FormGenerator = (props) => {
                         if (typeof props.onToggle === 'function') {
                           props.onToggle(...args);
                         }
+                        onchangeData[props.guid] = true;
                       }
                     }
                     onShow={props.onShow}
@@ -271,6 +276,7 @@ export const FormGenerator = (props) => {
                         if (typeof props.onUpdateInput === 'function') {
                           props.onUpdateInput(...args);
                         }
+                        onchangeData[props.guid] = true;
                       }
                     }
                     onNewRequest={props.onNewRequest}
@@ -280,6 +286,7 @@ export const FormGenerator = (props) => {
                         if (typeof props.onSubmitModel === 'function') {
                           props.onSubmitModel(...args);
                         }
+                        onchangeData[props.guid] = true;
                       }
                     }
                   />
@@ -311,6 +318,7 @@ export const FormGenerator = (props) => {
                     if (typeof props.onChange === 'function') {
                       props.onChange(...args);
                     }
+                    onchangeData[props.guid] = true;
                   }
                 }
                 onBlur={props.onBlur}
@@ -321,6 +329,7 @@ export const FormGenerator = (props) => {
                     if (typeof props.onCheck === 'function') {
                       props.onCheck(...args);
                     }
+                    onchangeData[props.guid] = true;
                   }
                 }
                 onToggle={
@@ -329,6 +338,7 @@ export const FormGenerator = (props) => {
                     if (typeof props.onToggle === 'function') {
                       props.onToggle(...args);
                     }
+                    onchangeData[props.guid] = true;
                   }
                 }
                 onShow={props.onShow}
@@ -340,6 +350,7 @@ export const FormGenerator = (props) => {
                     if (typeof props.onUpdateInput === 'function') {
                       props.onUpdateInput(...args);
                     }
+                    onchangeData[props.guid] = true;
                   }
                 }
                 onNewRequest={props.onNewRequest}
@@ -348,6 +359,7 @@ export const FormGenerator = (props) => {
                     if (typeof props.onSubmitModel === 'function') {
                       props.onSubmitModel(...args);
                     }
+                    onchangeData[props.guid] = true;
                   }
                 }
                 filter={props.filter}
@@ -374,14 +386,16 @@ export const FormGenerator = (props) => {
 
 export const ClearFormGeneratorByGuid = (guid = '') => {
   if (guid) {
-    delete response[guid]
+    delete response[guid];
+    delete onchangeData[guid];
   }
 };
 
 export const ClearFormGeneratorAll = (except = []) => {
   _.map(Object.keys(response), function (k) {
     if (except.indexOf(k) === -1) {
-      delete response[k]
+      delete response[k];
+      delete onchangeData[k];
     }
   })
 };
@@ -393,8 +407,13 @@ export const CurrentFormResponseDataByGuid = (guid) => {
   return response[guid];
 };
 
-export const AllFormResponseData = (guid) => {
+export const AllFormResponseData = () => {
   return response;
+};
+
+export const isFormChanged = (guid = '') => {
+  if (guid) return onchangeData[guid] || false;
+  return onchangeData;
 };
 
 FormGenerator.propTypes = {
@@ -450,5 +469,6 @@ export default {
   ClearFormGeneratorByGuid,
   ClearFormGeneratorAll,
   CurrentFormResponseDataByGuid,
-  AllFormResponseData
+  AllFormResponseData,
+  isFormChanged
 };

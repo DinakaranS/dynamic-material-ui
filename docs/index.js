@@ -30,52 +30,64 @@ const title = `${NAME} v${VERSION}`; // eslint-disable-line no-undef
 const project = `${USER}/${NAME}`; // eslint-disable-line no-undef
 
 // Create a convenient loader for markdown files
-const pagedownLoader = page => pageLoader(() => import(`./${page}`));
+const demoMUI = () => pageLoader(() => import('./pages/demo-mui'));
+const textfield = () => pageLoader(() => import('./pages/textfield'));
+const selectfield = () => pageLoader(() => import('./pages/selectfield'));
+const checkbox = () => pageLoader(() => import('./pages/checkbox'));
+const radio = () => pageLoader(() => import('./pages/radio'));
+const toggle = () => pageLoader(() => import('./pages/toggle'));
+const datepicker = () => pageLoader(() => import('./pages/datepicker'));
+const timepicker = () => pageLoader(() => import('./pages/timepicker'));
+const layout = () => pageLoader(() => import('./pages/layout'));
+const validation = () => pageLoader(() => import('./pages/validation'));
+const playground = () => pageLoader(() => import('./pages/playground'));
+const README = pageLoader('../README.md');
+
 const pages = [
   {
     path: '/',
     title: 'Introduction',
-    content: pageLoader('../README.md')
+    content: README
   },
   {
     path: '/simpleform',
     title: 'Simple Form',
-    component: pagedownLoader('pages/demo-mui')
+    component: demoMUI()
   },
   {
     path: '/textfield',
     title: 'Textfield',
-    component: pagedownLoader('pages/textfield')
+    component: textfield()
   },
   {
     path: '/selectfield',
     title: 'Selectfield',
-    component: pagedownLoader('pages/selectfield')
+    component: selectfield()
   },
   {
     path: '/checkbox',
     title: 'Checkbox',
-    component: pagedownLoader('pages/checkbox')
+    component: checkbox()
   },
   {
     path: '/radio',
     title: 'Radio',
-    component: pagedownLoader('pages/radio')
+    component: radio()
   },
   {
     path: '/toggle',
     title: 'Toggle',
-    component: pagedownLoader('pages/toggle')
+    component: toggle()
   },
   {
     path: '/datepicker',
     title: 'Datepicker',
-    component: pagedownLoader('pages/datepicker')
+    component: datepicker()
   },
   {
     path: '/timepicker',
     title: 'Timepicker',
-    component: pagedownLoader('pages/timepicker')
+    component: timepicker()
   },
   // {
   //   path: '/autocomplete',
@@ -85,17 +97,17 @@ const pages = [
   {
     path: '/layout',
     title: 'Layout',
-    component: pagedownLoader('pages/layout')
+    component: layout()
   },
   {
     path: '/validation',
     title: 'Validation',
-    content: pagedownLoader('pages/validation')
+    content: validation()
   },
   {
     path: '/playground',
     title: 'Playground',
-    content: pagedownLoader('pages/playground'),
+    content: playground()
   }
 ];
 

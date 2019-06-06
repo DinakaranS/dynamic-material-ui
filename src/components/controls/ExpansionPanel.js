@@ -5,7 +5,7 @@ import { FormGenerator } from '../FormGenerator';
 class ExpansionPanel extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {};
   }
 
   render() {
@@ -41,6 +41,7 @@ class ExpansionPanel extends React.Component {
                       guid={content.guid}
                       patch={content.patch || {}}
                       forceUpdate={content.forceUpdate || false}
+                      onChangeAddForm={props.onChangeAddForm}
                     />
                   </GRID>
                 ) : <div />}
@@ -59,11 +60,13 @@ ExpansionPanel.propTypes = {
   attributes: PropTypes.object,
   control: PropTypes.object,
   rules: PropTypes.object,
+  onChangeAddForm: PropTypes.func
 };
 ExpansionPanel.defaultProps = {
   library: null,
   attributes: null,
   control: null,
   rules: null,
+  onChangeAddForm: null
 };
 export default ExpansionPanel;
