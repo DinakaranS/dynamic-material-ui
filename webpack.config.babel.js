@@ -70,7 +70,7 @@ const siteCommon = {
   plugins: [
     new HtmlWebpackPlugin({
       template: require('html-webpack-template'), // eslint-disable-line global-require
-      inject: true,
+      inject: false,
       mobile: true,
       title: pkg.name,
       appMountId: 'app'

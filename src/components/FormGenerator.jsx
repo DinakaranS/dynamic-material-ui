@@ -395,7 +395,6 @@ export const ClearFormGeneratorAll = (except = []) => {
   _.map(Object.keys(response), function (k) {
     if (except.indexOf(k) === -1) {
       delete response[k];
-      delete onchangeData[k];
     }
   })
 };
@@ -414,6 +413,12 @@ export const AllFormResponseData = () => {
 export const isFormChanged = (guid = '') => {
   if (guid) return onchangeData[guid] || false;
   return onchangeData;
+};
+
+export const ClearFormChangedData = () => {
+  _.map(Object.keys(onchangeData), function (k) {
+    delete onchangeData[k];
+  })
 };
 
 FormGenerator.propTypes = {
@@ -470,5 +475,6 @@ export default {
   ClearFormGeneratorAll,
   CurrentFormResponseDataByGuid,
   AllFormResponseData,
-  isFormChanged
+  isFormChanged,
+  ClearFormChangedData
 };

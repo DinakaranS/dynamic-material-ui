@@ -2,7 +2,10 @@ import {
   FormGenerator,
   ClearFormGeneratorAll,
   ClearFormGeneratorByGuid,
-  CurrentFormResponseDataByGuid, AllFormResponseData, isFormChanged
+  CurrentFormResponseDataByGuid,
+  AllFormResponseData,
+  isFormChanged,
+  ClearFormChangedData
 } from './components/FormGenerator';
 
 module.exports = {
@@ -11,5 +14,6 @@ module.exports = {
   ClearFormGeneratorByGuid,
   CurrentFormResponseDataByGuid,
   AllFormResponseData,
-  isFormChanged
+  isFormChanged,
+  ClearFormChangedData
 };

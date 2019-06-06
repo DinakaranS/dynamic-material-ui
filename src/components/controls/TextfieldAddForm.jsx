@@ -108,10 +108,9 @@ class TextField extends React.Component {
 
   onChange(...args) {
     const props = this.props;
-    this.setState({
-      value: args[0].target.value
-    });
-    const formattedValue = this.getFormattedValue(args[0].target.value);
+    const value = args[0].target.value;
+    this.setState({ value });
+    const formattedValue = this.getFormattedValue(value);
     if (typeof props.onChange === 'function') {
       props.onChange(props.control, args[0], formattedValue);
     }
@@ -201,9 +200,9 @@ class TextField extends React.Component {
             }
           }
         };
-        const addform = props.control.addform;
-        const data = addform.data || [];
         for (let i = 0; i < v; i += 1) {
+          const { addform } = props.control;
+          const data = addform.data || [];
           const n = i + 1;
           const t = addform.text;
           const text = addform.shownumber ? `${t} #${n}` : t;
