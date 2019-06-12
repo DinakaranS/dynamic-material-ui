@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import DateFnsUtils from '@date-io/date-fns';
-import { DateTimePicker, MuiPickersUtilsProvider } from 'material-ui-pickers';
+import { DateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import TooltipComponent from '../TooltipComponent';
 
 function transformAttrs(props) {
@@ -72,8 +72,8 @@ class DatePicker extends React.Component {
         <div style={{ display: 'flex' }}>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <DateTimePicker onChange={this.onChange} {...attributes} />
-            {props.attributes.tooltip && <TooltipComponent tooltip={props.attributes.tooltip} />}
           </MuiPickersUtilsProvider>
+          {props.attributes.tooltip && <TooltipComponent tooltip={props.attributes.tooltip} />}
         </div>
       </MUITHEAMPROVIDER>
     )

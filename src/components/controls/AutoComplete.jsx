@@ -169,7 +169,7 @@ function AutoComplete(props) {
   };
   const PAPER = library.Paper;
   return (
-    <div className={classes.root}>
+    <div className={classes.root} style={attributes.style}>
       <Autosuggest
         {...autosuggestProps}
         inputProps={{

@@ -33,7 +33,7 @@ class Checkbox extends React.Component {
         {!props.control.options ? (
           <div style={{ display: 'flex' }}>
             <FORMCONTROLLABEL {...props.attributes.formcontrollabel}
-              control={<CHECKBOX {...props.attributes} checked={checked} onChange={this.onCheck} />}
+              control={<CHECKBOX {...props.attributes} checked={checked || false} onChange={this.onCheck} />}
               label={props.attributes.label} />
             {props.attributes.tooltip && <TooltipComponent tooltip={props.attributes.tooltip} />}
           </div>
