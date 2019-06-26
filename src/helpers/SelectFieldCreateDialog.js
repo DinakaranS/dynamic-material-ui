@@ -195,6 +195,17 @@ SelectFieldCreateDialog.propTypes = {
   handleClose: PropTypes.func,
   model: PropTypes.object,
   handleSave: PropTypes.func,
+  onChange: PropTypes.func,
+  onBlur: PropTypes.func,
+  onClick: PropTypes.func,
+  onCheck: PropTypes.func,
+  onToggle: PropTypes.func,
+  onShow: PropTypes.func,
+  onFocus: PropTypes.func,
+  onDismiss: PropTypes.func,
+  onNewRequest: PropTypes.func,
+  filter: PropTypes.func,
+  onUpdateInput: PropTypes.func,
 };
 
 SelectFieldCreateDialog.defaultProps = {
@@ -202,7 +213,18 @@ SelectFieldCreateDialog.defaultProps = {
   library: null,
   handleClose: null,
   model: {},
-  handleSave: null
+  handleSave: null,
+  onChange: null,
+  onBlur: null,
+  onClick: null,
+  onCheck: null,
+  onToggle: null,
+  onShow: null,
+  onFocus: null,
+  onDismiss: null,
+  onNewRequest: null,
+  filter: null,
+  onUpdateInput: null,
 };
 
 export default SelectFieldCreateDialog;

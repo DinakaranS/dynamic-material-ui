@@ -33,7 +33,7 @@ class Validation extends React.Component {
             </TableHeader>
             <TableBody>
               <TableRow>
-                <TableCell style={{'white-space': 'normal'}}>
+                <TableCell style={{whiteSpace: 'normal'}}>
                   mandatory
                 </TableCell>
                 <TableCell>
@@ -50,7 +50,7 @@ class Validation extends React.Component {
                 <TableCell>
                   email
                 </TableCell>
-                <TableCell style={{'white-space': 'normal'}}>
+                <TableCell style={{whiteSpace: 'normal'}}>
                 {`{
                   rule: 'email',
                   message: 'error message'
@@ -64,7 +64,7 @@ class Validation extends React.Component {
                 <TableCell>
                   equals
                 </TableCell>
-                <TableCell style={{ 'white-space': 'normal' }}>
+                <TableCell style={{ whiteSpace: 'normal' }}>
                   {`{
                     rule: 'equals',
                     message: 'error message',
@@ -79,14 +79,14 @@ class Validation extends React.Component {
                 <TableCell>
                   mobile
                 </TableCell>
-                <TableCell style={{ 'white-space': 'normal' }}>
+                <TableCell style={{ whiteSpace: 'normal' }}>
                   {`{
                     rule: 'mobile',
                     message: 'error message',
                     value: 'locale'
                   }`}
                 </TableCell>
-                <TableCell style={{ 'white-space': 'normal' }}>
+                <TableCell style={{ whiteSpace: 'normal' }}>
                   {`check if the string is a mobile phone number, (locale is one of ['ar-DZ', 'ar-SA', 'ar-SY', 'cs-CZ', 'de-DE', 'da-DK', 'el-GR', 'en-AU', 'en-GB', 'en-HK', 'en-IN', 'en-NZ', 'en-US', 'en-CA', 'en-ZA', 'en-ZM', 'es-ES', 'fi-FI', 'fr-FR', 'hu-HU', 'it-IT', 'ja-JP', 'ms-MY', 'nb-NO', 'nn-NO', 'pl-PL', 'pt-PT', 'ru-RU', 'sr-RS', 'tr-TR', 'vi-VN', 'zh-CN', 'zh-TW'])`}
                 </TableCell>
               </TableRow>
@@ -94,7 +94,7 @@ class Validation extends React.Component {
                 <TableCell>
                   lowercase
                 </TableCell>
-                <TableCell style={{'white-space': 'normal'}}>
+                <TableCell style={{whiteSpace: 'normal'}}>
                 {`{
                   rule: 'lowercase',
                   message: 'error message'
@@ -108,7 +108,7 @@ class Validation extends React.Component {
                 <TableCell>
                   uppercase
                 </TableCell>
-                <TableCell style={{'white-space': 'normal'}}>
+                <TableCell style={{whiteSpace: 'normal'}}>
                 {`{
                   rule: 'uppercase',
                   message: 'error message'
@@ -122,14 +122,14 @@ class Validation extends React.Component {
                 <TableCell>
                   length
                 </TableCell>
-                <TableCell style={{'white-space': 'normal'}}>
+                <TableCell style={{whiteSpace: 'normal'}}>
                 {`{
                   rule: 'length',
                   message: 'error message',
                   value: {min: 4, max: 10}
                 }`}
                 </TableCell>
-                <TableCell style={{'white-space': 'normal'}}>
+                <TableCell style={{whiteSpace: 'normal'}}>
                   {`check if the string's length falls in a range. options is an object which defaults to {min:0, max: undefined}`}
                 </TableCell>
               </TableRow>
@@ -137,14 +137,14 @@ class Validation extends React.Component {
                 <TableCell>
                   url
                 </TableCell>
-                <TableCell style={{'white-space': 'normal'}}>
+                <TableCell style={{whiteSpace: 'normal'}}>
                 {`{
                   rule: 'url',
                   message: 'error message',
                   value: 'options'
                 }`}
                 </TableCell>
-                <TableCell style={{'white-space': 'normal'}}>
+                <TableCell style={{whiteSpace: 'normal'}}>
                   {`check if the string is an URL. options is an object which defaults to { protocols: ['http','https','ftp'], require_tld: true, require_protocol: false, require_host: true, require_valid_protocol: true, allow_underscores: false, host_whitelist: false, host_blacklist: false, allow_trailing_dot: false, allow_protocol_relative_urls: false }`}
                 </TableCell>
               </TableRow>
@@ -152,7 +152,7 @@ class Validation extends React.Component {
                 <TableCell>
                   creditcard
                 </TableCell>
-                <TableCell style={{'white-space': 'normal'}}>
+                <TableCell style={{whiteSpace: 'normal'}}>
                 {`{
                   rule: 'creditcard',
                   message: 'error message'
@@ -166,14 +166,14 @@ class Validation extends React.Component {
                 <TableCell>
                   currency
                 </TableCell>
-                <TableCell style={{'white-space': 'normal'}}>
+                <TableCell style={{whiteSpace: 'normal'}}>
                 {`{
                   rule: 'currency',
                   message: 'error message',
                   value: 'options'
                 }`}
                 </TableCell>
-                <TableCell style={{'white-space': 'normal'}}>
+                <TableCell style={{whiteSpace: 'normal'}}>
                   {`check if the string is a valid currency amount. options is an object which defaults to {symbol: '$', require_symbol: false, allow_space_after_symbol: false, symbol_after_digits: false, allow_negatives: true, parens_for_negatives: false, negative_sign_before_digits: false, negative_sign_after_digits: false, allow_negative_sign_placeholder: false, thousands_separator: ',', decimal_separator: '.', allow_space_after_digits: false }`}
                 </TableCell>
               </TableRow>
@@ -181,7 +181,7 @@ class Validation extends React.Component {
                 <TableCell>
                   date
                 </TableCell>
-                <TableCell style={{'white-space': 'normal'}}>
+                <TableCell style={{whiteSpace: 'normal'}}>
                 {`{
                   rule: 'date',
                   message: 'error message'
@@ -195,7 +195,7 @@ class Validation extends React.Component {
                 <TableCell>
                   boolean
                 </TableCell>
-                <TableCell style={{'white-space': 'normal'}}>
+                <TableCell style={{whiteSpace: 'normal'}}>
                 {`{
                   rule: 'boolean',
                   message: 'error message'
@@ -209,14 +209,14 @@ class Validation extends React.Component {
                 <TableCell>
                   alphanumeric
                 </TableCell>
-                <TableCell style={{'white-space': 'normal'}}>
+                <TableCell style={{whiteSpace: 'normal'}}>
                 {`{
                   rule: 'alphanumeric',
                   message: 'error message',
                   value: 'locale'
                 }`}
                 </TableCell>
-                <TableCell style={{'white-space': 'normal'}}>
+                <TableCell style={{whiteSpace: 'normal'}}>
                   {`check if the string contains only letters and numbers. Locale is one of ['ar', 'ar-AE', 'ar-BH', 'ar-DZ', 'ar-EG', 'ar-IQ', 'ar-JO', 'ar-KW', 'ar-LB', 'ar-LY', 'ar-MA', 'ar-QA', 'ar-QM', 'ar-SA', 'ar-SD', 'ar-SY', 'ar-TN', 'ar-YE', 'cs-CZ', 'da-DK', 'de-DE', 'en-AU', 'en-GB', 'en-HK', 'en-IN', 'en-NZ', 'en-US', 'en-ZA', 'en-ZM', 'es-ES', 'fr-FR', 'fr-BE', 'hu-HU', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-BR', 'pt-PT', 'ru-RU', 'sr-RS', 'sr-RS@latin', 'tr-TR', 'uk-UA']) and defaults to en-US`}
                 </TableCell>
               </TableRow>
@@ -224,7 +224,7 @@ class Validation extends React.Component {
                 <TableCell>
                   contains
                 </TableCell>
-                <TableCell style={{'white-space': 'normal'}}>
+                <TableCell style={{whiteSpace: 'normal'}}>
                 {`{
                   rule: 'contains',
                   message: 'error message',
@@ -239,14 +239,14 @@ class Validation extends React.Component {
                 <TableCell>
                   FQDN
                 </TableCell>
-                <TableCell style={{'white-space': 'normal'}}>
+                <TableCell style={{whiteSpace: 'normal'}}>
                 {`{
                   rule: 'FQDN',
                   message: 'error message',
                   value: 'options'
                 }`}
                 </TableCell>
-                <TableCell style={{'white-space': 'normal'}}>
+                <TableCell style={{whiteSpace: 'normal'}}>
                   {`check if the string is a fully qualified domain name (e.g. domain.com). options is an object which defaults to { require_tld: true, allow_underscores: false, allow_trailing_dot: false }`}
                 </TableCell>
               </TableRow>
@@ -254,14 +254,14 @@ class Validation extends React.Component {
                 <TableCell>
                   float
                 </TableCell>
-                <TableCell style={{'white-space': 'normal'}}>
+                <TableCell style={{whiteSpace: 'normal'}}>
                 {`{
                   rule: 'float',
                   message: 'error message',
                   value: 'options'
                 }`}
                 </TableCell>
-                <TableCell style={{'white-space': 'normal'}}>
+                <TableCell style={{whiteSpace: 'normal'}}>
                   {`check if the string is a float. options is an object which can contain the keys min, max, gt, and/or lt to validate the float is within boundaries (e.g. { min: 7.22, max: 9.55 }). min and max are equivalent to 'greater or equal' and 'less or equal', respectively while gt and lt are their strict counterparts.`}
                 </TableCell>
               </TableRow>
@@ -269,7 +269,7 @@ class Validation extends React.Component {
                 <TableCell>
                   ip
                 </TableCell>
-                <TableCell style={{'white-space': 'normal'}}>
+                <TableCell style={{whiteSpace: 'normal'}}>
                 {`{
                   rule: 'ip',
                   message: 'error message',
@@ -284,7 +284,7 @@ class Validation extends React.Component {
                 <TableCell>
                   MACAddress
                 </TableCell>
-                <TableCell style={{'white-space': 'normal'}}>
+                <TableCell style={{whiteSpace: 'normal'}}>
                 {`{
                   rule: 'MACAddress',
                   message: 'error message'
@@ -298,7 +298,7 @@ class Validation extends React.Component {
                 <TableCell>
                   MD5
                 </TableCell>
-                <TableCell style={{'white-space': 'normal'}}>
+                <TableCell style={{whiteSpace: 'normal'}}>
                 {`{
                   rule: 'MD5',
                   message: 'error message'
@@ -312,7 +312,7 @@ class Validation extends React.Component {
                 <TableCell>
                   numeric
                 </TableCell>
-                <TableCell style={{'white-space': 'normal'}}>
+                <TableCell style={{whiteSpace: 'normal'}}>
                 {`{
                   rule: 'numeric',
                   message: 'error message'
@@ -326,7 +326,7 @@ class Validation extends React.Component {
                 <TableCell>
                   negative
                 </TableCell>
-                <TableCell style={{'white-space': 'normal'}}>
+                <TableCell style={{whiteSpace: 'normal'}}>
                 {`{
                   rule: 'negative',
                   message: 'error message'
@@ -340,7 +340,7 @@ class Validation extends React.Component {
                 <TableCell>
                   UUID
                 </TableCell>
-                <TableCell style={{'white-space': 'normal'}}>
+                <TableCell style={{whiteSpace: 'normal'}}>
                 {`{
                   rule: 'UUID',
                   message: 'error message',
@@ -355,7 +355,7 @@ class Validation extends React.Component {
                 <TableCell>
                   matches
                 </TableCell>
-                <TableCell style={{'white-space': 'normal'}}>
+                <TableCell style={{whiteSpace: 'normal'}}>
                 {`{
                   rule: 'matches',
                   message: 'error message',
@@ -370,14 +370,14 @@ class Validation extends React.Component {
                 <TableCell>
                   int
                 </TableCell>
-                <TableCell style={{'white-space': 'normal'}}>
+                <TableCell style={{whiteSpace: 'normal'}}>
                 {`{
                   rule: 'int',
                   message: 'error message',
                   value: 'options'
                 }`}
                 </TableCell>
-                <TableCell style={{'white-space': 'normal'}}>
+                <TableCell style={{whiteSpace: 'normal'}}>
                   {`check if the string is an integer. options is an object which can contain the keys min and/or max to check the integer is within boundaries (e.g. { min: 10, max: 99 }). options can also contain the key allow_leading_zeroes, which when set to false will disallow integer values with leading zeroes (e.g. { allow_leading_zeroes: false }). Finally, options can contain the keys gt and/or lt which will enforce integers being greater than or less than, respectively, the value provided (e.g. {gt: 1, lt: 4} for a number between 1 and 4)`}
                 </TableCell>
               </TableRow>
@@ -385,7 +385,7 @@ class Validation extends React.Component {
                 <TableCell>
                   hexcolor
                 </TableCell>
-                <TableCell style={{'white-space': 'normal'}}>
+                <TableCell style={{whiteSpace: 'normal'}}>
                 {`{
                   rule: 'hexcolor',
                   message: 'error message'
@@ -399,7 +399,7 @@ class Validation extends React.Component {
                 <TableCell>
                   dataURI
                 </TableCell>
-                <TableCell style={{'white-space': 'normal'}}>
+                <TableCell style={{whiteSpace: 'normal'}}>
                 {`{
                   rule: 'dataURI',
                   message: 'error message'
@@ -413,13 +413,13 @@ class Validation extends React.Component {
                 <TableCell>
                   decimal
                 </TableCell>
-                <TableCell style={{'white-space': 'normal'}}>
+                <TableCell style={{whiteSpace: 'normal'}}>
                 {`{
                   rule: 'decimal',
                   message: 'error message'
                 }`}
                 </TableCell>
-                <TableCell style={{'white-space': 'normal'}}>
+                <TableCell style={{whiteSpace: 'normal'}}>
                   {`check if the string represents a decimal number, such as 0.1, .3, 1.1, 1.00003, 4.0, etc.`}
                 </TableCell>
               </TableRow>
@@ -427,14 +427,14 @@ class Validation extends React.Component {
                 <TableCell>
                   alpha
                 </TableCell>
-                <TableCell style={{'white-space': 'normal'}}>
+                <TableCell style={{whiteSpace: 'normal'}}>
                 {`{
                   rule: 'alpha',
                   message: 'error message',
                   value: 'locale'
                 }`}
                 </TableCell>
-                <TableCell style={{'white-space': 'normal'}}>
+                <TableCell style={{whiteSpace: 'normal'}}>
                   {`check if the string contains only letters (a-zA-Z). Locale is one of ['ar', 'ar-AE', 'ar-BH', 'ar-DZ', 'ar-EG', 'ar-IQ', 'ar-JO', 'ar-KW', 'ar-LB', 'ar-LY', 'ar-MA', 'ar-QA', 'ar-QM', 'ar-SA', 'ar-SD', 'ar-SY', 'ar-TN', 'ar-YE', 'cs-CZ', 'da-DK', 'de-DE', 'en-AU', 'en-GB', 'en-HK', 'en-IN', 'en-NZ', 'en-US', 'en-ZA', 'en-ZM', 'es-ES', 'fr-FR', 'hu-HU', 'nl-NL', 'pl-PL', 'pt-BR', 'pt-PT', 'ru-RU', 'sr-RS', 'sr-RS@latin', 'tr-TR', 'uk-UA']) and defaults to en-US.`}
                 </TableCell>
               </TableRow>

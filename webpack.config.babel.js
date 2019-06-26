@@ -8,6 +8,7 @@ import merge from 'webpack-merge';
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const formatter = require('eslint/lib/cli-engine/formatters/stylish');
 const pkg = require('./package.json');
 
 const TARGET = process.env.npm_lifecycle_event || '';
@@ -34,11 +35,18 @@ const common = {
       {
         enforce: 'pre',
         test: /\.(js|jsx)$/,
-        loaders: ['eslint-loader'],
         include: [
           config.paths.docs,
           config.paths.src
-        ]
+        ],
+        use: [
+          {
+            loader: 'eslint-loader',
+            options: {
+              formatter
+            },
+          },
+        ],
       },
       {
         test: /\.md$/,
