@@ -3,20 +3,23 @@ import PropTypes from 'prop-types';
 import TooltipComponent from '../TooltipComponent';
 
 /** Label Component */
-// const Label = props => (<div {...props.attributes}>
-//   <div style={{ display: 'flex' }} >
-//     <span>{props.attributes.text}</span>
-//     {props.attributes.tooltip && <TooltipComponent tooltip={props.attributes.tooltip} />}</div>
-// </div>);
 function Label(props) {
   const { library, component, attributes } = props;
   const TYPOGRAPHY = library[component];
+
+  const toolTip = React.useMemo(() => (attributes.tooltip
+    ? <TooltipComponent tooltip={attributes.tooltip} /> : null), []);
+
+  const typography = React.useMemo(() => (
+    <TYPOGRAPHY {...attributes}>
+      {attributes.text}
+    </TYPOGRAPHY>
+  ), []);
+
   return (
-    <div style={{ display: 'flex' }}>
-      <TYPOGRAPHY {...attributes}>
-        {attributes.text}
-      </TYPOGRAPHY>
-      {attributes.tooltip && <TooltipComponent tooltip={attributes.tooltip} />}
+    <div style={attributes.tooltip ? { display: 'flex' } : null}>
+      {typography}
+      {toolTip}
     </div>
   )
 }
