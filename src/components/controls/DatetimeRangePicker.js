@@ -12,7 +12,7 @@ function transformAttrs(props) {
   const startDate = props.attributes[startdatefieldname];
   const endDate = props.attributes[enddatefieldname];
   const modifiedAttrs = {
-    startDate: startDate ? moment(startDate) : moment().startOf('day'),
+    startDate: startDate ? moment(startDate) : moment().startOf('day').add(7, 'hours'),
     endDate: endDate ? moment(endDate) : moment().endOf('day')
   };
   if (enableranges) {

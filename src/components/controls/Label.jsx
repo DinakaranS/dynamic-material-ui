@@ -16,11 +16,17 @@ function Label(props) {
     </TYPOGRAPHY>
   ), []);
 
-  return (
-    <div style={attributes.tooltip ? { display: 'flex' } : null}>
+  const labelWrapper = React.useMemo(() => (attributes.tooltip ? (
+    <div style={{ display: 'flex' }}>
       {typography}
       {toolTip}
     </div>
+  ) : <>{typography}</>));
+
+  return (
+    <>
+      {labelWrapper}
+    </>
   )
 }
 
