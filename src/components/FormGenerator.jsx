@@ -127,6 +127,11 @@ const updateResponse = (fields, patch, guid) => {
         updateDateRangePickerResponse(guid, field, patch);
       } else if (response[guid][field.id] === '' || response[guid][field.id] === undefined) {
         response[guid][field.id] = field.props.value || field.props.defaultSelected || field.props.defaultChecked || field.props.defaultToggled || field.props.selected || '';
+        if (field.props.setdefaultvalueifempty) {
+          response[guid][field.id] = moment.utc()
+            .startOf('day')
+            .add(7, 'hours').format('YYYY-MM-DD HH:mm:ss');
+        }
       } else {
         response[guid][field.id] = response[guid][field.id];
       }
