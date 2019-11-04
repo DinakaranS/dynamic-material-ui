@@ -18,7 +18,7 @@ import JSONData from '../data/sample';
 let editor = null;
 let container = null;
 
-const styles = theme => ({
+const styles = (theme) => ({
   imageInput: {
     cursor: 'pointer',
     position: 'absolute',
@@ -199,7 +199,8 @@ class Playground extends React.Component {
                   formRef={
                                  (form) => {
                                    this.formRef = form;
-                                 }}
+                                 }
+}
                   library={MUI}
                   guid={Date.parse(new Date().toISOString()).toString()}
                   onSubmit={this.onSubmit} />

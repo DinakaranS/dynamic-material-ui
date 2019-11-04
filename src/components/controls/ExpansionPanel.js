@@ -30,7 +30,8 @@ class ExpansionPanel extends React.Component {
             <EXPANSIONPANEL {...expansionPanel} key={index}>
               <EXPANSIONPANELSUMMARY {...expansionPanelSummary}
                 expandIcon={
-                  <ICON {...expandIcon}>{expansionPanelSummary.icon ? expansionPanelSummary.icon : 'expand_more'}</ICON>}>
+                  <ICON {...expandIcon}>{expansionPanelSummary.icon ? expansionPanelSummary.icon : 'expand_more'}</ICON>
+}>
                 <TOPOGRAPHY {...headerTypography}>{headerTypography.text ? headerTypography.text : ''}</TOPOGRAPHY>
               </EXPANSIONPANELSUMMARY>
               <EXPANSIONPANELDETAILS {...expansionPanelDetails} style={{ width: 'auto' }}>

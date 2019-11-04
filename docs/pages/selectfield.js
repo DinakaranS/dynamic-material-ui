@@ -15,7 +15,7 @@ import Paper from '@material-ui/core/Paper';
 import { FormGenerator } from '../../src';
 import JSONData from '../data/selectfield';
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     width: '100%',
     marginTop: theme.spacing(3),

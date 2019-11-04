@@ -32,7 +32,7 @@ function AutoComplete(props) {
     library, attributes, control, onChange
   } = props;
   const { label, id, custominputprops } = attributes;
-  const useStyles = library.makeStyles(theme => ({
+  const useStyles = library.makeStyles((theme) => ({
     root: {
       flexGrow: 1,
     },
@@ -143,7 +143,7 @@ function AutoComplete(props) {
     setSuggestions([]);
   };
 
-  const handleChange = name => (event, { newValue }) => {
+  const handleChange = (name) => (event, { newValue }) => {
     setState({
       ...state,
       [name]: newValue,
@@ -189,7 +189,7 @@ function AutoComplete(props) {
           suggestion: classes.suggestion,
         }}
         shouldRenderSuggestions={() => true}
-        renderSuggestionsContainer={options => (
+        renderSuggestionsContainer={(options) => (
           <PAPER {...options.containerProps} square>
             {options.children}
           </PAPER>

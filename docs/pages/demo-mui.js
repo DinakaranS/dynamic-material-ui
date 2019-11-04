@@ -18,7 +18,7 @@ import { FormGenerator } from '../../src';
 import JSONData from '../data/simpleform';
 
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     width: '100%',
     marginTop: theme.spacing(3),

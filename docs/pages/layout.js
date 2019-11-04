@@ -15,7 +15,7 @@ import PropTypes from 'prop-types';
 import { FormGenerator } from '../../src';
 import JSONData from '../data/layout';
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     width: '100%',
     marginTop: theme.spacing(3),

@@ -176,9 +176,7 @@ const getErrors = (fields, guid) => {
     _.each(field.rules.validation, (rule) => {
       const isClean = validation[rule.rule](response[guid][field.id].toString(), rule.value);
       if (!isClean) {
-        const error = Object.assign({}, rule, {
-          id: field.id
-        });
+        const error = { ...rule, id: field.id };
         errors.push(error);
       }
     });
@@ -306,18 +304,17 @@ export const FormGenerator = (props) => {
           <div key={index}
             style={field.style}
             className={`${field.className} ${(field.visible === false) ? 'hidden' : 'show'}`}>
-            {
-              <DynamicComponent
-                component={config.map[field.type].type}
-                map={config.map[field.type].map}
-                option={config.map[field.type].options ? config.map[field.type].options.type : ''}
-                control={field}
-                library={config.modules}
-                attributes={field.props}
-                rules={field.rules}
-                formatter={field.formatter}
-                fetchResponse={fetchResponse}
-                onChange={
+            <DynamicComponent
+              component={config.map[field.type].type}
+              map={config.map[field.type].map}
+              option={config.map[field.type].options ? config.map[field.type].options.type : ''}
+              control={field}
+              library={config.modules}
+              attributes={field.props}
+              rules={field.rules}
+              formatter={field.formatter}
+              fetchResponse={fetchResponse}
+              onChange={
                   (...args) => {
                     handleData(props.guid, ...args);
                     if (typeof props.onChange === 'function') {
@@ -326,9 +323,9 @@ export const FormGenerator = (props) => {
                     onchangeData[props.guid] = true;
                   }
                 }
-                onBlur={props.onBlur}
-                onFocus={props.onFocus}
-                onCheck={
+              onBlur={props.onBlur}
+              onFocus={props.onFocus}
+              onCheck={
                   (...args) => {
                     handleData(props.guid, ...args);
                     if (typeof props.onCheck === 'function') {
@@ -337,7 +334,7 @@ export const FormGenerator = (props) => {
                     onchangeData[props.guid] = true;
                   }
                 }
-                onToggle={
+              onToggle={
                   (...args) => {
                     handleData(props.guid, ...args);
                     if (typeof props.onToggle === 'function') {
@@ -346,10 +343,10 @@ export const FormGenerator = (props) => {
                     onchangeData[props.guid] = true;
                   }
                 }
-                onShow={props.onShow}
-                onDismiss={props.onDismiss}
-                onClick={props.onClick}
-                onUpdateInput={
+              onShow={props.onShow}
+              onDismiss={props.onDismiss}
+              onClick={props.onClick}
+              onUpdateInput={
                   (...args) => {
                     handleData(props.guid, ...args);
                     if (typeof props.onUpdateInput === 'function') {
@@ -358,8 +355,8 @@ export const FormGenerator = (props) => {
                     onchangeData[props.guid] = true;
                   }
                 }
-                onNewRequest={props.onNewRequest}
-                onSubmitModel={
+              onNewRequest={props.onNewRequest}
+              onSubmitModel={
                   (...args) => {
                     if (typeof props.onSubmitModel === 'function') {
                       props.onSubmitModel(...args);
@@ -367,9 +364,8 @@ export const FormGenerator = (props) => {
                     onchangeData[props.guid] = true;
                   }
                 }
-                filter={props.filter}
+              filter={props.filter}
               />
-            }
           </div>
         ))
       }

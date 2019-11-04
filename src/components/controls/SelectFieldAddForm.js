@@ -9,7 +9,7 @@ import TooltipComponent from '../TooltipComponent';
 import { FormGenerator, ClearFormGeneratorByGuid } from '../FormGenerator';
 // import { ControlComponent } from '../multiselect/multiSelectCustomControl';
 
-const CustomInput = Icon => (props) => {
+const CustomInput = (Icon) => (props) => {
   return (
     <div style={{ display: 'flex' }}>
       {Icon}

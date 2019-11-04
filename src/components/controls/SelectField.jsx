@@ -9,7 +9,7 @@ import validation from '../../helpers/validation';
 import TooltipComponent from '../TooltipComponent';
 import SelectFieldCreateDialog from '../../helpers/SelectFieldCreateDialog';
 
-const CustomInput = Icon => (props) => {
+const CustomInput = (Icon) => (props) => {
   return (
     <div style={{ display: 'flex' }}>
       {Icon}
@@ -18,7 +18,7 @@ const CustomInput = Icon => (props) => {
   );
 };
 
-const createOption = label => ({
+const createOption = (label) => ({
   label,
   value: label ? label.toLowerCase().replace(/\W/g, '') : '',
 });

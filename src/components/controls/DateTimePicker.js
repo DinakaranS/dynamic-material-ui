@@ -17,7 +17,7 @@ function transformAttrs(props) {
     minDate: minDate ? new Date(moment(props.attributes.minDate).format()) : (minDate === undefined) ? undefined : new Date(),
     maxDate: maxDate ? new Date(moment(props.attributes.maxDate).format()) : (maxDate === undefined) ? undefined : new Date()
   };
-  return Object.assign({}, props.attributes, modifiedAttrs);
+  return { ...props.attributes, ...modifiedAttrs };
 }
 
 /** DatePicker Component */
@@ -44,9 +44,7 @@ class DatePicker extends React.Component {
   onChange(...args) {
     const props = this.props;
     const { transformedAttrs } = this.state;
-    const attrs = Object.assign({}, transformedAttrs, {
-      value: args[0]
-    });
+    const attrs = { ...transformedAttrs, value: args[0] };
     this.setState({
       attributes: attrs
     });
