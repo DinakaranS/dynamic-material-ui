@@ -5,7 +5,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import merge from 'webpack-merge';
 
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const formatter = require('eslint/lib/cli-engine/formatters/stylish');
@@ -145,15 +145,34 @@ if (TARGET === 'gh-pages' || TARGET === 'gh-pages:stats') {
       filename: '[name].[chunkhash].js',
       chunkFilename: '[chunkhash].js'
     },
+    // optimization: {
+    //   minimizer: [
+    //     new UglifyJsPlugin({
+    //       cache: true,
+    //       parallel: true,
+    //       sourceMap: true // set to true if you want JS source maps
+    //     }),
+    //     new OptimizeCSSAssetsPlugin({})
+    //   ]
+    // },
     optimization: {
       minimizer: [
-        new UglifyJsPlugin({
+        new TerserPlugin({
           cache: true,
           parallel: true,
-          sourceMap: true // set to true if you want JS source maps
+          terserOptions: {
+            warnings: false,
+            compress: {
+              warnings: false,
+              unused: true,
+            },
+            ecma: 6,
+            mangle: true,
+            unused: true,
+          },
+          sourceMap: true,
         }),
-        new OptimizeCSSAssetsPlugin({})
-      ]
+      ],
     },
     plugins: [
       new CleanWebpackPlugin(),

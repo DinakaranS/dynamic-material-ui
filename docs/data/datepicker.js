@@ -5,7 +5,8 @@ const mui = [
     props: {
       id: 'portrait',
       hintText: 'Portrait Dialog',
-      value: '01/26/2017'
+      value: '01/26/2017',
+      inputVariant: 'outlined'
     }
   },
   {
@@ -14,8 +15,9 @@ const mui = [
     props: {
       id: 'landscape',
       hintText: 'Landscape Dialog with clear',
-      mode: 'landscape',
-      clear: true
+      orientation: 'landscape',
+      clear: true,
+      inputVariant: 'outlined'
     }
   },
   {
@@ -24,7 +26,8 @@ const mui = [
     props: {
       id: 'disabled',
       hintText: 'Dialog Disabled',
-      disabled: true
+      disabled: true,
+      inputVariant: 'outlined'
     }
   },
   {
@@ -33,7 +36,8 @@ const mui = [
     props: {
       id: 'formatted',
       hintText: 'Moment Formatted Date',
-      value: '01/26/2017'
+      value: '01/26/2017',
+      inputVariant: 'outlined'
     },
     format: 'll'
   },
@@ -44,7 +48,8 @@ const mui = [
       id: 'formatted',
       hintText: 'Date Range',
       minDate: '01/01/2017',
-      maxDate: '' // empty string refers to now
+      maxDate: '', // empty string refers to now
+      inputVariant: 'outlined'
     }
   }
 ];
