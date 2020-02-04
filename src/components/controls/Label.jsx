@@ -14,7 +14,7 @@ function Label(props) {
     <TYPOGRAPHY {...attributes}>
       {attributes.text}
     </TYPOGRAPHY>
-  ), []);
+  ), [attributes]);
 
   // const labelWrapper = React.useMemo(() => (attributes.tooltip ? (
   //   <div style={{ display: 'flex' }}>
