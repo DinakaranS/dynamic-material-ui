@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import numeral from 'numeral';
 import validation from '../../helpers/validation';
 import TooltipComponent from '../TooltipComponent';
+import { getInputProps } from '../../helpers/util';
 
 /** Textfield Component */
 class TextField extends React.Component {
@@ -147,27 +148,6 @@ class TextField extends React.Component {
     }
   }
 
-  getInputProps(props) {
-    const attributes = props.attributes;
-    if (attributes.InputProps) {
-      if (attributes.InputProps.InputAdornment) {
-        const INPUTADORMENT = props.library.InputAdornment;
-        const ICON = props.library.Icon;
-        return {
-          startAdornment: (
-            <INPUTADORMENT {...attributes.InputProps.InputAdornment}>
-              {attributes.InputProps.InputAdornment.icon ? (
-                <ICON>
-                  {attributes.InputProps.InputAdornment.icon}
-                </ICON>
-              ) : attributes.InputProps.InputAdornment.text || ''}
-            </INPUTADORMENT>)
-        }
-      }
-    }
-    return {};
-  }
-
   render() {
     const props = this.props;
     const { value, errorText } = this.state;
@@ -175,7 +155,7 @@ class TextField extends React.Component {
     return (
       <div style={{ display: 'flex' }}>
         <TEXTFIELD {...props.attributes}
-          InputProps={this.getInputProps(props)}
+          InputProps={getInputProps(props)}
           value={value}
           error={!!errorText}
           helperText={errorText || ''}

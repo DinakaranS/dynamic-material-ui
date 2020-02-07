@@ -4,6 +4,7 @@ import moment from 'moment';
 import DateFnsUtils from '@date-io/date-fns';
 import { DateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import TooltipComponent from '../TooltipComponent';
+import { getInputProps } from '../../helpers/util';
 
 function transformAttrs(props) {
   const defaultValue = new Date(moment().startOf('day').add(7, 'hours').format());
@@ -69,7 +70,7 @@ class DatePicker extends React.Component {
       })}>
         <div style={{ display: 'flex' }}>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <DateTimePicker onChange={this.onChange} {...attributes} />
+            <DateTimePicker onChange={this.onChange} {...attributes} InputProps={getInputProps(props)} />
           </MuiPickersUtilsProvider>
           {props.attributes.tooltip && <TooltipComponent tooltip={props.attributes.tooltip} />}
         </div>
