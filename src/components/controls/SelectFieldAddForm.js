@@ -58,7 +58,7 @@ class SelectField extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  componentWillReceiveProps(props) {
+  UNSAFE_componentWillReceiveProps(props) {
     this.setState({
       value: props.attributes.selected,
       errorText: props.attributes.errorText || '',

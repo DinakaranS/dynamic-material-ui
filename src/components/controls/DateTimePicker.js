@@ -34,7 +34,7 @@ class DatePicker extends React.Component {
     this.onChange = this.onChange.bind(this);
   }
 
-  componentWillReceiveProps(props) {
+  UNSAFE_componentWillReceiveProps(props) {
     const attrs = transformAttrs(props);
     this.setState({
       attributes: attrs,

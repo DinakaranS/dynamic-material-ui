@@ -22,7 +22,7 @@ class TextField extends React.Component {
     };
   }
 
-  componentWillReceiveProps(props) {
+  UNSAFE_componentWillReceiveProps(props) {
     this.setState({
       errorText: props.attributes.errorText || '',
       value: this.format(props.attributes.value) || ''

@@ -67,7 +67,7 @@ class SelectField extends React.Component {
     this.handleClose = this.handleClose.bind(this);
   }
 
-  componentWillReceiveProps(props) {
+  UNSAFE_componentWillReceiveProps(props) {
     this.setState({
       value: props.attributes.selected,
       errorText: props.attributes.errorText || '',

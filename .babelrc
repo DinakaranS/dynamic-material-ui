@@ -15,8 +15,7 @@
   ],
   "env": {
     "start": {
-      "presets": [
-      ]
+      "presets": []
     }
   }
 }

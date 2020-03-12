@@ -35,7 +35,7 @@ class DatetimeRangePicker extends React.Component {
     this.state = props ? transformAttrs(props) : {};
   }
 
-  componentWillReceiveProps(props) {
+  UNSAFE_componentWillReceiveProps(props) {
     this.setState(transformAttrs(props));
   }
 
