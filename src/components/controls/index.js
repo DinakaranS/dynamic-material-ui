@@ -15,6 +15,7 @@ import AddForms from './AddForms';
 import SelectFieldAddForm from './SelectFieldAddForm';
 import DatetimeRangePicker from './DatetimeRangePicker';
 import AutoComplete from './AutoComplete';
+import Signature from './Signature';
 
 const Controls = {
   TextField,
@@ -33,7 +34,8 @@ const Controls = {
   AddForms,
   SelectFieldAddForm,
   DatetimeRangePicker,
-  AutoComplete
+  AutoComplete,
+  Signature
 };
 
 export default Controls;

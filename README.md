@@ -1,8 +1,8 @@
 Build dynamic forms using Material UI
 
-> Check demo & detail docs [Documentation](https://dinakarans.github.io/dynamic-material-ui/#/simpleform)
+> Check demo & detail docs [Documentation](http://dynamicmaterialui.geoviewer.io/#/simpleform)
 
-> Build dynamic forms using interactive editor [Playground](https://dinakarans.github.io/dynamic-material-ui/#/playground)
+> Build dynamic forms using interactive editor [Playground](http://dynamicmaterialui.geoviewer.io/#/playground)
 
 ## Installation
 

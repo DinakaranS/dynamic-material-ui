@@ -58,6 +58,9 @@ const getFieldValue = (...args) => {
     case 'selectfieldaddform':
       value = args[3];
       break;
+    case 'signature':
+      value = args[1];
+      break;
     default:
       value = '';
   }

@@ -11,7 +11,7 @@ function Label(props) {
   const toolTip = React.useMemo(() => (attributes.tooltip
     ? <TooltipComponent tooltip={attributes.tooltip} /> : null), []);
 
-  const preventDefault = (event) => { event.preventDefault(); console.log('clicked') } ;
+  // const preventDefault = (event) => { event.preventDefault(); console.log('clicked') } ;
 
   const link = React.useMemo(() => (attributes.link ? (
     <LINK {...attributes.link}>

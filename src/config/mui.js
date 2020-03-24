@@ -84,6 +84,10 @@ const mui = {
     type: 'TextField',
     map: 'AutoComplete'
   },
+  signature: {
+    type: 'Signature',
+    map: 'Signature'
+  },
 };
 
 export default mui;
