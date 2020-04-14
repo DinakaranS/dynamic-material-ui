@@ -1,3 +1,4 @@
+/* eslint-disable no-alert,jsx-a11y/label-has-associated-control */
 import React from 'react';
 import SignatureCanvas from 'react-signature-canvas'
 import PropTypes from 'prop-types';
@@ -5,7 +6,9 @@ import PropTypes from 'prop-types';
 function Signature(props) {
   const sigPad = React.useRef();
   const uploadedFile = React.useRef();
-  const { library, component, attributes, control } = props;
+  const {
+    library, component, attributes, control
+  } = props;
   const style = control.containerstyle ? control.containerstyle : { display: 'flex' };
   const BUTTON = library.Button;
 
@@ -32,7 +35,7 @@ function Signature(props) {
       } else {
         getBase64(file)
           .then(
-            data => {
+            (data) => {
               // console.log(data);
               sigPad.current.fromDataURL(data);
             }
@@ -46,7 +49,7 @@ function Signature(props) {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => resolve(reader.result);
-      reader.onerror = error => reject(error);
+      reader.onerror = (error) => reject(error);
     });
   }
 
@@ -74,9 +77,10 @@ function Signature(props) {
     }
   }, [attributes.value]);
 
-  return (<div>
+  return (
+    <div>
       <div style={style}>
-        <SignatureCanvas ref={sigPad} {...attributes} onEnd={onEnd}/>
+        <SignatureCanvas ref={sigPad} {...attributes} onEnd={onEnd} />
       </div>
       <div style={{
         display: 'flex',
@@ -113,10 +117,12 @@ Signature.propTypes = {
   library: PropTypes.object,
   component: PropTypes.string.isRequired,
   onChange: PropTypes.func,
+  control: PropTypes.object,
 };
 Signature.defaultProps = {
   attributes: null,
   library: null,
   onChange: null,
+  control: {}
 };
 export default Signature;

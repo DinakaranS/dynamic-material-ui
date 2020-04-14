@@ -5,7 +5,8 @@ const mui = [
     props: {
       id: '12hr-format',
       hintText: '12hr Format',
-      inputVariant: 'outlined'
+      inputVariant: 'outlined',
+      margin: 'normal'
     }
   },
   {
@@ -15,7 +16,8 @@ const mui = [
       id: '12hr-format-ok',
       hintText: '12hr Format with auto ok',
       autoOk: true,
-      inputVariant: 'outlined'
+      inputVariant: 'outlined',
+      margin: 'normal'
     }
   },
   {
@@ -25,7 +27,8 @@ const mui = [
       id: '24hr-format',
       hintText: '24hr Format',
       ampm: false,
-      inputVariant: 'outlined'
+      inputVariant: 'outlined',
+      margin: 'normal'
     }
   },
   {
@@ -36,7 +39,8 @@ const mui = [
       hintText: 'Disabled Timepicker',
       ampm: false,
       disabled: true,
-      inputVariant: 'outlined'
+      inputVariant: 'outlined',
+      margin: 'normal'
     }
   }
 ];

@@ -160,6 +160,12 @@ class SelectField extends React.Component {
           },
         }, style.input)
       },
+      container: (base, state) => {
+        return ({
+          ...base,
+          zIndex: state.isFocused ? "999" : "1"  //Only when current state focused
+        })
+      }
     }
   }
 

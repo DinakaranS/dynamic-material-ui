@@ -46,9 +46,5 @@ module.exports = {
     'template-curly-spacing': 'off',
     'indent': 'off',
     'react/jsx-props-no-spreading': 'off'
-  },
-  'id-match': [
-    'error',
-    '^(UNSAFE_componentDidMount|UNSAFE_componentWillReceiveProps|UNSAFE_componentWillUpdate|[a-z]+([A-Z][a-z]+)*)$'
-  ]
+  }
 };
