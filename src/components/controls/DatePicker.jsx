@@ -68,6 +68,11 @@ class DatePickerCustom extends React.Component {
         palette: {
           primary: { main: attributes.color || '#4285f4' },
         },
+        typography: {
+          body1: {
+            padding: 0
+          }
+        },
       })}>
         <div style={{ display: 'flex' }}>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
