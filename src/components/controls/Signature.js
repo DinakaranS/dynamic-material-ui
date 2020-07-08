@@ -7,7 +7,7 @@ function Signature(props) {
   const sigPad = React.useRef();
   const uploadedFile = React.useRef();
   const {
-    library, component, attributes, control
+    library, attributes, control
   } = props;
   const style = control.containerstyle ? control.containerstyle : { display: 'flex' };
   const BUTTON = library.Button;
@@ -19,7 +19,6 @@ function Signature(props) {
   };
 
   const onEnd = () => {
-    // console.log(sigPad.current.toDataURL());
     props.onChange(props.control, sigPad.current.toDataURL())
   };
 
@@ -36,7 +35,6 @@ function Signature(props) {
         getBase64(file)
           .then(
             (data) => {
-              // console.log(data);
               sigPad.current.fromDataURL(data);
             }
           );
@@ -71,7 +69,6 @@ function Signature(props) {
   React.useEffect(() => {
     if (attributes.value) {
       toDataUrl(attributes.value, function (data) {
-        // console.log(data);
         sigPad.current.fromDataURL(data);
       })
     }

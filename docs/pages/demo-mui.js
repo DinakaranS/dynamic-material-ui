@@ -17,7 +17,6 @@ import Paper from '@material-ui/core/Paper';
 import { FormGenerator } from '../../src';
 import JSONData from '../data/simpleform';
 
-
 const styles = (theme) => ({
   root: {
     width: '100%',

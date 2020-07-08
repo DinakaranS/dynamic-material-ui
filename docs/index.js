@@ -39,6 +39,7 @@ const toggle = () => pageLoader(() => import('./pages/toggle'));
 const datepicker = () => pageLoader(() => import('./pages/datepicker'));
 const timepicker = () => pageLoader(() => import('./pages/timepicker'));
 const layout = () => pageLoader(() => import('./pages/layout'));
+const signature = () => pageLoader(() => import('./pages/signature'));
 const validation = () => pageLoader(() => import('./pages/validation'));
 const playground = () => pageLoader(() => import('./pages/playground'));
 const README = pageLoader('../README.md');
@@ -98,6 +99,11 @@ const pages = [
     path: '/layout',
     title: 'Layout',
     component: layout()
+  },
+  {
+    path: '/signature',
+    title: 'Signature',
+    component: signature()
   },
   {
     path: '/validation',
