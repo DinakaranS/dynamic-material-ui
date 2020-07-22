@@ -7,7 +7,8 @@ const mui = [
       canvasProps: {
         height: 300,
         width: 2000
-      }
+      },
+      // value: 'https://geoviewermobiledata.s3.amazonaws.com/signature/Sample-Sign.png',
     },
     containerstyle: {
       border: '1px solid',

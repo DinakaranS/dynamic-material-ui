@@ -3,6 +3,8 @@ import React from 'react';
 import SignatureCanvas from 'react-signature-canvas'
 import PropTypes from 'prop-types';
 
+const canvasOptions = { height: 300, width: 500 };
+
 function Signature(props) {
   const sigPad = React.useRef();
   const uploadedFile = React.useRef();
@@ -23,6 +25,7 @@ function Signature(props) {
   };
 
   const handleFileSelect = (e) => {
+    e.preventDefault();
     const files = (e.target.files || e.dataTransfer.files) || [];
     if (files.length > 0) {
       const file = files[0];
@@ -30,19 +33,21 @@ function Signature(props) {
         alert('File is too big!.You can\'t upload file more than 1mb..');
         setTimeout(() => {
           uploadedFile.current.value = null;
+          sigPad.current.clear();
         }, 10)
       } else {
         getBase64(file)
           .then(
             (data) => {
-              sigPad.current.fromDataURL(data);
+              sigPad.current.clear();
+              sigPad.current.fromDataURL(data, canvasOptions);
             }
           );
       }
     }
   };
 
-  function getBase64(file) {
+  const getBase64 = (file) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -51,25 +56,33 @@ function Signature(props) {
     });
   }
 
-  function toDataUrl(url, callback) {
-    const xhr = new XMLHttpRequest();
-    xhr.onload = function () {
-      const reader = new FileReader();
-      reader.onloadend = function () {
-        callback(reader.result);
+  const isUrl = (s) => {
+    const regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?/
+    return regexp.test(s);
+  }
+
+  const toDataUrl = (url, callback) => {
+    if (isUrl(url)) {
+      const xhr = new XMLHttpRequest();
+      xhr.onload = () => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          callback(reader.result, canvasOptions);
+        };
+        reader.readAsDataURL(xhr.response);
       };
-      reader.readAsDataURL(xhr.response);
-    };
-    xhr.open('GET', `https://nsproxy.geoviewer.io?url=${url}`);
-    xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
-    xhr.responseType = 'blob';
-    xhr.send();
+      xhr.open('GET', `https://nsproxy.geoviewer.io?url=${url}`);
+      xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+      xhr.responseType = 'blob';
+      xhr.send();
+    }
   }
 
   React.useEffect(() => {
     if (attributes.value) {
-      toDataUrl(attributes.value, function (data) {
-        sigPad.current.fromDataURL(data);
+      toDataUrl(attributes.value, (data, options) => {
+        sigPad.current.clear();
+        sigPad.current.fromDataURL(data, options);
       })
     }
   }, [attributes.value]);

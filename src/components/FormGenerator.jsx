@@ -136,7 +136,7 @@ const updateResponse = (fields, patch, guid) => {
             .add(7, 'hours').format('YYYY-MM-DD HH:mm:ss');
         }
       } else {
-        response[guid][field.id] = response[guid][field.id];
+        // response[guid][field.id] = response[guid][field.id];
       }
       if (patch && patch[field.id] !== undefined) { // Patch update data
         response[guid][field.id] = patch[field.id];
