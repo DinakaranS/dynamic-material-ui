@@ -13,6 +13,7 @@ function Signature(props) {
   } = props;
   const style = control.containerstyle ? control.containerstyle : { display: 'flex' };
   const BUTTON = library.Button;
+  const enableUpload = control.enableupload || false;
 
   const clear = () => {
     sigPad.current.clear();
@@ -97,23 +98,27 @@ function Signature(props) {
         margin: '1rem',
         float: 'right'
       }}>
-        <input
-          key={Date.now()}
-          accept="image/*"
-          style={{
+        {enableUpload && (
+        <>
+          <input
+            key={Date.now()}
+            accept="image/*"
+            style={{
             display: 'none',
           }}
-          id="contained-button-file"
-          multiple={false}
-          type="file"
-          onChange={handleFileSelect}
-          ref={uploadedFile}
+            id="contained-button-file"
+            multiple={false}
+            type="file"
+            onChange={handleFileSelect}
+            ref={uploadedFile}
         />
-        <label htmlFor="contained-button-file">
-          <BUTTON variant="contained" color="primary" component="span">
-            Upload
-          </BUTTON>
-        </label>
+          <label htmlFor="contained-button-file">
+            <BUTTON variant="contained" color="primary" component="span">
+              Upload
+            </BUTTON>
+          </label>
+        </>
+        )}
         <BUTTON variant="contained" color="primary" style={{ marginLeft: '1rem' }} onClick={clear}>
           Clear
         </BUTTON>
