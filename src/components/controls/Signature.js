@@ -8,6 +8,7 @@ const canvasOptions = { height: 300, width: 500 };
 function Signature(props) {
   const sigPad = React.useRef();
   const uploadedFile = React.useRef();
+  const clearOnBegin = React.useRef();
   const {
     library, attributes, control
   } = props;
@@ -18,11 +19,11 @@ function Signature(props) {
   const clear = () => {
     sigPad.current.clear();
     props.onChange(props.control, '');
-    uploadedFile.current.value = null;
+    if (uploadedFile && uploadedFile.current) uploadedFile.current.value = null;
   };
 
   const onEnd = () => {
-    props.onChange(props.control, sigPad.current.toDataURL())
+    props.onChange(props.control, sigPad.current.toDataURL('image/png', 1.0))
   };
 
   const handleFileSelect = (e) => {
@@ -57,36 +58,45 @@ function Signature(props) {
     });
   }
 
-  const isUrl = (s) => {
-    const regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?/
-    return regexp.test(s);
+  const validUrl = (url) => {
+    return /http(s)?:\/\/(\w+:?\w*@)?(\S+)(:\d+)?((?<=\.)\w+)+(\/([\w#!:.?+=&%@!\-/])*)?/gi.test(url);
   }
 
-  const toDataUrl = (url, callback) => {
-    if (isUrl(url)) {
-      const xhr = new XMLHttpRequest();
-      xhr.onload = () => {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          callback(reader.result, canvasOptions);
-        };
-        reader.readAsDataURL(xhr.response);
-      };
-      xhr.open('GET', `https://nsproxy.geoviewer.io?url=${url}`);
-      xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
-      xhr.responseType = 'blob';
-      xhr.send();
-    }
+  const convertImgToBase64 = (url, callback) => {
+    let canvas = document.createElement('CANVAS');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    img.crossOrigin = 'Anonymous';
+    img.onload = function (){
+      canvas.height = img.height;
+      canvas.width = img.width;
+      ctx.drawImage(img, 0, 0);
+      const dataURL = canvas.toDataURL('image/png');
+      callback.call(this, dataURL, { height: img.height, width: img.width });
+      // Clean up
+      canvas = null;
+    };
+    img.src = url;
   }
 
   React.useEffect(() => {
-    if (attributes.value) {
-      toDataUrl(attributes.value, (data, options) => {
+    if (attributes.value && validUrl(attributes.value)) {
+      convertImgToBase64(attributes.value, (data, options) => {
+        clearOnBegin.current = true;
         sigPad.current.clear();
         sigPad.current.fromDataURL(data, options);
       })
+    } else if (attributes.value){
+      sigPad.current.fromDataURL(attributes.value, attributes.canvasProps);
     }
-  }, [attributes.value]);
+  }, []);
+
+  const onBegin = () => {
+    if (clearOnBegin.current) {
+      sigPad.current.clear();
+      clearOnBegin.current = false;
+    }
+  }
 
   return (
     <div>

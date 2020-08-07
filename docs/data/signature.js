@@ -8,7 +8,7 @@ const mui = [
         height: 300,
         width: 2000
       },
-      // value: 'https://geoviewermobiledata.s3.amazonaws.com/signature/Sample-Sign.png',
+      // value: 'https://geoviewermobiledata.s3.amazonaws.com/lavernedevpermitting/signature/26695f6f-af97-4fb7-b0a3-517edc94341b.png',
     },
     containerstyle: {
       border: '1px solid',

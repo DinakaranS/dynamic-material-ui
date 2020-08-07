@@ -50,7 +50,7 @@ class Signature extends React.Component {
       formData: {}
     };
     this.onUpdate = this.onUpdate.bind(this);
-    console.log(JSON.stringify(JSONData))
+    // console.log(JSON.stringify(JSONData))
   }
 
   onUpdate(...args) {
