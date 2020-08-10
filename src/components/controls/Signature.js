@@ -32,7 +32,7 @@ function Signature(props) {
     if (files.length > 0) {
       const file = files[0];
       if (file.size > 1048576) {
-        alert('File is too big!.You can\'t upload file more than 1mb..');
+        alert('File is too big!.You can upload file more than 1mb..');
         setTimeout(() => {
           uploadedFile.current.value = null;
           sigPad.current.clear();
@@ -59,7 +59,8 @@ function Signature(props) {
   }
 
   const validUrl = (url) => {
-    return /http(s)?:\/\/(\w+:?\w*@)?(\S+)(:\d+)?((?<=\.)\w+)+(\/([\w#!:.?+=&%@!\-/])*)?/gi.test(url);
+    const regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?/
+    return regexp.test(url);
   }
 
   const convertImgToBase64 = (url, callback) => {
