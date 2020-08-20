@@ -8,16 +8,31 @@ import TooltipComponent from '../TooltipComponent';
 import { getInputProps } from '../../helpers/util';
 
 function transformAttrs(props) {
-  const defaultValue = new Date(moment().startOf('day').add(7, 'hours').format());
+  const defaultValue = new Date(moment()
+    .startOf('day')
+    .add(7, 'hours')
+    .format());
+  const { control, attributes } = props || {};
   const {
     value,
     minDate,
     maxDate
   } = props.attributes;
+  const { isUTC = true, showCurrentDate = false } = control;
+  let formatedValue = value ? new Date(moment(value).format()) : undefined;
+  if (isUTC && value) {
+    const UTC = moment.utc(value);
+    const localTime = moment.utc(UTC).toDate();
+    formatedValue = new Date(moment(localTime).format());
+  }
+  if (showCurrentDate && !value) formatedValue = new Date();
   const modifiedAttrs = {
-    value: value === 'Invalid date' ? defaultValue : value ? new Date(moment(props.attributes.value).format()) : defaultValue,
-    minDate: minDate ? new Date(moment(props.attributes.minDate).format()) : (minDate === undefined) ? undefined : new Date(),
-    maxDate: maxDate ? new Date(moment(props.attributes.maxDate).format()) : (maxDate === undefined) ? undefined : new Date()
+    value: value === 'Invalid date' ? defaultValue : formatedValue ? new Date(moment(props.attributes.value)
+      .format()) : defaultValue,
+    minDate: minDate ? new Date(moment(props.attributes.minDate)
+      .format()) : (minDate === undefined) ? undefined : new Date(),
+    maxDate: maxDate ? new Date(moment(props.attributes.maxDate)
+      .format()) : (maxDate === undefined) ? undefined : new Date()
   };
   return { ...props.attributes, ...modifiedAttrs };
 }
@@ -51,6 +66,14 @@ class DatePickerCustom extends React.Component {
       attributes: attrs
     });
     if (typeof props.onChange === 'function') {
+      const { control, isUTC = true } = this.props || {};
+      const dateTime = isUTC ? moment(new Date()).utc() : moment(new Date());
+      const { saveformat = 'YYYY-MM-DD HH:mm:ss' } = control;
+      args[1] = moment(args[1]).set({
+        hour: dateTime.get('hour'),
+        minute: dateTime.get('minute'),
+        second: dateTime.get('second')
+      }).format(saveformat);
       props.onChange(props.control, ...args);
     }
   }
