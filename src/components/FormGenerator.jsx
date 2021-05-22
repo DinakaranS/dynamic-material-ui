@@ -395,6 +395,10 @@ export const ClearFormGeneratorByGuid = (guid = '') => {
   }
 };
 
+export const AllFormDataKey = () => {
+  return Object.keys(response)
+}
+
 export const ClearFormGeneratorAll = (except = []) => {
   _.map(Object.keys(response), function (k) {
     if (except.indexOf(k) === -1) {
@@ -480,5 +484,6 @@ export default {
   CurrentFormResponseDataByGuid,
   AllFormResponseData,
   isFormChanged,
-  ClearFormChangedData
+  ClearFormChangedData,
+  AllFormDataKey
 };
