@@ -92,6 +92,7 @@ class Checkbox extends React.Component {
               data={JSONData}
               library={MUI}
               onCheck={Checkbox.onUpdate}
+              patch={{ vikings: false }}
             />
           </div>
         </div>

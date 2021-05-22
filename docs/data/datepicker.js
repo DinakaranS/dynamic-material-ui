@@ -5,9 +5,10 @@ const mui = [
     props: {
       id: 'portrait',
       hintText: 'Portrait Dialog',
-      value: '01/26/2017',
+      value: '',
       inputVariant: 'outlined',
-      margin: 'normal'
+      margin: 'normal',
+      isEmpty: true
     }
   },
   {

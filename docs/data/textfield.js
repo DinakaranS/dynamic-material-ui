@@ -20,10 +20,10 @@ const mui = [
     }
   },
   {
-    id: 'error',
+    id: 'number',
     type: 'textfield',
     props: {
-      id: 'error',
+      id: 'number',
       label: 'Number',
       margin: 'normal',
       type: 'number'

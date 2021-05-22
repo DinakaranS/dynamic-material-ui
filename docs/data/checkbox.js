@@ -12,7 +12,7 @@ const mui = [
     }
   },
   {
-    id: 'shows_2',
+    id: 'vikings',
     type: 'checkbox',
     props: {
       id: 'vikings',
