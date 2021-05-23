@@ -396,7 +396,7 @@ export const ClearFormGeneratorByGuid = (guid = '') => {
 };
 
 export const AllFormDataKey = () => {
-  return Object.keys(response)
+  return Object.keys(response || {})
 }
 
 export const ClearFormGeneratorAll = (except = []) => {
