@@ -162,6 +162,7 @@ class TextField extends React.Component {
           helperText={errorText || ''}
           onChange={this.onChange}
           onBlur={this.onBlur}
+          onWheel={(event) => event.target.blur()}
           onFocus={this.onFocus} />
         {props.attributes.tooltip && <TooltipComponent tooltip={props.attributes.tooltip} />}
       </div>
