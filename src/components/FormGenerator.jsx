@@ -38,7 +38,7 @@ const getFieldValue = (...args) => {
       value = args[1];
       break;
     case 'datepicker':
-      value = args[2] || args[1];
+      value = args[1];
       break;
     case 'timepicker':
       value = args[1];

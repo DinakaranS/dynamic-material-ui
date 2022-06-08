@@ -67,13 +67,12 @@ class DatePickerCustom extends React.Component {
     });
     if (typeof props.onChange === 'function') {
       const { control, isUTC = true } = this.props || {};
-      const dateTime = isUTC ? moment(new Date()).utc() : moment(new Date());
       const { saveformat = 'YYYY-MM-DD HH:mm:ss' } = control;
-      args[1] = moment(args[1]).set({
-        hour: dateTime.get('hour'),
-        minute: dateTime.get('minute'),
-        second: dateTime.get('second')
-      }).format(saveformat);
+      const date = isUTC
+        ? moment.utc(new Date(args[1] || args[0]))
+        : moment(new Date(args[1] || args[0]))
+      args[1] = date.toDate();
+      args[0] = date.format(saveformat);
       props.onChange(props.control, ...args);
     }
   }
