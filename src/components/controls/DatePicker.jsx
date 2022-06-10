@@ -65,6 +65,7 @@ class DatePickerCustom extends React.Component {
     this.setState({
       attributes: attrs
     });
+
     if (typeof props.onChange === 'function') {
       const { control, isUTC = true } = this.props || {};
       const { saveformat = 'YYYY-MM-DD HH:mm:ss' } = control;

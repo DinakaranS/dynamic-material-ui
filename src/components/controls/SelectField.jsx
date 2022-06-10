@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import MultiSelectField, { components } from 'react-select';
 import Creatable from 'react-select/creatable';
 import map from 'lodash/map';
+import isEmpty from 'lodash/isEmpty';
 import find from 'lodash/find';
 import isArray from 'lodash/isArray';
 import validation from '../../helpers/validation';
@@ -37,6 +38,8 @@ const CustomControl = library => (props) => {
     <TextField
       fullWidth
       variant="outlined"
+      error={!isEmpty(props?.selectProps?.helperText)}
+      helperText={props?.selectProps?.helperText}
       InputProps={{
         inputComponent,
         inputProps: {
@@ -118,7 +121,21 @@ class SelectField extends React.Component {
 
   handleChange(selectedOption) {
     const props = this.props;
-    this.setState({selectedOption});
+    const value = (isArray(selectedOption) && selectedOption?.length > 0
+      ? selectedOption[0]?.value
+      : selectedOption?.value) || '';
+    const validator = this.validate(value);
+    if (!validator.isValid) {
+      this.setState({
+        errorText: validator.message,
+        selectedOption
+      });
+    } else {
+      this.setState({
+        errorText: '',
+        selectedOption
+      });
+    }
     if (typeof props.onChange === 'function') {
       const s = isArray(selectedOption) ? selectedOption : [selectedOption];
       props.onChange(props.control, '', '', map(s, 'value').join(';'));
@@ -264,6 +281,7 @@ class SelectField extends React.Component {
                                          shrink: true,
                                        },
                                      }}
+                                     helperText={this.state.errorText}
                                      value={selectedOption}
                                      onChange={this.handleChange}
                                      isMulti={attributes.isMulti}
