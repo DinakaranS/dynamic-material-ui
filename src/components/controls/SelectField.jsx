@@ -161,10 +161,10 @@ class SelectField extends React.Component {
         }, style.input)
       },
       container: (base, state) => {
-        return ({
+        return Object.assign({}, {
           ...base,
           zIndex: state.isFocused ? "999" : "1"  //Only when current state focused
-        })
+        }, {...style.container || {}})
       }
     }
   }
@@ -276,12 +276,12 @@ class SelectField extends React.Component {
           )}
         {props.attributes.tooltip && <TooltipComponent tooltip={props.attributes.tooltip}/>}
         {modelopen &&
-        <SelectFieldCreateDialog open={modelopen} library={props.library}
-                                 handleSave={(response) => {
-                                   this.handleSave(response)
-                                 }}
-                                 handleClose={this.handleClose}
-                                 model={props.control.model}/>}
+          <SelectFieldCreateDialog open={modelopen} library={props.library}
+                                   handleSave={(response) => {
+                                     this.handleSave(response)
+                                   }}
+                                   handleClose={this.handleClose}
+                                   model={props.control.model}/>}
       </div>
     );
   }
