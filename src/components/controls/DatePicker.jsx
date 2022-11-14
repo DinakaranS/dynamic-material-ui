@@ -27,8 +27,9 @@ function transformAttrs(props) {
   }
   if (showCurrentDate && !value) formatedValue = new Date();
   const modifiedAttrs = {
-    value: value === 'Invalid date' ? defaultValue : formatedValue ? new Date(moment(props.attributes.value)
-      .format()) : defaultValue,
+    value: (props.attributes.clearable && !props.attributes.value)
+      ? null : (value === 'Invalid date' ? defaultValue : formatedValue ? new Date(moment(props.attributes.value)
+        .format()) : defaultValue),
     minDate: minDate ? new Date(moment(props.attributes.minDate)
       .format()) : (minDate === undefined) ? undefined : new Date(),
     maxDate: maxDate ? new Date(moment(props.attributes.maxDate)
@@ -69,11 +70,12 @@ class DatePickerCustom extends React.Component {
     if (typeof props.onChange === 'function') {
       const { control, isUTC = true } = this.props || {};
       const { saveformat = 'YYYY-MM-DD HH:mm:ss' } = control;
+      const value = (args[1] || args[0] || '');
       const date = isUTC
-        ? moment.utc(new Date(args[1] || args[0]))
-        : moment(new Date(args[1] || args[0]))
-      args[1] = date.toDate();
-      args[0] = date.format(saveformat);
+        ? moment.utc(new Date(value))
+        : moment(new Date(value))
+      args[1] = value ? date.toDate() : null;
+      args[0] = value ? date.format(saveformat) : null;
       props.onChange(props.control, ...args);
     }
   }
