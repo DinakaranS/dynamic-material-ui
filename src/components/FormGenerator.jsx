@@ -159,14 +159,14 @@ const getCurrentFormData = (fields, errors, guid) => {
       } else {
         field.props.value = response[guid][field.id];
       }
-      // const error = _.find(errors, {
-      //   id: field.id
-      // });
-      // if (error) {
-      //   field.props.errorText = error.message;
-      // } else {
-      //   field.props.errorText = '';
-      // }
+      const error = _.find(errors, {
+        id: field.id
+      });
+      if (error) {
+        field.props.errorText = error.message;
+      } else {
+        field.props.errorText = '';
+      }
     }
   });
   return formData;
