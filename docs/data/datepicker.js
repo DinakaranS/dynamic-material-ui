@@ -1,3 +1,5 @@
+import cs from 'date-fns/locale/cs';
+
 const mui = [
   {
     id: 'portrait',
@@ -8,7 +10,10 @@ const mui = [
       value: '',
       inputVariant: 'outlined',
       margin: 'normal',
-      isEmpty: true
+      isEmpty: true,
+      utilProps: { locale: cs },
+      localeText: { clearButtonLabel: 'Vider', },
+      clearable: true
     }
   },
   {
