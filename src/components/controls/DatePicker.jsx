@@ -100,7 +100,7 @@ class DatePickerCustom extends React.Component {
         },
       })}>
         <div style={{ display: 'flex' }}>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <MuiPickersUtilsProvider utils={DateFnsUtils} locale={props.attributes.locale || ''}>
             <DatePicker onChange={this.onChange} {...attributes} InputProps={getInputProps(props)} />
           </MuiPickersUtilsProvider>
           {props.attributes.tooltip && <TooltipComponent tooltip={props.attributes.tooltip} />}
